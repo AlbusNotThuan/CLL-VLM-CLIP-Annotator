@@ -10,7 +10,7 @@ from models.llava_classifier import LLaVAClassifier
 
 
 def collate_fn(batch):
-    """Dataloader collate: trả về list ảnh và list index"""
+    """Dataloader collate: returns list of images and list of labels"""
     images, labels = zip(*batch)
     return list(images), list(labels)
 
@@ -23,8 +23,10 @@ def main(args):
         transform=None  # không augment, để nguyên ảnh
     )
 
+    orig_dataset, shuffled_dataset = dataset.get_shuffled_labels_dataset(seed=42)
+
     dataloader = DataLoader(
-        dataset,
+        shuffled_dataset,
         batch_size=args.batch_size,
         shuffle=False,
         collate_fn=collate_fn,
@@ -36,7 +38,7 @@ def main(args):
 
     # Tạo thư mục output
     os.makedirs(args.output_dir, exist_ok=True)
-    csv_path = os.path.join(args.output_dir, "results.csv")
+    csv_path = os.path.join(args.output_dir, "results2.csv")
 
     # Ghi kết quả
     with open(csv_path, "w", newline="") as f:
@@ -44,24 +46,27 @@ def main(args):
         writer.writerow(["index", "true_label", "random_label", "predicted", "raw_answer"])
 
         index = 0
-        for images, true_indices in tqdm(dataloader):
-            # true label names
-            true_labels = [dataset.classes[idx] for idx in true_indices]
+        dataset_pos = 0
+        for images, shuffled_labels in tqdm(dataloader):
+            
+            batch_len = len(images)
 
-            # random label khác với true label
-            random_labels = []
-            for tl in true_labels:
-                other_labels = [c for c in dataset.classes if c != tl]
-                random_labels.append(random.choice(other_labels))
+            true_label_indices = [orig_dataset[i][1] for i in range(dataset_pos, dataset_pos + batch_len)]
+            true_labels = [dataset.classes[idx] for idx in true_label_indices]
+
+            # convert shuffled label indices -> names so model.predict gets names (optional)
+            shuffled_label_names = [dataset.classes[idx] for idx in shuffled_labels]
 
             # Hỏi LLaVA
-            answers = model.predict(images, random_labels)
+            answers = model.predict(images, shuffled_label_names)
 
             # Ghi vào CSV
-            for tl, rl, ans in zip(true_labels, random_labels, answers):
+            for tl, rl, ans in zip(true_labels, shuffled_label_names, answers):
                 predicted = "OL" if ans == "YES" else "CL"
                 writer.writerow([index, tl, rl, predicted, ans])
                 index += 1
+
+            dataset_pos += batch_len
 
     print(f"✅ Done. Results saved at {csv_path}")
 
@@ -71,10 +76,14 @@ def parse_args():
     parser.add_argument("--model_path", type=str, default="llava-hf/llava-v1.6-mistral-7b-hf")
     parser.add_argument("--data_root", type=str, default="/home/hamt/cll_vlm/cll_vlm/data/cifar10")
     parser.add_argument("--batch_size", type=int, default=16)
-    parser.add_argument("--output_dir", type=str, default="logs/")
+    parser.add_argument("--output_dir", type=str, default="./logs/")
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
     main(args)
+
+    # batch = [(5, 2), (7, 1), (0, 2)]
+    # images, labels = collate_fn(batch)
+    # print(labels)  # [5, 7, 0]

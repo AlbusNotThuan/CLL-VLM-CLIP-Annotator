@@ -45,11 +45,11 @@ class BaseDataset:
         # Assign shuffled targets to the copied dataset
         shuffled_dataset.targets = shuffled_targets
         
-        if self.cfg.debug:
-            print(f"Created shuffled dataset:")
-            print(f"  - Original dataset: {len(self)} samples")
-            print(f"  - Shuffled dataset: {len(shuffled_dataset)} samples")
-            print(f"  - Labels shuffled: {np.array_equal(original_targets, shuffled_targets) == False}")
+        # if self.cfg.debug:
+        #     print(f"Created shuffled dataset:")
+        #     print(f"  - Original dataset: {len(self)} samples")
+        #     print(f"  - Shuffled dataset: {len(shuffled_dataset)} samples")
+        #     print(f"  - Labels shuffled: {np.array_equal(original_targets, shuffled_targets) == False}")
         
         # # Show some examples of the shuffling
         # print(f"\nFirst 10 original labels: {original_targets[:10]}")
