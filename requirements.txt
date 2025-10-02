@@ -1,0 +1,11 @@
+torch
+numpy
+pandas
+requests
+torchvision
+scipy
+scikit-learn
+gdown
+wandb
+ipykernel
+seaborn
