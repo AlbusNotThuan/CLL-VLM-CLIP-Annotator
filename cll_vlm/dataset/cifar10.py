@@ -23,6 +23,11 @@ class CIFAR10Dataset(Dataset, BaseDataset):
         self.transform = transform
         self.target_transform = target_transform
         self.cfg = cfg
+        
+        # Dataset attributes for feature extraction and clustering
+        self.dataset_name = self.__class__.__name__
+        self.mean = (0.4914, 0.4822, 0.4465)  # CIFAR-10 mean
+        self.std = (0.2023, 0.1994, 0.2010)   # CIFAR-10 std
 
         # Load class names
         meta_path = os.path.join(root, 'cifar-10-batches-py', 'batches.meta')
@@ -57,6 +62,9 @@ class CIFAR10Dataset(Dataset, BaseDataset):
         # Reshape data from (N, 3072) to (N, 32, 32, 3)
         # CIFAR-10 data is stored as (3072,) where first 1024 are red, next 1024 green, last 1024 blue
         self.data = self.data.reshape(-1, 3, 32, 32).transpose(0, 2, 3, 1)
+        
+        # Store copy of original true targets (for continual learning experiments)
+        self.true_targets = self.targets.copy() if isinstance(self.targets, list) else list(self.targets)
         
     def __len__(self):
         return len(self.data)

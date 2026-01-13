@@ -1,0 +1,321 @@
+index,true_label,candidate_labels,complementary_label
+0,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+1,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+2,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+3,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+4,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",ice cream
+5,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+6,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+7,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+8,0,"['bannister'; 'ice cream'; 'go-kart'; 'basketball']",ice cream
+9,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+10,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",ice cream
+11,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",go-kart
+12,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+13,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",ice cream
+14,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+15,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+16,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+17,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",go-kart
+18,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",bannister
+19,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+20,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+21,0,"['basketball'; 'ice cream'; 'bannister'; 'go-kart']",basketball
+22,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+23,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+24,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+25,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+26,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+27,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+28,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+29,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+30,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+31,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+32,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",go-kart
+33,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+34,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+35,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",go-kart
+36,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+37,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+38,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+39,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+40,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+41,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",go-kart
+42,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+43,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+44,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",ice cream
+45,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",go-kart
+46,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+47,0,"['bannister'; 'ice cream'; 'go-kart'; 'basketball']",ice cream
+48,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+49,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",ice cream
+50,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+51,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",ice cream
+52,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",ice cream
+53,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+54,0,"['basketball'; 'ice cream'; 'bannister'; 'go-kart']",basketball
+55,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+56,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+57,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",go-kart
+58,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",ice cream
+59,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+60,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+61,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+62,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+63,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+64,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+65,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",bannister
+66,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+67,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+68,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+69,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",ice cream
+70,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",bannister
+71,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+72,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",ice cream
+73,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+74,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+75,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+76,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+77,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+78,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+79,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+80,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",ice cream
+81,0,"['basketball'; 'ice cream'; 'bannister'; 'go-kart']",basketball
+82,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",go-kart
+83,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+84,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+85,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+86,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+87,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+88,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+89,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",ice cream
+90,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",go-kart
+91,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+92,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",ice cream
+93,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+94,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",go-kart
+95,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+96,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",ice cream
+97,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+98,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+99,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+100,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+101,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+102,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",go-kart
+103,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+104,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+105,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",basketball
+106,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+107,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",ice cream
+108,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+109,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+110,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+111,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+112,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+113,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+114,0,"['bannister'; 'ice cream'; 'go-kart'; 'basketball']",ice cream
+115,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+116,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+117,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+118,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+119,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",ice cream
+120,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+121,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+122,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+123,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+124,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+125,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+126,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+127,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+128,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+129,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+130,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",ice cream
+131,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+132,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+133,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+134,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",go-kart
+135,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+136,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+137,0,"['bannister'; 'ice cream'; 'go-kart'; 'basketball']",ice cream
+138,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+139,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+140,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+141,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+142,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+143,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",ice cream
+144,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+145,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",ice cream
+146,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",go-kart
+147,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+148,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",ice cream
+149,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+150,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+151,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+152,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+153,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+154,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+155,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",ice cream
+156,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+157,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",go-kart
+158,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",go-kart
+159,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+160,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+161,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",ice cream
+162,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+163,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+164,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+165,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+166,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+167,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+168,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+169,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+170,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+171,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+172,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+173,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+174,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+175,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",go-kart
+176,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+177,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+178,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+179,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",ice cream
+180,0,"['bannister'; 'ice cream'; 'go-kart'; 'basketball']",go-kart
+181,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+182,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",ice cream
+183,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+184,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+185,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+186,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+187,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",go-kart
+188,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+189,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+190,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+191,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+192,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",ice cream
+193,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",ice cream
+194,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+195,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+196,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",go-kart
+197,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",bannister
+198,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+199,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",go-kart
+200,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+201,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",go-kart
+202,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+203,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+204,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+205,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+206,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+207,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+208,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",ice cream
+209,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+210,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+211,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+212,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+213,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+214,0,"['basketball'; 'ice cream'; 'bannister'; 'go-kart']",basketball
+215,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",ice cream
+216,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",ice cream
+217,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+218,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+219,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+220,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+221,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",go-kart
+222,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+223,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+224,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",go-kart
+225,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",ice cream
+226,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+227,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+228,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",go-kart
+229,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",ice cream
+230,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+231,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+232,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",go-kart
+233,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+234,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+235,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+236,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",ice cream
+237,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+238,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+239,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+240,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+241,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+242,0,"['bannister'; 'ice cream'; 'go-kart'; 'basketball']",ice cream
+243,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+244,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+245,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+246,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+247,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",ice cream
+248,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+249,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+250,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+251,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+252,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+253,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",ice cream
+254,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+255,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+256,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+257,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+258,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+259,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+260,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+261,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+262,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",go-kart
+263,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",basketball
+264,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball
+265,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+266,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+267,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+268,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+269,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+270,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+271,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+272,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+273,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+274,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+275,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+276,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+277,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+278,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+279,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+280,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+281,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+282,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+283,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+284,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",bannister
+285,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",ice cream
+286,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+287,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",ice cream
+288,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",ice cream
+289,0,"['bannister'; 'ice cream'; 'basketball'; 'go-kart']",ice cream
+290,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",go-kart
+291,0,"['bannister'; 'ice cream'; 'go-kart'; 'basketball']",ice cream
+292,0,"['ice cream'; 'go-kart'; 'bannister'; 'basketball']",bannister
+293,0,"['ice cream'; 'basketball'; 'bannister'; 'go-kart']",basketball
+294,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+295,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+296,0,"['basketball'; 'go-kart'; 'bannister'; 'ice cream']",basketball
+297,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+298,0,"['basketball'; 'ice cream'; 'go-kart'; 'bannister']",basketball
+299,0,"['bannister'; 'basketball'; 'go-kart'; 'ice cream']",basketball
+300,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+301,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",ice cream
+302,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",ice cream
+303,0,"['go-kart'; 'bannister'; 'ice cream'; 'basketball']",ice cream
+304,0,"['basketball'; 'bannister'; 'go-kart'; 'ice cream']",basketball
+305,0,"['basketball'; 'go-kart'; 'ice cream'; 'bannister']",basketball
+306,0,"['bannister'; 'go-kart'; 'ice cream'; 'basketball']",ice cream
+307,0,"['go-kart'; 'basketball'; 'ice cream'; 'bannister']",basketball
+308,0,"['go-kart'; 'ice cream'; 'bannister'; 'basketball']",go-kart
+309,0,"['go-kart'; 'ice cream'; 'basketball'; 'bannister']",basketball
+310,0,"['ice cream'; 'go-kart'; 'basketball'; 'bannister']",go-kart
+311,0,"['bannister'; 'basketball'; 'ice cream'; 'go-kart']",basketball
+312,0,"['ice cream'; 'bannister'; 'basketball'; 'go-kart']",basketball
+313,0,"['go-kart'; 'bannister'; 'basketball'; 'ice cream']",basketball
+314,0,"['bannister'; 'go-kart'; 'basketball'; 'ice cream']",basketball
+315,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+316,0,"['go-kart'; 'basketball'; 'bannister'; 'ice cream']",basketball
+317,0,"['ice cream'; 'basketball'; 'go-kart'; 'bannister']",basketball
+318,0,"['ice cream'; 'bannister'; 'go-kart'; 'basketball']",ice cream
+319,0,"['basketball'; 'bannister'; 'ice cream'; 'go-kart']",basketball

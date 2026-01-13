@@ -17,7 +17,7 @@ class CLIPModel(VLMModel):
     """
     CLIP wrapper implementation of VLMModel
     """
-    def __init__(self, model_name: str="ViT-B/32", device: str=None, jit: bool=False):
+    def __init__(self, model_name: str="ViT-L/14@336px", device: str=None, jit: bool=False):
         super().__init__(device)
         self.model, self.preprocess = clip.load(model_name, device=self.device, jit=jit)
 
@@ -31,7 +31,7 @@ class CLIPModel(VLMModel):
         """
         if isinstance(images, Image.Image):
             # single image
-            images = self.preprocess(images).unsqueze(0)
+            images = self.preprocess(images).unsqueeze(0)
         elif isinstance(images, list):
             # list of PIL.Image
             images = torch.stack([self.preprocess(img) for img in images])
@@ -62,3 +62,10 @@ class CLIPModel(VLMModel):
         with torch.no_grad():
             feats = self.model.encode_text(tokens)
         return feats
+
+    def compute_similarity(self, img_feat, text_feat):
+        img_feat /= img_feat.norm(dim=-1, keepdim=True)
+        text_feat /= text_feat.norm(dim=-1, keepdim=True)
+
+        sim = (img_feat @ text_feat.T).item()
+        return sim

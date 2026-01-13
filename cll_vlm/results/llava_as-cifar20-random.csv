@@ -1,0 +1,193 @@
+index,true_label,candidate_labels,complementary_label
+0,11,"['large carnivores'; 'reptiles']",reptiles
+1,15,"['large natural outdoor scenes'; 'household furniture']",large natural outdoor scenes
+2,4,"['people'; 'flowers']",flowers
+3,14,"['fruit and vegetables'; 'large carnivores']",fruit and vegetables
+4,1,"['large man-made outdoor things'; 'large carnivores']",large man-made outdoor things
+5,5,"['aquatic mammals'; 'fish']",fish
+6,18,"['large omnivores and herbivores'; 'vehicles 2']",Vehicles
+7,3,"['fruit and vegetables'; 'vehicles 1']",fruit and vegetables
+8,10,"['people'; 'insects']",people
+9,11,"['reptiles'; 'large carnivores']",large carnivores
+10,5,"['fish'; 'aquatic mammals']",aquatic mammals
+11,17,"['food containers'; 'medium-sized mammals']",food containers
+12,2,"['large carnivores'; 'household electrical devices']",household electrical devices
+13,9,"['vehicles 1'; 'household furniture']",household furniture
+14,10,"['insects'; 'people']",people
+15,5,"['aquatic mammals'; 'fish']",fish
+16,18,"['vehicles 2'; 'large omnivores and herbivores']",vehicles 2
+17,8,"['aquatic mammals'; 'vehicles 1']",aquatic mammals
+18,16,"['food containers'; 'flowers']",flowers
+19,10,"['people'; 'insects']",people
+20,16,"['food containers'; 'flowers']",flowers
+21,17,"['medium-sized mammals'; 'food containers']",food containers
+22,2,"['large carnivores'; 'household electrical devices']",household electrical devices
+23,5,"['fish'; 'aquatic mammals']",aquatic mammals
+24,17,"['medium-sized mammals'; 'food containers']",food containers
+25,6,"['flowers'; 'insects']",flowers
+26,12,"['aquatic mammals'; 'household electrical devices']",aquatic mammals
+27,17,"['medium-sized mammals'; 'food containers']",food containers
+28,8,"['aquatic mammals'; 'vehicles 1']",aquatic mammals
+29,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+30,18,"['vehicles 2'; 'large omnivores and herbivores']",vehicles 2
+31,9,"['vehicles 1'; 'household furniture']",household furniture
+32,17,"['medium-sized mammals'; 'food containers']",food containers
+33,16,"['food containers'; 'flowers']",flowers
+34,11,"['large carnivores'; 'reptiles']",large carnivores
+35,5,"['fish'; 'aquatic mammals']",aquatic mammals
+36,19,"['large carnivores'; 'fish']",fish
+37,14,"['fruit and vegetables'; 'large carnivores']",fruit and vegetables
+38,7,"['large carnivores'; 'trees']",large carnivores
+39,6,"['insects'; 'flowers']",flowers
+40,15,"['large natural outdoor scenes'; 'household furniture']",household furniture
+41,13,"['large natural outdoor scenes'; 'people']",large natural outdoor scenes
+42,10,"['people'; 'insects']",people
+43,8,"['vehicles 1'; 'aquatic mammals']",aquatic mammals
+44,17,"['food containers'; 'medium-sized mammals']",food containers
+45,9,"['household furniture'; 'vehicles 1']",household furniture
+46,14,"['fruit and vegetables'; 'large carnivores']",fruit and vegetables
+47,18,"['large omnivores and herbivores'; 'vehicles 2']",large omnivores and herbivores
+48,19,"['large carnivores'; 'fish']",fish
+49,15,"['large natural outdoor scenes'; 'household furniture']",large natural outdoor scenes
+50,1,"['large carnivores'; 'large man-made outdoor things']",large carnivores
+51,7,"['trees'; 'large carnivores']",trees
+52,5,"['aquatic mammals'; 'fish']",aquatic mammals
+53,3,"['vehicles 1'; 'fruit and vegetables']",fruit and vegetables
+54,10,"['insects'; 'people']",people
+55,7,"['large carnivores'; 'trees']",trees
+56,17,"['food containers'; 'medium-sized mammals']",food containers
+57,6,"['flowers'; 'insects']",flowers
+58,14,"['fruit and vegetables'; 'large carnivores']",fruit and vegetables
+59,17,"['medium-sized mammals'; 'food containers']",food containers
+60,16,"['flowers'; 'food containers']",food containers
+61,0,"['fish'; 'fruit and vegetables']",fruit and vegetables
+62,0,"['fruit and vegetables'; 'fish']",fish
+63,8,"['vehicles 1'; 'aquatic mammals']",aquatic mammals
+64,4,"['flowers'; 'people']",flowers
+65,14,"['large carnivores'; 'fruit and vegetables']",fruit and vegetables
+66,4,"['flowers'; 'people']",flowers
+67,10,"['insects'; 'people']",people
+68,15,"['large natural outdoor scenes'; 'household furniture']",large natural outdoor scenes
+69,4,"['people'; 'flowers']",flowers
+70,2,"['household electrical devices'; 'large carnivores']",household electrical devices
+71,16,"['flowers'; 'food containers']",food containers
+72,11,"['reptiles'; 'large carnivores']",large carnivores
+73,19,"['large carnivores'; 'fish']",fish
+74,16,"['food containers'; 'flowers']",flowers
+75,7,"['trees'; 'large carnivores']",trees
+76,19,"['fish'; 'large carnivores']",large carnivores
+77,14,"['fruit and vegetables'; 'large carnivores']",large carnivores
+78,10,"['insects'; 'people']",people
+79,8,"['aquatic mammals'; 'vehicles 1']",aquatic mammals
+80,5,"['fish'; 'aquatic mammals']",aquatic mammals
+81,12,"['aquatic mammals'; 'household electrical devices']",aquatic mammals
+82,12,"['aquatic mammals'; 'household electrical devices']",aquatic mammals
+83,11,"['large carnivores'; 'reptiles']",large carnivores
+84,10,"['insects'; 'people']",people
+85,8,"['vehicles 1'; 'aquatic mammals']",aquatic mammals
+86,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+87,13,"['large natural outdoor scenes'; 'people']",large natural outdoor scenes
+88,10,"['people'; 'insects']",people
+89,7,"['trees'; 'large carnivores']",trees
+90,14,"['large carnivores'; 'fruit and vegetables']",fruit and vegetables
+91,11,"['reptiles'; 'large carnivores']",reptiles
+92,14,"['large carnivores'; 'fruit and vegetables']",fruit and vegetables
+93,19,"['large carnivores'; 'fish']",fish
+94,0,"['fish'; 'fruit and vegetables']",fruit and vegetables
+95,4,"['people'; 'flowers']",flowers
+96,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+97,13,"['people'; 'large natural outdoor scenes']",large natural outdoor scenes
+98,1,"['large carnivores'; 'large man-made outdoor things']",large carnivores
+99,15,"['large natural outdoor scenes'; 'household furniture']",large natural outdoor scenes
+100,0,"['fish'; 'fruit and vegetables']",fruit and vegetables
+101,5,"['fish'; 'aquatic mammals']",aquatic mammals
+102,0,"['fruit and vegetables'; 'fish']",fish
+103,8,"['vehicles 1'; 'aquatic mammals']",aquatic mammals
+104,3,"['fruit and vegetables'; 'vehicles 1']",fruit and vegetables
+105,15,"['large natural outdoor scenes'; 'household furniture']",household furniture
+106,4,"['people'; 'flowers']",flowers
+107,19,"['fish'; 'large carnivores']",large carnivores
+108,17,"['medium-sized mammals'; 'food containers']",food containers
+109,6,"['insects'; 'flowers']",flowers
+110,17,"['food containers'; 'medium-sized mammals']",medium-sized mammals
+111,12,"['aquatic mammals'; 'household electrical devices']",aquatic mammals
+112,6,"['flowers'; 'insects']",flowers
+113,0,"['fruit and vegetables'; 'fish']",fish
+114,14,"['fruit and vegetables'; 'large carnivores']",fruit and vegetables
+115,10,"['people'; 'insects']",insects
+116,9,"['vehicles 1'; 'household furniture']",vehicles 1
+117,11,"['large carnivores'; 'reptiles']",large carnivores
+118,6,"['insects'; 'flowers']",flowers
+119,10,"['people'; 'insects']",insects
+120,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+121,1,"['large man-made outdoor things'; 'large carnivores']",large man-made outdoor things
+122,14,"['fruit and vegetables'; 'large carnivores']",large carnivores
+123,4,"['flowers'; 'people']",flowers
+124,8,"['aquatic mammals'; 'vehicles 1']",aquatic mammals
+125,1,"['large man-made outdoor things'; 'large carnivores']",large man-made outdoor things
+126,2,"['household electrical devices'; 'large carnivores']",household electrical devices
+127,12,"['aquatic mammals'; 'household electrical devices']",aquatic mammals
+128,4,"['people'; 'flowers']",flowers
+129,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+130,18,"['large omnivores and herbivores'; 'vehicles 2']",large omnivores and herbivores
+131,17,"['medium-sized mammals'; 'food containers']",food containers
+132,5,"['aquatic mammals'; 'fish']",fish
+133,0,"['fish'; 'fruit and vegetables']",fish
+134,6,"['insects'; 'flowers']",flowers
+135,0,"['fish'; 'fruit and vegetables']",fish
+136,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+137,11,"['reptiles'; 'large carnivores']",large carnivores
+138,9,"['vehicles 1'; 'household furniture']",vehicles 1
+139,5,"['aquatic mammals'; 'fish']",fish
+140,17,"['food containers'; 'medium-sized mammals']",food containers
+141,2,"['large carnivores'; 'household electrical devices']",household electrical devices
+142,14,"['fruit and vegetables'; 'large carnivores']",fruit and vegetables
+143,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+144,5,"['aquatic mammals'; 'fish']",aquatic mammals
+145,0,"['fruit and vegetables'; 'fish']",fish
+146,13,"['large natural outdoor scenes'; 'people']",large natural outdoor scenes
+147,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+148,16,"['flowers'; 'food containers']",flowers
+149,4,"['people'; 'flowers']",flowers
+150,13,"['people'; 'large natural outdoor scenes']",people
+151,0,"['fish'; 'fruit and vegetables']",fish
+152,18,"['vehicles 2'; 'large omnivores and herbivores']",Vehicles
+153,15,"['large natural outdoor scenes'; 'household furniture']",large natural outdoor scenes
+154,10,"['people'; 'insects']",insects
+155,15,"['household furniture'; 'large natural outdoor scenes']",large natural outdoor scenes
+156,5,"['fish'; 'aquatic mammals']",aquatic mammals
+157,13,"['large natural outdoor scenes'; 'people']",large natural outdoor scenes
+158,1,"['large carnivores'; 'large man-made outdoor things']",large carnivores
+159,14,"['fruit and vegetables'; 'large carnivores']",large carnivores
+160,12,"['household electrical devices'; 'aquatic mammals']",aquatic mammals
+161,3,"['fruit and vegetables'; 'vehicles 1']",fruit and vegetables
+162,19,"['fish'; 'large carnivores']",large carnivores
+163,1,"['large carnivores'; 'large man-made outdoor things']",large carnivores
+164,2,"['household electrical devices'; 'large carnivores']",household electrical devices
+165,15,"['large natural outdoor scenes'; 'household furniture']",household furniture
+166,5,"['aquatic mammals'; 'fish']",fish
+167,2,"['large carnivores'; 'household electrical devices']",household electrical devices
+168,3,"['vehicles 1'; 'fruit and vegetables']",fruit and vegetables
+169,12,"['aquatic mammals'; 'household electrical devices']",aquatic mammals
+170,16,"['flowers'; 'food containers']",flowers
+171,0,"['fish'; 'fruit and vegetables']",fish
+172,11,"['large carnivores'; 'reptiles']",large carnivores
+173,12,"['aquatic mammals'; 'household electrical devices']",aquatic mammals
+174,2,"['household electrical devices'; 'large carnivores']",household electrical devices
+175,0,"['fish'; 'fruit and vegetables']",fish
+176,4,"['flowers'; 'people']",flowers
+177,15,"['large natural outdoor scenes'; 'household furniture']",large natural outdoor scenes
+178,7,"['large carnivores'; 'trees']",trees
+179,9,"['household furniture'; 'vehicles 1']",household furniture
+180,11,"['large carnivores'; 'reptiles']",large carnivores
+181,14,"['large carnivores'; 'fruit and vegetables']",fruit and vegetables
+182,11,"['large carnivores'; 'reptiles']",large carnivores
+183,3,"['vehicles 1'; 'fruit and vegetables']",fruit and vegetables
+184,13,"['people'; 'large natural outdoor scenes']",people
+185,13,"['people'; 'large natural outdoor scenes']",large natural outdoor scenes
+186,19,"['fish'; 'large carnivores']",large carnivores
+187,13,"['people'; 'large natural outdoor scenes']",large natural outdoor scenes
+188,14,"['large carnivores'; 'fruit and vegetables']",large carnivores
+189,8,"['aquatic mammals'; 'vehicles 1']",aquatic mammals
+190,14,"['fruit and vegetables'; 'large carnivores']",fruit and vegetables
+191,1,"['large carnivores'; 'large man-made outdoor things']",large carnivores

@@ -2,3 +2,5 @@ data/
 __pycache__/
 data.tar.gz
 logs/
+venv_cll_llava/
+venv_cll_qwen/

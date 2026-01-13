@@ -1,0 +1,17 @@
+index,true_label,predicted,raw_answer
+0,6,OL,question: does the label '6' match this image? answer only yes or no.
+1,9,OL,question: does the label '9' match this image? answer only yes or no. no
+2,9,OL,question: does the label '9' match this image? answer only yes or no. no
+3,4,OL,question: does the label '4' match this image? answer only yes or no. no
+4,1,OL,question: does the label '1' match this image? answer only yes or no. yes
+5,1,OL,question: does the label '1' match this image? answer only yes or no. yes
+6,2,OL,question: does the label '2' match this image? answer only yes or no. yes
+7,7,OL,question: does the label '7' match this image? answer only yes or no.
+8,8,OL,question: does the label '8' match this image? answer only yes or no. no
+9,3,OL,question: does the label '3' match this image? answer only yes or no.
+10,4,OL,question: does the label '4' match this image? answer only yes or no. no
+11,7,OL,question: does the label '7' match this image? answer only yes or no.
+12,7,OL,question: does the label '7' match this image? answer only yes or no.
+13,2,OL,question: does the label '2' match this image? answer only yes or no. no
+14,9,OL,question: does the label '9' match this image? answer only yes or no. no
+15,9,OL,question: does the label '9' match this image? answer only yes or no. yes

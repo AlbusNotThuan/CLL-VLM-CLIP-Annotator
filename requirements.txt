@@ -9,3 +9,4 @@ gdown
 wandb
 ipykernel
 seaborn
+transformer

@@ -1,0 +1,26 @@
+workspace: "/home/maitanha/cll_vlm"
+
+output:
+  binary: "/home/maitanha/cll_vlm/cll_vlm/ol_cll_logs/binary"
+
+data:
+  dataset: "cifar100"
+  mode: "train"
+
+  paths:
+    cifar10: "/home/maitanha/cll_vlm/cll_vlm/data/cifar10"
+    cifar20: "/home/maitanha/cll_vlm/cll_vlm/data/cifar20"
+    cifar100: "/home/maitanha/cll_vlm/cll_vlm/data/cifar100"
+  
+  shuffle_seed: 42
+  num_workers: 4
+  batch_size: 128
+
+models:
+  llava:
+    model_url: "llava-hf/llava-v1.6-mistral-7b-hf"
+  # future plan: implement llava 13b
+
+  qwen:
+    model_url: "Qwen/Qwen2.5-VL-7B-Instruct"
+
