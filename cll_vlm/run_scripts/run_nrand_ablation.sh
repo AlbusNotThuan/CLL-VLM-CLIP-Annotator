@@ -2,22 +2,22 @@
 
 # Bash script to run llava_ablation_study.py with cifar20 dataset and varying n_random from 2 to 10
 
-DATASET="kmnist"
+DATASET="tiny200"
 GPU=0
 
 # echo "Starting ablation study for $DATASET with n_random from 2 to 10"
-cd ../
-
-for n_random in {2..4}
+for n_random in {7..10}
 do
+    if [ $n_random -eq 3 ]; then
+        continue
+    fi
     echo "=========================================="
     echo "Running with n_random=$n_random"
     echo "=========================================="
     
-    python llava_ablation_study.py \
+    CUDA_VISIBLE_DEVICES=${GPU} python llava_ablation_study.py \
         --dataset $DATASET \
-        --n_random $n_random \
-        --gpu $GPU 
+        --n_random $n_random
     
     # Check if the previous command succeeded
     if [ $? -eq 0 ]; then

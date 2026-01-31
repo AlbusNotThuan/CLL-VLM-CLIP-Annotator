@@ -63,13 +63,13 @@ def load_dataset(data_name):
 def normalize_text(s):
     return s.lower().replace("_", " ").strip()
 
-def preprocess_label(label: str) -> str:
-    if label.startswith("vehicles_1"):
-        return "transportation vehicles"
-    if label.startswith("vehicles_2"):
-        return "industrial and military vehicles"
-    # general case
-    return label.replace("_", " ")
+# def preprocess_label(label: str) -> str:
+#     if label.startswith("vehicles_1"):
+#         return "transportation vehicles"
+#     if label.startswith("vehicles_2"):
+#         return "industrial and military vehicles"
+#     # general case
+#     return label.replace("_", " ")
 
 def main(args):
     # Config
@@ -80,16 +80,29 @@ def main(args):
     data_name = args.data_name or data_cfg["dataset"]
     data_mode = data_cfg.get("mode", "train")
     data_path = data_cfg["paths"][data_name]
-    batch_size = args.batch_size or data_cfg["batch_size"]
+    batch_size = args.batch_size
     num_workers = data_cfg.get("num_workers", 4)
     shuffle_seed = data_cfg.get("shuffle_seed", 42)
     
+    output_name = args.model_name + "_" + args.data_name + "_" + args.prompt_type
     # Desire output path
     if args.prompt_type == "binary":
-        output_dir= config["output"]["binary"]
-        output_path = os.path.join(output_dir, args.output_name)
+        output_dir = config["output"]["binary"]
+        if args.custom_output_name is None:
+            output_path = os.path.join(output_dir, output_name + ".json")
+        else:
+            output_path = os.path.join(output_dir, output_name + "_" + args.custom_output_name + ".json")
+        print(f"[DEBUG] Output path: {output_path}")
+    elif args.prompt_type == "label_description":
+        output_dir = config["output"].get("label_description", os.path.join(config["workspace"], "cll_vlm/ol_cll_logs/label_description"))
+        os.makedirs(output_dir, exist_ok=True)
+        if args.custom_output_name is None:
+            output_path = os.path.join(output_dir, output_name + ".json")
+        else:
+            output_path = os.path.join(output_dir, output_name + "_" + args.custom_output_name + ".json")
+        print(f"[DEBUG] Output path: {output_path}")
     elif args.prompt_type == "multiple":
-        pass
+        output_path = None  # set when implemented
 
     # =========================
     # Load dataset
@@ -100,19 +113,25 @@ def main(args):
             train=(data_mode=="train"),
             transform=None,
         )
+        fine_classes = list(dataset.classes)
     elif data_name == "cifar20":
         dataset = CIFAR20Dataset(
             root=data_path,
             train=(data_mode=="train"),
             transform=None,
         )
+        fine_classes = list(dataset.classes)  # 20 coarse classes
     elif data_name == "cifar100":
         dataset = CIFAR100Dataset(
             root=data_path,
             train=(data_mode=="train"),
             transform=None,
         )
-        fine_classes = dataset.get_fine_classes()
+        fine_classes_raw = dataset.get_fine_classes()
+        fine_classes = [
+            CIFAR100Dataset.preprocess_label(lbl)
+            for lbl in fine_classes_raw
+        ]
         coarse_classes = dataset.get_coarse_classes()
     else:
         raise ValueError(f"Dataset '{data_name}' chưa được hỗ trợ trong hàm load_dataset.")
@@ -133,8 +152,9 @@ def main(args):
     # Load model
     # =========================
     if args.model_name == "llava":
-        pass
-    elif args.model_name == "qwen":
+        model_path = config["models"][args.model_name]["model_url"]
+        model = LLaVAClassifier(model_path=model_path)
+    elif args.model_name == "qwen" or args.model_name == "qwen3_2b" or args.model_name == "qwen3_8b":
         model_path = config["models"][args.model_name]["model_url"]
         model = QWENClassifier(model_path=model_path)
     else:
@@ -166,26 +186,56 @@ def main(args):
 
     print(f"[Data] Total images collected: {len(images_all)}")
 
-    # DEBUGGING: Truncate to first batch only
-    images_all = images_all[:batch_size]
-    true_label_indices = true_label_indices[:batch_size]
-    shuffled_label_indices = shuffled_label_indices[:batch_size]
+    # # [DEBUGGING]: Truncate to first batch only
+    # images_all = images_all[:batch_size]
+    # true_label_indices = true_label_indices[:batch_size]
+    # shuffled_label_indices = shuffled_label_indices[:batch_size]
 
-    print(f"[DEBUG] Truncated to first batch: {len(images_all)} samples")
+    # print(f"[DEBUG] Truncated to first batch: {len(images_all)} samples")
 
     # =========================
     # Run inference
     # =========================
-    if args.model_name == "qwen":
+    if args.model_name == "llava":
+        label_description_path = None
+        if args.prompt_type == "label_description":
+            label_description_path = args.label_description_path or config.get("label_description_json")
+            if not label_description_path or not os.path.isfile(label_description_path):
+                raise FileNotFoundError(
+                    f"label_description requires a valid JSON file. "
+                    f"Set --label_description_path or 'label_description_json' in config. Got: {label_description_path}"
+                )
         results = model.generate_batch_results(
             data=images_all,
             shuffled_label_indices=shuffled_label_indices,
             true_label_indices=true_label_indices,
             fine_classes=fine_classes,
-            prompt_type=args.prompt_type,   # "binary"
-            output_path=None,               # save manually
+            prompt_type=args.prompt_type,
+            output_path=None,
             batch_size=batch_size,
             start_idx=0,
+            label_description_path=label_description_path,
+        )
+
+    elif args.model_name == "qwen" or args.model_name == "qwen3_2b" or args.model_name == "qwen3_8b":
+        label_description_path = None
+        if args.prompt_type == "label_description":
+            label_description_path = args.label_description_path or config.get("label_description_json")
+            if not label_description_path or not os.path.isfile(label_description_path):
+                raise FileNotFoundError(
+                    f"label_description requires a valid JSON file. "
+                    f"Set --label_description_path or 'label_description_json' in config. Got: {label_description_path}"
+                )
+        results = model.generate_batch_results(
+            data=images_all,
+            shuffled_label_indices=shuffled_label_indices,
+            true_label_indices=true_label_indices,
+            fine_classes=fine_classes,
+            prompt_type=args.prompt_type,
+            output_path=None,
+            batch_size=batch_size,
+            start_idx=0,
+            label_description_path=label_description_path,
         )
     else:
         raise NotImplementedError("Only QWEN binary is wired here.")
@@ -193,12 +243,13 @@ def main(args):
     # =========================
     # Save results (JSON)
     # =========================
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-    with open(output_path, "w") as f:
-        json.dump(results, f, indent=2)
-
-    print(f"[Done] Saved {len(results)} records → {output_path}")
+    if output_path:
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        with open(output_path, "w") as f:
+            json.dump(results, f, indent=2)
+        print(f"[Done] Saved {len(results)} records → {output_path}")
+    else:
+        print(f"[Done] No output path set; {len(results)} records in memory.")
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="OL CLL Data Collection")
@@ -213,15 +264,15 @@ if __name__ == "__main__":
         help="Name of the dataset to use (e.g., cifar10, cifar20, cifar100).",
     )
     parser.add_argument(
-        "--output_name",
+        "--custom_output_name",
         type=str,
-        required=True,
-        help="Path to save the output results (JSON file).",
+        required=False,
+        help="Custom name for the output json.",
     )
     parser.add_argument(
         "--config_path",
         type=str,
-        default="/home/maitanha/cll_vlm/cll_vlm/config/config.yaml",
+        default="/tmp2/maitanha/vgu/cll_vlm/cll_vlm/config/config.yaml",
         help="Path to the configuration YAML file.",
     )
 
@@ -230,7 +281,7 @@ if __name__ == "__main__":
         "--model_name",
         type=str,
         required=True,
-        choices=["llava", "qwen"],
+        choices=["llava", "qwen", "qwen3_2b", "qwen3_8b"],
         help="Type of the model to use (e.g., llava, qwen).",
     )
 
@@ -245,8 +296,14 @@ if __name__ == "__main__":
         "--prompt_type",
         type=str,
         required=True,
-        choices=["binary", "multiple"],
-        help="Type of prompt to use (binary or multiple).",
+        choices=["binary", "multiple", "label_description"],
+        help="Type of prompt to use (binary, multiple, or label_description).",
+    )
+    parser.add_argument(
+        "--label_description_path",
+        type=str,
+        default=None,
+        help="Path to label description JSON (required for prompt_type=label_description). Overrides config.",
     )
 
     args = parser.parse_args()

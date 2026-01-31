@@ -2,6 +2,12 @@ import json
 import os
 import torch
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
+try:
+    from transformers import Qwen3VLForConditionalGeneration
+    HAS_QWEN3 = True
+except ImportError:
+    HAS_QWEN3 = False
+
 from qwen_vl_utils import process_vision_info
 from typing import List, Dict, Union
 from tqdm import tqdm
@@ -50,31 +56,49 @@ def extract_all_reasons(raw: str):
 
     return decision, clean_reasons
 
+def load_qwen(model_path: str, device: str):
+    try:
+        processor = AutoProcessor.from_pretrained(
+            model_path,
+            trust_remote_code=True
+        )
+    except Exception as e:
+        raise RuntimeError(
+            f"Failed to load Qwen processor.\n"
+            f"Make sure transformers supports this model.\n{e}"
+        )
 
+    print(f" [DEBUG] Model path: {model_path}")
+    
+    if "Qwen2.5" in model_path:
+        model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+            model_path,
+            torch_dtype="auto",
+            trust_remote_code=True,
+            # low_cpu_mem_usage=True,
+            device_map= None
+        ).to(device)
+
+    elif "Qwen3" in model_path:
+        if not HAS_QWEN3:
+            raise ImportError("Qwen3 model requires 'transformers' package with Qwen3 support.")
+        model = Qwen3VLForConditionalGeneration.from_pretrained(
+            model_path,
+            torch_dtype="auto",
+            trust_remote_code=True,
+            # low_cpu_mem_usage=True,
+            device_map= None
+        ).to(device)
+    else:
+        raise ValueError(f"Unsupported Qwen model path: {model_path}")
+    return processor, model
+    
 class QWENClassifier:
     def __init__(self, model_path="Qwen/Qwen2.5-VL-7B-Instruct", device=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.processor = AutoProcessor.from_pretrained(model_path)
-        self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-            model_path,
-            torch_dtype="auto",
-            # low_cpu_mem_usage=True,
-            device_map= None
-        ).to(self.device)
+        self.processor, self.model = load_qwen(model_path, self.device)
 
-    # @classmethod
-    # def build_model(cls, args):
-    #     return cls(args.model_path)
-    
-    # def process_qwen(data, label_names, model_info, config=None, output_dir=None, start_idx=0):
-    #     if config is None:
-    #         config = {}
-
-    #     if output_dir:
-    #         os.makedirs(output_dir, exist_ok=True)
-
-
-    def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0):
+    def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None):
         total_images = len(data)
         num_batches = (total_images + batch_size - 1) // batch_size
         results = []
@@ -124,28 +148,25 @@ class QWENClassifier:
             if prompt_type == "binary":
                 batch_messages = []
                 for img, label in zip(batch_images, batch_shuffled_labels):
+                    # prompt = (
+                    #     f"You are given an image. Does the label '{label}' correspond to this image?"
+                    #             "Answer ONLY with a valid JSON object.\n:"
+                    #             # "Return only a JSON object formatted as: "
+                    #             "Format: {'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}.\n"
+                    # )
+
                     prompt = (
-                        f"You are given an image. Does the label '{label}' correspond to this image?"
-                                "Answer ONLY with a valid JSON object.\n:"
-                                # "Return only a JSON object formatted as: "
-                                "Format: {'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}.\n"
+                        f"You are given an image.\n"
+                        "First, identify the SINGLE main object that occupies the central visual focus "
+                        "or is most salient in the image.\n"
+                        "Do NOT consider background, environment, or secondary objects.\n\n"
+                        f"Then decide whether the label '{label}' correctly describes that main object.\n"
+                        "If the label matches only background or contextual elements, answer NO.\n\n"
+                        "Answer ONLY with a valid JSON object formatted as: "
+                        "{'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}."
                     )
 
-                    # For debugging
-                    # prompt = "Describe the image."
-
-                    # messages = [
-                    #     {
-                    #         "role": "user",
-                    #         "content": [
-                    #             {"type": "image", "image": img},
-                    #             {"type": "text", "text": prompt},
-                    #         ],
-                    #     }
-                    # ]
-
                     messages = [
-                        {"role": "system", "content": "You are a helpful assistant."},
                         {
                             "role": "user",
                             "content": [
@@ -154,6 +175,17 @@ class QWENClassifier:
                             ],
                         }
                     ]
+
+                    # messages = [
+                    #     {"role": "system", "content": "You are a helpful assistant."},
+                    #     {
+                    #         "role": "user",
+                    #         "content": [
+                    #             {"type": "image", "image": img},
+                    #             {"type": "text", "text": prompt},
+                    #         ],
+                    #     }
+                    # ]
 
                     batch_messages.append(messages)
 
@@ -213,9 +245,191 @@ class QWENClassifier:
                         "reason": reasons,
                     })
 
+            elif prompt_type == "label_description":
+
+                if label_description_path is None:
+                    raise ValueError("label_description_path is required when prompt_type is 'label_description'")
+                with open(label_description_path, "r", encoding="utf-8") as f:
+                    label_descriptions = json.load(f)
+                
+                batch_messages = []
+                for img, shuffled_label in zip(batch_images, batch_shuffled_labels):
+                    desc = label_descriptions.get(shuffled_label)
+                    if desc is None:
+                        key_alt = shuffled_label.replace("_", " ").strip().lower()
+                        desc = label_descriptions.get(key_alt)
+                    if desc is None:
+                        desc = {"visual": [], "context": []}
+
+                    visual_list = desc.get("visual", [])
+                    context_list = desc.get("context", [])
+                    visual_text = "\n".join(f"- {s}" for s in visual_list) if visual_list else "(No visual description)"
+                    context_text = "\n".join(f"- {s}" for s in context_list) if context_list else "(No context description)"
+
+                    prompt = (
+                        f"You are given an image and the following descriptions for the label '{shuffled_label}'.\n\n"
+                        "Visual descriptions:\n" + visual_text + "\n\n"
+                        "Context descriptions:\n" + context_text + "\n\n"
+                        f"According to the descriptions above, does the image correctly depicts the label '{shuffled_label}'.\n"
+                        "Answer ONLY with a valid JSON object formatted as: "
+                        "{'answer': 'YES' or 'NO', 'reason': explain your reason}."
+                    )
+                    messages = [
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "image", "image": img},
+                                {"type": "text", "text": prompt},
+                            ],
+                        }
+                    ]
+                    batch_messages.append(messages)
+
+                texts = [
+                    self.processor.apply_chat_template(
+                        msg,
+                        tokenize=False,
+                        add_generation_prompt=True,
+                    )
+                    for msg in batch_messages
+                ]
+                image_inputs, video_inputs = process_vision_info(batch_messages)
+                inputs = self.processor(
+                    text=texts,
+                    images=image_inputs,
+                    videos=video_inputs,
+                    return_tensors="pt",
+                    padding=True,
+                ).to(self.device)
+                with torch.no_grad():
+                    generated_ids = self.model.generate(
+                        **inputs,
+                        max_new_tokens=256,
+                        do_sample=False,
+                        pad_token_id=self.processor.tokenizer.pad_token_id,
+                        eos_token_id=None,
+                    )
+                generated_ids_trimmed = [
+                    out_ids[len(in_ids):]
+                    for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+                ]
+                output_texts = self.processor.batch_decode(
+                    generated_ids_trimmed,
+                    skip_special_tokens=True,
+                    clean_up_tokenization_spaces=False,
+                )
+                for i, text in enumerate(output_texts):
+                    decision, reasons = extract_all_reasons(text)
+                    results.append({
+                        "img_idx": start_idx + batch_start_idx + i,
+                        "true_label": batch_true_labels[i],
+                        "shuffled_label": batch_shuffled_labels[i],
+                        "answer": decision,
+                        "reason": reasons,
+                    })
+
         if output_path:
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
             with open(output_path, "w") as f:
                 json.dump(results, f, indent=4)
         
         return results
+    
+
+    def generate_text(self, prompt: str, system_content: str = None) -> str:
+        """
+        Generate free-form text from Qwen VL using text-only prompt (no image).
+        """
+        messages = []
+        if system_content:
+            messages.append({"role": "system", "content": system_content})
+        messages.append({"role": "user", "content": prompt})
+
+        # Format thành đoạn văn bản cho tokenizer
+        formatted_text = self.processor.apply_chat_template(
+            messages,
+            tokenize=False,
+            add_generation_prompt=True
+        )
+
+        # Không có ảnh hoặc video
+        inputs = self.processor(
+            text=formatted_text,
+            return_tensors="pt",
+            padding=True,
+        ).to(self.device)
+
+        with torch.no_grad():
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=128,
+                do_sample=False,
+                pad_token_id=self.processor.tokenizer.pad_token_id,
+                eos_token_id=None
+            )
+
+        output_ids_trimmed = outputs[:, inputs.input_ids.shape[1]:]
+        decoded = self.processor.batch_decode(
+            output_ids_trimmed,
+            skip_special_tokens=True,
+            clean_up_tokenization_spaces=True
+        )[0]
+
+        return decoded.strip()
+
+    def generate_text_batch(self, prompts: List[str], system_content: str = None, batch_size: int = 8) -> List[str]:
+        """
+        Generate free-form text from Qwen VL using text-only prompts in batches.
+        """
+        all_results = []
+        
+        for i in tqdm(range(0, len(prompts), batch_size), desc="Generating text batch"):
+            batch_prompts = prompts[i:i + batch_size]
+            batch_messages = []
+            
+            for prompt in batch_prompts:
+                messages = []
+                if system_content:
+                    messages.append({"role": "system", "content": system_content})
+                messages.append({"role": "user", "content": prompt})
+                batch_messages.append(messages)
+            
+            # Format and tokenize batch
+            texts = [
+                self.processor.apply_chat_template(
+                    msg,
+                    tokenize=False,
+                    add_generation_prompt=True
+                )
+                for msg in batch_messages
+            ]
+            
+            inputs = self.processor(
+                text=texts,
+                return_tensors="pt",
+                padding=True,
+            ).to(self.device)
+            
+            with torch.no_grad():
+                outputs = self.model.generate(
+                    **inputs,
+                    max_new_tokens=128,
+                    do_sample=False,
+                    pad_token_id=self.processor.tokenizer.pad_token_id,
+                    eos_token_id=None
+                )
+            
+            output_ids_trimmed = [
+                out_ids[len(in_ids):]
+                for in_ids, out_ids in zip(inputs.input_ids, outputs)
+            ]
+            
+            decoded_batch = self.processor.batch_decode(
+                output_ids_trimmed,
+                skip_special_tokens=True,
+                clean_up_tokenization_spaces=True
+            )
+            
+            all_results.extend([d.strip() for d in decoded_batch])
+            
+        return all_results

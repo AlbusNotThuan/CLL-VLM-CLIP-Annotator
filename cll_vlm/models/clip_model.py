@@ -2,11 +2,12 @@ import torch
 from PIL import Image
 import os
 import sys
-from models.base_vlm import VLMModel
-from utils.path_manager import get_root_path
+from .base_vlm import VLMModel
+
+# Root = parent of models/ (avoids relative import beyond top-level when run as python main4.py)
+ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 # ========== IMPORT CLIP ==========
-ROOT_PATH = get_root_path()
 CLIP_PATH = os.path.join(ROOT_PATH, "vlm/CLIP")
 if CLIP_PATH not in sys.path:
     sys.path.append(CLIP_PATH)

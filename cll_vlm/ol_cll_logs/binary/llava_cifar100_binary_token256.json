@@ -1,0 +1,450 @@
+[
+  {
+    "img_idx": 0,
+    "true_label": "cattle",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": "The image shows a cow, not a boy. The cow is wearing a red hat, which is not typical attire for a boy. The image is of a cow standing in a field, and there is no indication of a boy in the image."
+  },
+  {
+    "img_idx": 1,
+    "true_label": "dinosaur",
+    "shuffled_label": "lobster",
+    "answer": "NO",
+    "reason": "The image shows a dinosaur, specifically a Velociraptor, which is not a lobster. Lobsters are crustaceans and are not dinosaurs. The image depicts a prehistoric creature that lived millions of years before the first lobsters appeared on Earth."
+  },
+  {
+    "img_idx": 2,
+    "true_label": "apple",
+    "shuffled_label": "girl",
+    "answer": "NO",
+    "reason": "The image you provided is of an apple, not a girl. The apple is red and green, and it is sitting on a surface. There is no person or human element in the image."
+  },
+  {
+    "img_idx": 3,
+    "true_label": "boy",
+    "shuffled_label": "palm_tree",
+    "answer": "NO",
+    "reason": "The image provided does not depict a palm tree. It is a portrait of a person."
+  },
+  {
+    "img_idx": 4,
+    "true_label": "aquarium_fish",
+    "shuffled_label": "lamp",
+    "answer": "NO",
+    "reason": "The image provided does not show a lamp. It appears to be a close-up of a plant or some type of vegetation, with a focus on the leaves or petals. There is no indication of a lamp or any artificial lighting source in the image."
+  },
+  {
+    "img_idx": 5,
+    "true_label": "telephone",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image shows a rotary dial telephone, which is not a boy. The term 'boy' typically refers to a young male human, but in this case, it does not accurately describe the object in the image.\"\n}"
+  },
+  {
+    "img_idx": 6,
+    "true_label": "train",
+    "shuffled_label": "lizard",
+    "answer": "NO",
+    "reason": "The image shows a train, not a lizard. The train is on tracks and appears to be in motion, while a lizard is a small reptile that is typically found on land and not associated with trains or transportation."
+  },
+  {
+    "img_idx": 7,
+    "true_label": "cup",
+    "shuffled_label": "hamster",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image shows a white mug, not a hamster. The label 'hamster' does not correspond to the image.\"\n}"
+  },
+  {
+    "img_idx": 8,
+    "true_label": "cloud",
+    "shuffled_label": "beetle",
+    "answer": "NO",
+    "reason": "The image provided does not depict a beetle. It shows a cloudy sky with a bright light, possibly the sun, shining through. There is no beetle visible in the image."
+  },
+  {
+    "img_idx": 9,
+    "true_label": "elephant",
+    "shuffled_label": "bicycle",
+    "answer": "NO",
+    "reason": "The image shows an elephant, not a bicycle."
+  },
+  {
+    "img_idx": 10,
+    "true_label": "keyboard",
+    "shuffled_label": "table",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image shows a close-up of a person's hand on a laptop keyboard, not a table. A table is a flat surface typically used for dining or working, whereas the image depicts a laptop, which is a portable computing device.\"\n}"
+  },
+  {
+    "img_idx": 11,
+    "true_label": "willow_tree",
+    "shuffled_label": "woman",
+    "answer": "NO",
+    "reason": "The image provided is a tree, not a woman."
+  },
+  {
+    "img_idx": 12,
+    "true_label": "sunflower",
+    "shuffled_label": "sea",
+    "answer": "NO",
+    "reason": "The image shows a sunflower, not the sea."
+  },
+  {
+    "img_idx": 13,
+    "true_label": "castle",
+    "shuffled_label": "chair",
+    "answer": "NO",
+    "reason": "The image provided does not contain a chair. It shows a large building with a steeple, likely a church or a similar architectural structure, surrounded by trees and a body of water. There are no chairs visible in the image."
+  },
+  {
+    "img_idx": 14,
+    "true_label": "sea",
+    "shuffled_label": "telephone",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image shows a sunset over a body of water, with the sun reflecting on the water's surface. There is no telephone visible in the image.\"\n}"
+  },
+  {
+    "img_idx": 15,
+    "true_label": "keyboard",
+    "shuffled_label": "bridge",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image provided does not depict a bridge. It shows a close-up of a computer keyboard with the letters 'A' and 'S' visible. The term 'bridge' does not apply to this image.\"\n}"
+  },
+  {
+    "img_idx": 16,
+    "true_label": "bicycle",
+    "shuffled_label": "bee",
+    "answer": "NO",
+    "reason": "The image provided does not contain a bee. It shows a bicycle leaning against a tree in a grassy area."
+  },
+  {
+    "img_idx": 17,
+    "true_label": "wolf",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": "The image shows a dog, not a boy."
+  },
+  {
+    "img_idx": 18,
+    "true_label": "squirrel",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": "The image provided is blurry and lacks clear details. It is not possible to confidently determine if the image depicts a boy or not."
+  },
+  {
+    "img_idx": 19,
+    "true_label": "sea",
+    "shuffled_label": "beetle",
+    "answer": "NO",
+    "reason": "The image you provided is of a body of water, likely an ocean or sea, with a clear sky. There is no beetle visible in the image. Beetles are insects and are not typically found in bodies of water. They are more commonly found on land, in forests, or in gardens."
+  },
+  {
+    "img_idx": 20,
+    "true_label": "shrew",
+    "shuffled_label": "crab",
+    "answer": "NO",
+    "reason": "The image provided does not show a crab. It appears to be a small, brown, bird-like creature with a long beak. The presence of a beak and the overall shape of the creature are more indicative of a bird than a crab."
+  },
+  {
+    "img_idx": 21,
+    "true_label": "pine_tree",
+    "shuffled_label": "bus",
+    "answer": "NO",
+    "reason": "The image provided does not depict a bus. It shows a silhouette of a tree against a colorful sky, which is not a bus."
+  },
+  {
+    "img_idx": 22,
+    "true_label": "rose",
+    "shuffled_label": "bus",
+    "answer": "NO",
+    "reason": "The image provided does not depict a bus. It appears to be a close-up of a creamy substance, possibly a food item or a material with a smooth texture. The image does not contain any recognizable features of a bus, such as wheels, windows, or a distinct shape."
+  },
+  {
+    "img_idx": 23,
+    "true_label": "television",
+    "shuffled_label": "orchid",
+    "answer": "NO",
+    "reason": "The image shows a television screen displaying a picture of a dog, not an orchid."
+  },
+  {
+    "img_idx": 24,
+    "true_label": "pine_tree",
+    "shuffled_label": "forest",
+    "answer": "YES",
+    "reason": "The image shows a dense collection of trees, which is characteristic of a forest."
+  },
+  {
+    "img_idx": 25,
+    "true_label": "table",
+    "shuffled_label": "tulip",
+    "answer": "NO",
+    "reason": "The image provided does not depict a tulip. It appears to be a table with a black base and a white top. The image is blurry and lacks the distinct features of a tulip, such as its petals and stem."
+  },
+  {
+    "img_idx": 26,
+    "true_label": "possum",
+    "shuffled_label": "caterpillar",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image shows a small animal being held in a person's hand. However, the animal is not a caterpillar. It appears to be a small mammal, possibly a mouse or rat, based on its size, shape, and fur. Caterpillars are typically larger and have a different appearance, with a segmented body and legs.\"\n}"
+  },
+  {
+    "img_idx": 27,
+    "true_label": "oak_tree",
+    "shuffled_label": "shark",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image provided is of a tree, not a shark. Sharks are aquatic animals, while trees are terrestrial plants. The image does not depict a shark, so the label 'shark' does not correspond to this image.\"\n}"
+  },
+  {
+    "img_idx": 28,
+    "true_label": "leopard",
+    "shuffled_label": "leopard",
+    "answer": "YES",
+    "reason": "The image shows a leopard, which is a large, wild cat known for its distinctive spotted coat. The spotted pattern and the overall shape of the animal are characteristic of a leopard."
+  },
+  {
+    "img_idx": 29,
+    "true_label": "possum",
+    "shuffled_label": "seal",
+    "answer": "NO",
+    "reason": "The image shows a cat, not a seal. The cat is curled up in a bowl, which is not a typical habitat for seals. Seals are marine mammals that live in the water, while cats are terrestrial animals that live on land."
+  },
+  {
+    "img_idx": 30,
+    "true_label": "bicycle",
+    "shuffled_label": "sweet_pepper",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image provided does not show a sweet pepper. It shows a bicycle leaning against a wall. The label 'sweet_pepper' does not correspond to the image.\"\n}"
+  },
+  {
+    "img_idx": 31,
+    "true_label": "castle",
+    "shuffled_label": "baby",
+    "answer": "NO",
+    "reason": "The image shows a castle-like structure, not a baby."
+  },
+  {
+    "img_idx": 32,
+    "true_label": "maple_tree",
+    "shuffled_label": "elephant",
+    "answer": "NO",
+    "reason": "The image shows a tree, not an elephant. Elephants are large mammals, while trees are plants. The image provided does not depict an elephant."
+  },
+  {
+    "img_idx": 33,
+    "true_label": "rabbit",
+    "shuffled_label": "castle",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image provided does not depict a castle. It appears to be a close-up of a person's face, with the focus on the nose and mouth area. The image is blurry and lacks the architectural features typically associated with a castle.\"\n}"
+  },
+  {
+    "img_idx": 34,
+    "true_label": "chimpanzee",
+    "shuffled_label": "plain",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image provided is not plain. It shows a close-up of a dog's face, which is not a plain background.\"\n}"
+  },
+  {
+    "img_idx": 35,
+    "true_label": "clock",
+    "shuffled_label": "beaver",
+    "answer": "NO",
+    "reason": "The image shows a clock tower, not a beaver. Beavers are animals, not structures."
+  },
+  {
+    "img_idx": 36,
+    "true_label": "streetcar",
+    "shuffled_label": "kangaroo",
+    "answer": "NO",
+    "reason": "The image provided does not contain a kangaroo. It appears to be a blurry photo of a bus or a similar vehicle, with a focus on the headlights and the front of the vehicle. There is no visible animal or any other object that could be identified as a kangaroo."
+  },
+  {
+    "img_idx": 37,
+    "true_label": "boy",
+    "shuffled_label": "tractor",
+    "answer": "NO",
+    "reason": "The image shows a young child, not a tractor."
+  },
+  {
+    "img_idx": 38,
+    "true_label": "cockroach",
+    "shuffled_label": "couch",
+    "answer": "NO",
+    "reason": "The image shows a beetle, not a couch. Beetles are insects, while couches are pieces of furniture."
+  },
+  {
+    "img_idx": 39,
+    "true_label": "table",
+    "shuffled_label": "pear",
+    "answer": "NO",
+    "reason": "The image provided does not contain any visible pears. It appears to be a blurry photo of a dining table with various items on it, but no pears are discernible."
+  },
+  {
+    "img_idx": 40,
+    "true_label": "snake",
+    "shuffled_label": "beaver",
+    "answer": "NO",
+    "reason": "The image you provided does not depict a beaver. It appears to be a black object, possibly a piece of clothing or a bag, but it does not resemble a beaver in any way."
+  },
+  {
+    "img_idx": 41,
+    "true_label": "lobster",
+    "shuffled_label": "woman",
+    "answer": "NO",
+    "reason": "The image you provided is of a lobster, not a woman."
+  },
+  {
+    "img_idx": 42,
+    "true_label": "mountain",
+    "shuffled_label": "skunk",
+    "answer": "NO",
+    "reason": "The image provided does not depict a skunk. It shows a mountainous landscape with a clear blue sky. Skunks are small mammals known for their distinctive black and white stripes and their ability to emit a strong odor. The image does not contain any animals or any other objects that would be associated with a skunk."
+  },
+  {
+    "img_idx": 43,
+    "true_label": "wolf",
+    "shuffled_label": "girl",
+    "answer": "NO",
+    "reason": "The image provided is too blurry and lacks clear features to confidently determine if it is a girl or not."
+  },
+  {
+    "img_idx": 44,
+    "true_label": "palm_tree",
+    "shuffled_label": "baby",
+    "answer": "NO",
+    "reason": "The image provided does not depict a baby. It appears to be a close-up of a plant or a tree with a red object in the foreground. The focus is on the plant or tree, and there is no indication of a baby in the image."
+  },
+  {
+    "img_idx": 45,
+    "true_label": "skyscraper",
+    "shuffled_label": "tulip",
+    "answer": "NO",
+    "reason": "The image shows a tall building, which is not a tulip. Tulips are flowers, and the image depicts a structure that is not a flower."
+  },
+  {
+    "img_idx": 46,
+    "true_label": "boy",
+    "shuffled_label": "caterpillar",
+    "answer": "NO",
+    "reason": "The image shows a person, not a caterpillar. Caterpillars are insects, and the subject in the image is a human."
+  },
+  {
+    "img_idx": 47,
+    "true_label": "train",
+    "shuffled_label": "lamp",
+    "answer": "NO",
+    "reason": "The image shows a train, not a lamp."
+  },
+  {
+    "img_idx": 48,
+    "true_label": "tractor",
+    "shuffled_label": "television",
+    "answer": "NO",
+    "reason": "The image shows a vehicle, specifically a tractor, not a television."
+  },
+  {
+    "img_idx": 49,
+    "true_label": "snake",
+    "shuffled_label": "lawn_mower",
+    "answer": "NO",
+    "reason": "The image shows a snake, not a lawn mower. A lawn mower is a piece of outdoor equipment used to cut grass, while a snake is a long, slender reptile. The image does not depict a lawn mower, so the label does not correspond to the image."
+  },
+  {
+    "img_idx": 50,
+    "true_label": "shark",
+    "shuffled_label": "baby",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image shows a shark, not a baby. The term 'baby' is not applicable to this image.\"\n}"
+  },
+  {
+    "img_idx": 51,
+    "true_label": "butterfly",
+    "shuffled_label": "lamp",
+    "answer": "NO",
+    "reason": "The image provided does not depict a lamp. It shows a butterfly with orange and black wings on a flower. The butterfly is the main subject of the image, and there is no indication of a lamp or any other type of lighting fixture."
+  },
+  {
+    "img_idx": 52,
+    "true_label": "television",
+    "shuffled_label": "fox",
+    "answer": "NO",
+    "reason": "The image does not contain any foxes. It shows a television screen with a blurry image on it, which is not a fox."
+  },
+  {
+    "img_idx": 53,
+    "true_label": "bottle",
+    "shuffled_label": "television",
+    "answer": "NO",
+    "reason": "{\n  \"answer\": \"NO\",\n  \"reason\": \"The image provided does not depict a television. It appears to be a bottle, possibly containing a liquid or a powder. The label 'television' does not correspond to the content of the image.\"\n}"
+  },
+  {
+    "img_idx": 54,
+    "true_label": "sea",
+    "shuffled_label": "sunflower",
+    "answer": "NO",
+    "reason": "The image shows a beach and ocean, not a sunflower. Sunflowers are typically associated with fields of flowers, not natural landscapes like beaches."
+  },
+  {
+    "img_idx": 55,
+    "true_label": "bee",
+    "shuffled_label": "squirrel",
+    "answer": "NO",
+    "reason": "The image provided does not show a squirrel. It appears to be a close-up of a small insect or arthropod, possibly a bee or a fly, with a blurred background. Squirrels are typically larger mammals with bushy tails and are not depicted in this image."
+  },
+  {
+    "img_idx": 56,
+    "true_label": "maple_tree",
+    "shuffled_label": "man",
+    "answer": "NO",
+    "reason": "The image provided does not contain a man. It is a tree with orange leaves, which suggests it might be autumn. The image does not depict a human being."
+  },
+  {
+    "img_idx": 57,
+    "true_label": "chair",
+    "shuffled_label": "otter",
+    "answer": "NO",
+    "reason": "The image shows a chair, not an otter."
+  },
+  {
+    "img_idx": 58,
+    "true_label": "woman",
+    "shuffled_label": "streetcar",
+    "answer": "NO",
+    "reason": "The image shows a person, not a streetcar. Streetcars are typically vehicles used for public transportation, while the image depicts a person standing outdoors."
+  },
+  {
+    "img_idx": 59,
+    "true_label": "maple_tree",
+    "shuffled_label": "tractor",
+    "answer": "NO",
+    "reason": "The image provided does not contain a tractor. It appears to be a tree with a blue sky in the background."
+  },
+  {
+    "img_idx": 60,
+    "true_label": "hamster",
+    "shuffled_label": "crocodile",
+    "answer": "NO",
+    "reason": "The image shows a small, brown and white animal with a fluffy appearance, which is not consistent with the appearance of a crocodile. Crocodiles are typically larger, have a more reptilian appearance, and are not fluffy. The animal in the image is more likely to be a rodent or a small mammal."
+  },
+  {
+    "img_idx": 61,
+    "true_label": "otter",
+    "shuffled_label": "television",
+    "answer": "NO",
+    "reason": "The image provided does not depict a television. It shows a cat standing in a snowy environment."
+  },
+  {
+    "img_idx": 62,
+    "true_label": "seal",
+    "shuffled_label": "keyboard",
+    "answer": "NO",
+    "reason": "The image shows a polar bear, not a keyboard."
+  },
+  {
+    "img_idx": 63,
+    "true_label": "lion",
+    "shuffled_label": "lamp",
+    "answer": "NO",
+    "reason": "The image provided does not depict a lamp. It shows a lion sitting on the ground. A lamp is a man-made object used for lighting, whereas a lion is a wild animal."
+  }
+]

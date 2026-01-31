@@ -1,26 +1,33 @@
-workspace: "/home/maitanha/cll_vlm"
+workspace: /tmp2/maitanha/vgu/cll_vlm
 
 output:
-  binary: "/home/maitanha/cll_vlm/cll_vlm/ol_cll_logs/binary"
+  binary: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/binary"
+  label_description: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/label_description"
+
+# Path to label description JSON (used when prompt_type=label_description, e.g. cifar100)
+label_description_json: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/qwen_cifar100_label_description.json"
 
 data:
   dataset: "cifar100"
   mode: "train"
 
   paths:
-    cifar10: "/home/maitanha/cll_vlm/cll_vlm/data/cifar10"
-    cifar20: "/home/maitanha/cll_vlm/cll_vlm/data/cifar20"
-    cifar100: "/home/maitanha/cll_vlm/cll_vlm/data/cifar100"
-  
+    cifar10: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/data/cifar10"
+    cifar20: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/data/cifar20"
+    cifar100: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/data/cifar100"
+
   shuffle_seed: 42
   num_workers: 4
-  batch_size: 128
 
 models:
   llava:
     model_url: "llava-hf/llava-v1.6-mistral-7b-hf"
+
   # future plan: implement llava 13b
 
   qwen:
     model_url: "Qwen/Qwen2.5-VL-7B-Instruct"
-
+  qwen3_2b: 
+    model_url: "Qwen/Qwen3-VL-2B-Instruct"
+  qwen3_8b:
+    model_url: "Qwen/Qwen3-VL-8B-Instruct"

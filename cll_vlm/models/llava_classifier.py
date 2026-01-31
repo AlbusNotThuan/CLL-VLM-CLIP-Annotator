@@ -2,17 +2,69 @@ import torch
 from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
 from typing import List, Dict, Union
 from PIL import Image
+from tqdm import tqdm
+import os
+import numpy as np
+import json
+import re
+
+def strip_prompt(text: str) -> str:
+    if "[/INST]" in text:
+        return text.split("[/INST]", 1)[1].strip()
+    return text.strip()
+
+def parse_llava_output(raw: str):
+    """
+    Robust parser for LLaVA binary output.
+    Works even if JSON is truncated.
+    """
+    text = strip_prompt(raw)
+
+    # 1. Parse answer (always reliable)
+    m = re.search(r'"answer"\s*:\s*"(YES|NO)"', text, re.IGNORECASE)
+    answer = m.group(1).upper() if m else "UNKNOWN"
+
+    # 2. Parse reason (best-effort)
+    r = re.search(r'"reason"\s*:\s*"(.*)', text, re.DOTALL)
+    if r:
+        reason = r.group(1)
+        # remove trailing junk
+        reason = reason.rstrip('"} \n')
+    else:
+        # fallback: remove JSON template if present
+        reason = text
+
+    # 3. Final cleanup
+    reason = reason.strip()
+
+    # prevent leaking prompt template
+    if "explain your reason for choosing" in reason.lower():
+        reason = ""
+
+    return answer, reason
+
 
 class LLaVAClassifier:
-    def __init__(self, model_path="llava-hf/llava-v1.6-mistral-7b-hf", baseprompt=None, device=None):
+    def __init__(self, model_path="llava-hf/llava-v1.6-mistral-7b-hf", baseprompt=None, device=None, device_map=None):
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.processor = LlavaNextProcessor.from_pretrained(model_path, use_fast=True)
-        self.model = LlavaNextForConditionalGeneration.from_pretrained(
-            model_path,
-            dtype=torch.float16,
-            low_cpu_mem_usage=True,
-            device_map=None
-        ).to(self.device)
+        
+        # Use device_map if specified (for multi-GPU), otherwise use single device
+        if device_map == "auto":
+            self.model = LlavaNextForConditionalGeneration.from_pretrained(
+                model_path,
+                torch_dtype=torch.float16,
+                low_cpu_mem_usage=True,
+                device_map="auto"
+            )
+        else:
+            self.model = LlavaNextForConditionalGeneration.from_pretrained(
+                model_path,
+                torch_dtype=torch.float16,
+                low_cpu_mem_usage=True,
+                device_map=None
+            ).to(self.device)
+        
         self.baseprompt = baseprompt
 
     @classmethod
@@ -36,7 +88,7 @@ class LLaVAClassifier:
 
         outputs = self.model.generate(
             **inputs,
-            max_new_tokens=10,
+            max_new_tokens=256,
             pad_token_id=self.processor.tokenizer.eos_token_id
         )
 
@@ -57,6 +109,176 @@ class LLaVAClassifier:
                 # fallback: treat as NO if uncertain
                 processed.append("NO")
         return processed
+    
+    def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None):
+        total_images = len(data)
+        num_batches = (total_images + batch_size - 1) // batch_size
+        results = []
+
+        for batch_idx in tqdm(range(num_batches)):
+            batch_start_idx = batch_idx * batch_size
+            batch_end_idx = min((batch_idx + 1) * batch_size, total_images)
+
+            batch_images = data[batch_start_idx:batch_end_idx]
+
+            batch_shuffled_labels = [
+                fine_classes[idx] for idx in shuffled_label_indices[batch_start_idx:batch_end_idx]
+            ]
+            batch_true_labels = [
+                fine_classes[idx] for idx in true_label_indices[batch_start_idx:batch_end_idx]
+            ]
+
+            if isinstance(batch_images, torch.Tensor) and batch_images.dim() == 3:
+                images = batch_images.unsqueeze(0)    # Add batch dimension [1, C, H, W]
+
+            if isinstance(batch_images, torch.Tensor):
+                imgs = []
+
+                # Convert to PIL image
+                if batch_images.dim() == 4:
+                    for i in range (batch_images.shape[0]):
+                        image = batch_images[i, :]
+                        image = image.cpu().numpy().transpose(1, 2, 0)
+                        if image.max() <= 1.0:
+                            image = (image * 255).astype("uint8")
+                        else:
+                            image = image.astype(np.uint8)
+                        image = Image.fromarray(image)
+                        imgs.append(image)
+                if batch_images.dim() == 3:
+                    image = batch_images.cpu().numpy().transpose(1, 2, 0)
+                    if image.max() <= 1.0:
+                        image = (image * 255).astype("uint8")
+                    else:
+                        image = image.astype(np.uint8)
+                    image = Image.fromarray(image).copy()
+                    imgs.append(image)
+                
+                batch_images = imgs
+
+            if prompt_type == "binary":
+                batch_messages = []
+                for img, label in zip(batch_images, batch_shuffled_labels):
+                    # prompt = (
+                    #     "Forget you previous answer. "
+                    #     f"You are given an image. Does the label '{label}' correspond to this image?"
+                    #         "Answer ONLY with a valid JSON object formatted as:"
+                    #         # "Return only a JSON object formatted as: "
+                    #         "{'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}."
+                    # )
+
+                    prompt = (
+                        f"You are given an image.\n"
+                        "First, identify the SINGLE main object that occupies the central visual focus "
+                        "or is most salient in the image.\n"
+                        "Do NOT consider background, environment, or secondary objects.\n\n"
+                        f"Then decide whether the label '{label}' correctly describes that main object.\n"
+                        "If the label matches only background or contextual elements, answer NO.\n\n"
+                        "Answer ONLY with a valid JSON object formatted as: "
+                        "{'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}."
+                    )
+
+                    # For debugging
+                    # print(f"Prompt: {prompt}")
+
+                    prompt = f"[INST] <image>\n{prompt} [/INST]"
+                    batch_messages.append(prompt)
+
+                inputs = self.processor(
+                    images=batch_images, text=batch_messages, padding=True, return_tensors="pt"
+                ).to(self.model.device)
+                inputs["pixel_values"] = inputs["pixel_values"].to(self.model.dtype)
+
+                outputs = self.model.generate(
+                    **inputs,
+                    max_new_tokens=32,
+                    pad_token_id=self.processor.tokenizer.eos_token_id
+                )
+
+                answers = self.processor.batch_decode(
+                    outputs, skip_special_tokens=True, clean_up_tokenization_spaces=False
+                )
+
+                # print(f"Answers sample: {answers}")
+                
+                for idx_in_batch, raw in enumerate(answers):
+                    decision, reason = parse_llava_output(raw)
+
+                    global_idx = start_idx + batch_start_idx + idx_in_batch
+
+                    results.append({
+                        "img_idx": global_idx,
+                        "shuffled_label": batch_shuffled_labels[idx_in_batch],
+                        "true_label": batch_true_labels[idx_in_batch],
+                        "answer": decision,
+                        "reason": reason,
+                    })
+
+            elif prompt_type == "label_description":
+
+                if label_description_path is None:
+                    raise ValueError("label_description_path is required when prompt_type is 'label_description'")
+                with open(label_description_path, "r", encoding="utf-8") as f:
+                    label_descriptions = json.load(f)
+
+                batch_messages = []
+                for img, shuffled_label in zip(batch_images, batch_shuffled_labels):
+                    desc = label_descriptions.get(shuffled_label)
+                    if desc is None:
+                        key_alt = shuffled_label.replace("_", " ").strip().lower()
+                        desc = label_descriptions.get(key_alt)
+                    if desc is None:
+                        desc = {"visual": [], "context": []}
+
+                    visual_list = desc.get("visual", [])
+                    context_list = desc.get("context", [])
+                    visual_text = "\n".join(f"- {s}" for s in visual_list) if visual_list else "(No visual description)"
+                    context_text = "\n".join(f"- {s}" for s in context_list) if context_list else "(No context description)"
+
+                    prompt = (
+                        f"You are given an image and the following descriptions for the label '{shuffled_label}'.\n\n"
+                        "Visual descriptions:\n" + visual_text + "\n\n"
+                        "Context descriptions:\n" + context_text + "\n\n"
+                        "First, identify the SINGLE main object that occupies the central visual focus or is most salient in the image.\n"
+                        f"Then decide whether, according to the descriptions above, this image correctly depicts the label '{shuffled_label}'.\n"
+                        "Answer ONLY with a valid JSON object formatted as: "
+                        "{'answer': 'YES' or 'NO', 'reason': explain your reason}."
+                    )
+                    prompt = f"[INST] <image>\n{prompt} [/INST]"
+                    batch_messages.append(prompt)
+
+                inputs = self.processor(
+                    images=batch_images, text=batch_messages, padding=True, return_tensors="pt"
+                ).to(self.model.device)
+                inputs["pixel_values"] = inputs["pixel_values"].to(self.model.dtype)
+
+                outputs = self.model.generate(
+                    **inputs,
+                    max_new_tokens=256,
+                    pad_token_id=self.processor.tokenizer.eos_token_id
+                )
+
+                answers = self.processor.batch_decode(
+                    outputs, skip_special_tokens=True, clean_up_tokenization_spaces=False
+                )
+
+                for idx_in_batch, raw in enumerate(answers):
+                    decision, reason = parse_llava_output(raw)
+                    global_idx = start_idx + batch_start_idx + idx_in_batch
+                    results.append({
+                        "img_idx": global_idx,
+                        "true_label": batch_true_labels[idx_in_batch],
+                        "shuffled_label": batch_shuffled_labels[idx_in_batch],
+                        "answer": decision,
+                        "reason": [reason] if reason else [],
+                    })
+
+            if output_path:
+                os.makedirs(os.path.dirname(output_path), exist_ok=True)
+                with open(output_path, "w") as f:
+                    json.dump(results, f, indent=4)
+
+        return results
     
     def _extract_answer(self, response: str) -> str:
         """Extract just the answer from the model response"""

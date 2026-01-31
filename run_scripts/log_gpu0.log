@@ -1,0 +1,47 @@
+[GPU 0] Bắt đầu: llava
+`torch_dtype` is deprecated! Use `dtype` instead!
+/tmp2/maitanha/vgu/cll_vlm/cll_vlm/vlm/CLIP
+[DEBUG] Output path: /tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/binary/llava_cifar100_binary_main_obj.json
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/main4.py", line 301, in <module>
+    main(args)
+    ~~~~^^^^^^
+  File "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/main4.py", line 156, in main
+    model = LLaVAClassifier(model_path=model_path)
+  File "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/models/llava_classifier.py", line 61, in __init__
+    self.model = LlavaNextForConditionalGeneration.from_pretrained(
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model_path,
+        ^^^^^^^^^^^
+    ...<2 lines>...
+        device_map=None
+        ^^^^^^^^^^^^^^^
+    ).to(self.device)
+    ^
+  File "/tmp2/maitanha/vgu/cll_vlm/venv_cll_qwen/lib/python3.13/site-packages/transformers/modeling_utils.py", line 277, in _wrapper
+    return func(*args, **kwargs)
+  File "/tmp2/maitanha/vgu/cll_vlm/venv_cll_qwen/lib/python3.13/site-packages/transformers/modeling_utils.py", line 5051, in from_pretrained
+    ) = cls._load_pretrained_model(
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model,
+        ^^^^^^
+    ...<12 lines>...
+        weights_only=weights_only,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/tmp2/maitanha/vgu/cll_vlm/venv_cll_qwen/lib/python3.13/site-packages/transformers/modeling_utils.py", line 5471, in _load_pretrained_model
+    _error_msgs, disk_offload_index = load_shard_file(args)
+                                      ~~~~~~~~~~~~~~~^^^^^^
+  File "/tmp2/maitanha/vgu/cll_vlm/venv_cll_qwen/lib/python3.13/site-packages/transformers/modeling_utils.py", line 847, in load_shard_file
+    disk_offload_index = _load_state_dict_into_meta_model(
+        model,
+    ...<8 lines>...
+        device_mesh=device_mesh,
+    )
+  File "/tmp2/maitanha/vgu/cll_vlm/venv_cll_qwen/lib/python3.13/site-packages/torch/utils/_contextlib.py", line 120, in decorate_context
+    return func(*args, **kwargs)
+  File "/tmp2/maitanha/vgu/cll_vlm/venv_cll_qwen/lib/python3.13/site-packages/transformers/modeling_utils.py", line 750, in _load_state_dict_into_meta_model
+    param = param.to(casting_dtype)
+KeyboardInterrupt

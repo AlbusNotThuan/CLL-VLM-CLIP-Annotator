@@ -115,6 +115,7 @@ def main():
     parser.add_argument("--n_random", type=int, default=4, help="Number of random labels to select for each class")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--debug", action="store_true", help="Debug mode: skip LLaVA query, export cluster assignments only")
+    parser.add_argument("--decoder", default="simsiam", help="Decoder type - only use for naming convention")
     args = parser.parse_args()
 
     torch.cuda.empty_cache()
@@ -221,8 +222,8 @@ def main():
         os.makedirs("results")
     
     # Generate filename based on mode
-    if args.k_mean is not None:
-        filename = f"llava_{args.dataset}_kmean={args.k_mean}_nrand={args.n_random}_seed={args.seed}"
+    if args.k_mean is not None and args.decoder is not None:
+        filename = f"llava_{args.dataset}_{args.decoder}_kmean={args.k_mean}_nrand={args.n_random}_seed={args.seed}"
     else:
         filename = f"llava_{args.dataset}_nrand={args.n_random}_seed={args.seed}"
     

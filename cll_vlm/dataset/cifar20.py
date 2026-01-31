@@ -112,6 +112,14 @@ class CIFAR100Dataset(Dataset, BaseDataset):
     def coarse_to_fine(self, coarse_idx):
         return self.coarse_to_fine_map[coarse_idx] 
 
+    @staticmethod
+    def preprocess_label(label: str) -> str:
+        if label.startswith("vehicles_1"):
+            return "transportation vehicles"
+        if label.startswith("vehicles_2"):
+            return "industrial and military vehicles"
+        return label.replace("_", " ")
+
 class CIFAR20Dataset(Dataset, BaseDataset):
     """CIFAR-20 Dataset that loads full images from pickle files.
     

@@ -1,0 +1,2233 @@
+{
+  "apple": {
+    "visual": [
+      "An object that has a round or slightly oblate shape.",
+      "An object that displays a vibrant red, green, or yellow hue depending on its ripeness.",
+      "An object that features a smooth, waxy skin texture.",
+      "An object that has a firm, solid structure when ripe.",
+      "An object that often has a small stem at the top.",
+      "An object that may have a slight dimple or indentation near the stem.",
+      "An object that typically has a smooth, uniform surface without visible seeds or pits.",
+      "An object that can vary in size but is generally smaller than a tennis ball."
+    ],
+    "context": [
+      "An object that is found in orchards and gardens.",
+      "An object typically used in cooking and baking.",
+      "An object that is found in fruit bowls at home.",
+      "An object typically used in school lunches and picnics.",
+      "An object that is found in fruit stands and farmers' markets.",
+      "An object typically used in making juice and smoothies.",
+      "An object that is found in fruit salads and desserts.",
+      "An object typically used in health and wellness programs for its nutritional value.",
+      "An object that is found in school cafeterias and lunchrooms.",
+      "An object typically used in crafting and decoration due to its aesthetic appeal."
+    ]
+  },
+  "aquarium fish": {
+    "visual": [
+      "An object that has a streamlined body shape for efficient swimming.",
+      "An object that displays vibrant colors ranging from bright reds to deep blues.",
+      "An object that exhibits a variety of patterns, such as stripes, spots, or gradients.",
+      "An object that may have fins of different shapes and sizes for maneuverability.",
+      "An object that often has a translucent or semi-transparent body allowing visibility of its internal structures.",
+      "An object that might possess a finned tail for propulsion through water.",
+      "An object that could have a mouth positioned at the front, bottom, or top of its body."
+    ],
+    "context": [
+      "An object that is found in freshwater ponds and lakes.",
+      "An object typically used in marine aquariums for decoration.",
+      "An object that is found in coral reefs and tropical waters.",
+      "An object typically used in home aquariums for companionship.",
+      "An object that is found in saltwater tanks for ecological balance.",
+      "An object typically used in educational settings for biology lessons.",
+      "An object that is found in natural streams and rivers.",
+      "An object typically used in public aquariums for public viewing.",
+      "An object that is found in mangrove forests and estuaries."
+    ]
+  },
+  "baby": {
+    "visual": [
+      "An object that has a small, rounded head with soft, pliable skin.",
+      "An object that displays large, expressive eyes with a glossy sheen.",
+      "An object that features a delicate, smooth mouth with a small, pink tongue visible.",
+      "An object that exhibits a slender, flexible body with soft, pliant limbs.",
+      "An object that has a round, protruding belly with a slightly chubby appearance.",
+      "An object that shows a small, soft, hairless head with a few fine hairs around the ears.",
+      "An object that presents a pale complexion with occasional rosy cheeks."
+    ],
+    "context": [
+      "An object that is found in nurseries and homes.",
+      "An object typically used in medical care for infants.",
+      "An object that is found in daycare centers and preschools.",
+      "An object typically used in family gatherings and celebrations.",
+      "An object that is found in hospitals during childbirth.",
+      "An object typically used in educational settings for early childhood development.",
+      "An object that is found in parks and playgrounds for children's play areas.",
+      "An object typically used in family vacations and travel.",
+      "An object that is found in residential living rooms and bedrooms."
+    ]
+  },
+  "bear": {
+    "visual": [
+      "An object that has a large, rounded body.",
+      "An object that possesses a thick fur coat.",
+      "An object that displays a distinctive black or brown coloration.",
+      "An object that features a robust, muscular build.",
+      "An object that has a broad, flat snout.",
+      "An object that exhibits a hump-like structure over its shoulders.",
+      "An object that has a relatively small head compared to its body size.",
+      "An object that shows a prominent set of sharp claws.",
+      "An object that has a long, curved tail.",
+      "An object that displays a thick layer of fat under its skin."
+    ],
+    "context": [
+      "An object that is found in dense forests and mountainous regions.",
+      "An object typically used in wildlife sanctuaries for conservation efforts.",
+      "An object that is found in zoos for educational purposes.",
+      "An object typically used in national parks to observe and study natural habitats.",
+      "An object that is found in remote wilderness areas for survival scenarios.",
+      "An object typically used in film and television productions for special effects.",
+      "An object that is found in urban parks for recreational activities involving animals.",
+      "An object typically used in research studies to understand animal behavior.",
+      "An object that is found in nature reserves to protect endangered species."
+    ]
+  },
+  "beaver": {
+    "visual": [
+      "An object that has a robust, flat tail with a distinctive white underside.",
+      "An object that possesses a rounded body covered in dense, dark brown fur.",
+      "An object that displays a pair of large, strong teeth visible even when closed.",
+      "An object that features a short, stocky build with webbed feet adapted for swimming.",
+      "An object that exhibits a thick, bushy tail used for steering and braking while swimming.",
+      "An object that has a flat, broad face with small eyes and a short snout.",
+      "An object that shows a distinctively flattened tail used for diving and swimming."
+    ],
+    "context": [
+      "An object that is found in wetlands and rivers.",
+      "An object typically used in constructing dams and lodges.",
+      "An object that is found in forests near water sources.",
+      "An object typically used in creating intricate underwater tunnels.",
+      "An object that is found in areas with abundant aquatic vegetation.",
+      "An object typically used in building homes for shelter from predators.",
+      "An object that is found in regions with cold climates.",
+      "An object typically used in storing food supplies for winter.",
+      "An object that is found in areas with a high density of trees.",
+      "An object typically used in creating barriers against flooding."
+    ]
+  },
+  "bed": {
+    "visual": [
+      "An object that often features a headboard at one end.",
+      "An object that typically has a mattress resting on its surface.",
+      "An object that may include pillows for comfort.",
+      "An object that usually has a footboard at the opposite end.",
+      "An object that can have various colors, including white, black, or wood tones.",
+      "An object that often displays a soft, plush texture.",
+      "An object that may have a frame made of metal, wood, or plastic.",
+      "An object that can show signs of wear through scratches or stains."
+    ],
+    "context": [
+      "An object that is found in bedrooms.",
+      "An object typically used in personal sleeping quarters.",
+      "An object that is found in hotels and guest rooms.",
+      "An object typically used in private residences for rest.",
+      "An object that is found in dormitories and student housing.",
+      "An object typically used in shared living spaces for relaxation.",
+      "An object that is found in hospitals and medical facilities for patient care.",
+      "An object typically used in healthcare settings for recovery.",
+      "An object that is found in military barracks for soldiers' rest.",
+      "An object typically used in military installations for accommodation."
+    ]
+  },
+  "bee": {
+    "visual": [
+      "An object that has a fuzzy, hairy body covered in yellow and black stripes.",
+      "An object that possesses two long antennae extending from its head.",
+      "An object that has four wings, two transparent and two with dark veins.",
+      "An object that displays a segmented body divided into three parts: head, thorax, and abdomen.",
+      "An object that has six legs, each ending in a claw-like structure.",
+      "An object that features a pair of compound eyes on its head.",
+      "An object that has a slender, elongated body with a rounded head."
+    ],
+    "context": [
+      "An object that is found in gardens and flowerbeds.",
+      "An object typically used in beekeeping for pollination.",
+      "An object that is found in meadows and open fields.",
+      "An object typically used in agricultural settings for crop pollination.",
+      "An object that is found in orchards and fruit farms.",
+      "An object typically used in natural ecosystems to support biodiversity.",
+      "An object that is found in urban parks and community gardens.",
+      "An object typically used in educational settings to teach about pollinators.",
+      "An object that is found in wildflower meadows and native plant areas.",
+      "An object typically used in backyard beekeeping for personal enjoyment."
+    ]
+  },
+  "beetle": {
+    "visual": [
+      "An object that displays a variety of colors, often including metallic sheens.",
+      "An object that may have patterns or markings, such as spots or stripes.",
+      "An object that typically has six legs.",
+      "An object that usually has two pairs of wings, one set hard and one set soft.",
+      "An object that can vary widely in size, from tiny to quite large.",
+      "An object that often has antennae extending from its head.",
+      "An object that might possess a distinct head, thorax, and abdomen segmentation.",
+      "An object that could exhibit glossy or matte textures depending on species."
+    ],
+    "context": [
+      "An object that is found in gardens and parks.",
+      "An object typically used in scientific research for studying biodiversity.",
+      "An object that is found in forests and woodlands.",
+      "An object typically used in pest control in agricultural settings.",
+      "An object that is found in compost piles and decaying organic matter.",
+      "An object typically used in educational materials about insects and ecosystems.",
+      "An object that is found in soil and leaf litter.",
+      "An object typically used in decorative items like jewelry and crafts.",
+      "An object that is found in tropical rainforests and other humid environments.",
+      "An object typically used in pet stores for exotic pets like tarantulas."
+    ]
+  },
+  "bicycle": {
+    "visual": [
+      "An object that has pedals attached to the rear wheel.",
+      "An object that features a frame connecting the wheels and pedals.",
+      "An object that includes handlebars for steering.",
+      "An object that may have a seat for the rider.",
+      "An object that often has gears or a chain mechanism.",
+      "An object that can have various colors, including metallic, matte, or glossy finishes.",
+      "An object that may display different textures, such as smooth or textured surfaces.",
+      "An object that can vary in size, from compact city bikes to larger mountain bikes.",
+      "An object that might include reflectors or lights for visibility."
+    ],
+    "context": [
+      "An object that is found in urban streets for commuting.",
+      "An object typically used in parks for leisure riding.",
+      "An object that is found in residential neighborhoods for daily errands.",
+      "An object typically used in school campuses for student transportation.",
+      "An object that is found in rural areas for agricultural work.",
+      "An object typically used in mountainous regions for off-road cycling.",
+      "An object that is found in recreational areas for fitness activities.",
+      "An object typically used in competitive sports events like road races.",
+      "An object that is found in tourist attractions for sightseeing tours."
+    ]
+  },
+  "bottle": {
+    "visual": [
+      "An object that has a cylindrical or rounded body with a narrow neck.",
+      "An object that often features a label or cap for sealing.",
+      "An object that may have a smooth or ribbed surface texture.",
+      "An object that can vary in size, from small vials to large jugs.",
+      "An object that typically has a uniform color across its body.",
+      "An object that may display a gradient or pattern on its surface.",
+      "An object that can have a glossy or matte finish.",
+      "An object that might include a handle or a spout for pouring."
+    ],
+    "context": [
+      "An object that is found in households for storing beverages.",
+      "An object typically used in kitchens for water storage.",
+      "An object that is found in bathrooms for holding toiletries.",
+      "An object typically used in offices for personal hydration.",
+      "An object that is found in parks for carrying drinks.",
+      "An object typically used in restaurants for serving wine.",
+      "An object that is found in cars for keeping snacks and drinks.",
+      "An object typically used in outdoor events for serving refreshments.",
+      "An object that is found in bedrooms for holding personal care products.",
+      "An object typically used in schools for students' lunches."
+    ]
+  },
+  "bowl": {
+    "visual": [
+      "An object that has a rounded or oval shape with a flat base.",
+      "An object that often has a smooth or glossy surface.",
+      "An object that may feature a handle or rim for holding.",
+      "An object that can vary in size, from small to large.",
+      "An object that might have a uniform color or a gradient effect.",
+      "An object that could display a matte finish or a shiny texture.",
+      "An object that may have a solid color or include patterns or designs.",
+      "An object that can be made of various materials, such as ceramic, glass, or plastic."
+    ],
+    "context": [
+      "An object that is found in kitchens for serving and eating food.",
+      "An object typically used in dining rooms for holding meals.",
+      "An object that is found in bathrooms for washing hands.",
+      "An object typically used in bedrooms for storing personal items.",
+      "An object that is found in offices for organizing papers and documents.",
+      "An object typically used in gardens for planting flowers and vegetables.",
+      "An object that is found in classrooms for distributing materials to students.",
+      "An object typically used in workshops for holding tools and parts.",
+      "An object that is found in parks for feeding birds and small animals.",
+      "An object typically used in hospitals for serving patients' meals."
+    ]
+  },
+  "boy": {
+    "visual": [
+      "An object that has a distinct head, torso, and limbs.",
+      "An object that typically has a smaller size compared to adults.",
+      "An object that often displays a range of facial features including eyes, nose, and mouth.",
+      "An object that may have hair, which can vary in length, color, and texture.",
+      "An object that wears clothing, which can include shirts, pants, and shoes.",
+      "An object that may carry accessories like bags or backpacks.",
+      "An object that might exhibit a posture or stance characteristic of human movement."
+    ],
+    "context": [
+      "An object that is found in schools and classrooms.",
+      "An object typically used in sports and physical education classes.",
+      "An object that is found in parks and playgrounds.",
+      "An object typically used in homes for playtime activities.",
+      "An object that is found in bedrooms and playrooms.",
+      "An object typically used in outdoor adventures like camping trips.",
+      "An object that is found in libraries and bookstores.",
+      "An object typically used in family gatherings and social events.",
+      "An object that is found in hospitals and medical facilities.",
+      "An object typically used in educational settings for learning and development."
+    ]
+  },
+  "bridge": {
+    "visual": [
+      "An object that features supports or piers extending into the ground.",
+      "An object that often includes arches, beams, or cables for structural integrity.",
+      "An object that may have a deck or roadway surface for vehicles or pedestrians.",
+      "An object that can display varying colors depending on materials and design.",
+      "An object that might exhibit a smooth or rough texture on its surface.",
+      "An object that could have a metallic, concrete, or wooden appearance.",
+      "An object that frequently shows signs of weathering or wear over time."
+    ],
+    "context": [
+      "An object that is found in urban areas connecting different parts of cities.",
+      "An object typically used in rural settings to cross rivers and streams.",
+      "An object that is found in mountainous regions facilitating access across valleys.",
+      "An object typically used in coastal towns to link land masses separated by water bodies.",
+      "An object that is found in parks and recreational areas for pedestrian and cyclist use.",
+      "An object typically used in industrial zones to transport goods over waterways.",
+      "An object that is found in historical sites preserving ancient routes and trade paths.",
+      "An object typically used in agricultural regions to span over irrigation canals."
+    ]
+  },
+  "bus": {
+    "visual": [
+      "An object that has a long, rectangular body with windows along its sides.",
+      "An object that features multiple wheels for ground transportation.",
+      "An object that often displays route numbers and destinations on its front.",
+      "An object that may have a roof with a distinct shape, sometimes resembling a dome or flat top.",
+      "An object that frequently carries passengers, indicated by its size and design.",
+      "An object that might have advertisements or branding painted on its exterior surfaces.",
+      "An object that could be seen traveling on roads, highways, or city streets.",
+      "An object that typically has a large windshield at the front for driver visibility."
+    ],
+    "context": [
+      "An object that is found in urban areas for public transportation.",
+      "An object typically used in school trips and field excursions.",
+      "An object that is found in tourist destinations for sightseeing tours.",
+      "An object typically used in intercity travel for long-distance commutes.",
+      "An object that is found in rural areas for connecting small towns to larger cities.",
+      "An object typically used in school systems for student transportation.",
+      "An object that is found in airports for airport shuttles and transfers.",
+      "An object typically used in tour groups for guided city tours."
+    ]
+  },
+  "butterfly": {
+    "visual": [
+      "An object that has delicate wings with intricate patterns.",
+      "An object that displays vibrant colors ranging from bright yellows to deep purples.",
+      "An object that features a slender body with a pair of antennae.",
+      "An object that exhibits a soft, velvety texture on its body and wings.",
+      "An object that has a distinct head, thorax, and abdomen segmentation.",
+      "An object that possesses two pairs of wings, one pair being larger than the other.",
+      "An object that often has a patterned design on its wings, which may include spots, stripes, or other motifs."
+    ],
+    "context": [
+      "An object that is found in tropical rainforests.",
+      "An object that is found in meadows and gardens.",
+      "An object that is found in parks and public gardens.",
+      "An object that is found in botanical gardens.",
+      "An object that is found in natural reserves and wildlife sanctuaries.",
+      "An object that is found in zoos and aquariums.",
+      "An object typically used in educational settings for biology lessons.",
+      "An object typically used in art and design for inspiration.",
+      "An object typically used in photography for nature photography.",
+      "An object typically used in landscaping for creating a natural aesthetic."
+    ]
+  },
+  "camel": {
+    "visual": [
+      "An object that has large, hump-like structures on its back.",
+      "An object that possesses a thick, stocky body.",
+      "An object that has four legs, each ending in a large, flat foot.",
+      "An object that has a long, narrow face with a wide mouth.",
+      "An object that displays a light brown or beige coloration.",
+      "An object that has a distinctive, elongated snout.",
+      "An object that features a pair of small, rounded ears.",
+      "An object that has a long, thin tail.",
+      "An object that exhibits a patterned coat with darker patches."
+    ],
+    "context": [
+      "An object that is found in arid deserts and semi-desert regions.",
+      "An object typically used in transportation for long distances across vast landscapes.",
+      "An object that is found in rural areas where agriculture and livestock farming are common.",
+      "An object typically used in military operations for its endurance and ability to carry heavy loads.",
+      "An object that is found in zoos and wildlife parks designed to mimic desert environments.",
+      "An object typically used in cultural festivals and ceremonies in countries like Saudi Arabia and the United Arab Emirates.",
+      "An object that is found in research facilities studying animal behavior and adaptation to harsh climates."
+    ]
+  },
+  "can": {
+    "visual": [
+      "An object that often has a metallic sheen.",
+      "An object that may feature a pull-tab at one end for opening.",
+      "An object that commonly displays a label with text and/or images.",
+      "An object that can have varying colors depending on its material and design.",
+      "An object that might exhibit a smooth or textured surface, depending on its material.",
+      "An object that frequently has a flat bottom to stand upright.",
+      "An object that could be made of plastic, metal, or aluminum.",
+      "An object that may have a slightly curved top edge.",
+      "An object that can come in different sizes, from small to large."
+    ],
+    "context": [
+      "An object that is found in grocery stores for packaging food items.",
+      "An object typically used in recycling bins for waste sorting.",
+      "An object that is found in vending machines for storing and dispensing beverages.",
+      "An object typically used in kitchens for storing and transporting liquids.",
+      "An object that is found in parks for holding snacks during picnics.",
+      "An object typically used in offices for storing documents and supplies.",
+      "An object that is found in classrooms for containing educational materials.",
+      "An object typically used in restaurants for serving meals and drinks.",
+      "An object that is found in homes for storing pet food and water."
+    ]
+  },
+  "castle": {
+    "visual": [
+      "An object that has multiple towers and turrets.",
+      "An object that features thick stone walls.",
+      "An object that displays large, arched windows.",
+      "An object that includes a moat or dry moat around its perimeter.",
+      "An object that exhibits a prominent gatehouse.",
+      "An object that shows crenellations along the roofline.",
+      "An object that has a central keep or tower.",
+      "An object that displays battlements on the parapets.",
+      "An object that presents a symmetrical or asymmetrical layout.",
+      "An object that has a mix of different architectural styles."
+    ],
+    "context": [
+      "An object that is found in medieval European landscapes.",
+      "An object typically used in historical reenactments and film sets.",
+      "An object that is found in tourist attractions for sightseeing.",
+      "An object typically used in fantasy-themed parks and theme parks.",
+      "An object that is found in academic studies of medieval architecture.",
+      "An object typically used in military strategy games and simulations.",
+      "An object that is found in the grounds of universities and colleges.",
+      "An object typically used in the design of fortresses and defensive structures.",
+      "An object that is found in the setting of historical novels and stories."
+    ]
+  },
+  "caterpillar": {
+    "visual": [
+      "An object that has a segmented body with distinct sections.",
+      "An object that displays varying colors, often including shades of green, brown, yellow, or black.",
+      "An object that exhibits a fuzzy or hairy texture, covered in fine hairs.",
+      "An object that possesses a cylindrical or elongated shape, tapering slightly at the ends.",
+      "An object that may have small, protruding legs or prolegs along its body.",
+      "An object that can vary in size, ranging from tiny to quite large depending on the species.",
+      "An object that might have a smooth or rough surface, depending on the type of hair covering it."
+    ],
+    "context": [
+      "An object that is found in gardens and parks.",
+      "An object typically used in the life cycle of butterflies and moths.",
+      "An object that is found in forests and woodlands.",
+      "An object typically used in the diet of birds and other animals.",
+      "An object that is found in fields and meadows.",
+      "An object typically used in the process of metamorphosis for insects.",
+      "An object that is found in the leaves of plants.",
+      "An object typically used in the early stages of an insect's development.",
+      "An object that is found in the wild, often on trees and shrubs."
+    ]
+  },
+  "cattle": {
+    "visual": [
+      "An object that displays a distinctive hump over its shoulders.",
+      "An object that possesses a large head with horns in some cases.",
+      "An object that features a long, narrow snout.",
+      "An object that has a thick, fur-covered hide.",
+      "An object that exhibits a tail with a tuft at the end.",
+      "An object that has four sturdy legs supporting its weight.",
+      "An object that shows a patterned coat, often with white markings.",
+      "An object that has a broad, flat face.",
+      "An object that displays a pair of large, expressive eyes."
+    ],
+    "context": [
+      "An object that is found in rural farmlands.",
+      "An object typically used in agricultural practices for livestock management.",
+      "An object that is found in pastures and open fields.",
+      "An object typically used in ranches for grazing animals.",
+      "An object that is found in feedlots during feeding times.",
+      "An object typically used in meat production facilities for processing.",
+      "An object that is found in agricultural shows and fairs.",
+      "An object typically used in educational settings to teach about farming and animal husbandry.",
+      "An object that is found in zoos and wildlife reserves for conservation purposes.",
+      "An object typically used in the dairy industry for milk production."
+    ]
+  },
+  "chair": {
+    "visual": [
+      "An object that has four legs supporting its structure.",
+      "An object that often has a flat surface for sitting.",
+      "An object that may have a variety of colors, including red, blue, green, or brown.",
+      "An object that can have a smooth or textured surface depending on design.",
+      "An object that can vary in size, from small to large, depending on its intended use.",
+      "An object that may feature armrests for added comfort.",
+      "An object that can have a simple or complex backrest design.",
+      "An object that might include wheels for mobility."
+    ],
+    "context": [
+      "An object that is found in homes for seating.",
+      "An object typically used in offices for workstations.",
+      "An object that is found in classrooms for students' desks.",
+      "An object typically used in restaurants for dining.",
+      "An object that is found in libraries for reading areas.",
+      "An object typically used in living rooms for relaxation.",
+      "An object that is found in waiting rooms for patients.",
+      "An object typically used in conference rooms for meetings.",
+      "An object that is found in bedrooms for personal use.",
+      "An object typically used in parks for outdoor seating."
+    ]
+  },
+  "chimpanzee": {
+    "visual": [
+      "An object that has a robust, muscular body with a strong build.",
+      "An object that possesses a dark brown fur coat with lighter facial features.",
+      "An object that displays a prehensile tail used for grasping and climbing.",
+      "An object that has a large head with expressive eyes and a flat nose.",
+      "An object that exhibits a bipedal stance when walking upright.",
+      "An object that has a long arm span relative to its body size.",
+      "An object that shows a unique combination of black and white facial markings.",
+      "An object that has a distinctive, rounded face with a protruding jawline."
+    ],
+    "context": [
+      "An object that is found in dense tropical forests.",
+      "An object typically used in zoos for educational purposes.",
+      "An object that is found in natural reserves and sanctuaries.",
+      "An object typically used in research studies on primates.",
+      "An object that is found in the wild, roaming through savannas and woodland areas.",
+      "An object typically used in conservation efforts to protect endangered species.",
+      "An object that is found in captivity within research facilities for medical studies.",
+      "An object typically used in wildlife documentaries to showcase their behavior.",
+      "An object that is found in the wild, interacting with other primates in social groups."
+    ]
+  },
+  "clock": {
+    "visual": [
+      "An object that has a circular face with numbers or markings indicating time.",
+      "An object that features hands or indicators pointing to specific times.",
+      "An object that may have a rectangular or square body housing the mechanism.",
+      "An object that often includes a dial or face with hour, minute, and sometimes second hands.",
+      "An object that can display time using digital numbers or segments.",
+      "An object that might have a casing made of metal, wood, or plastic.",
+      "An object that could have a glass cover protecting the internal mechanism.",
+      "An object that may include additional features like alarms or bells."
+    ],
+    "context": [
+      "An object that is found in homes, schools, and offices.",
+      "An object typically used in public spaces like train stations and airports.",
+      "An object that is found in bedrooms, kitchens, and living rooms.",
+      "An object typically used in classrooms and meeting rooms for timekeeping.",
+      "An object that is found in hospitals and clinics for scheduling appointments.",
+      "An object typically used in factories and workshops for managing production schedules.",
+      "An object that is found in restaurants and cafes for indicating meal times.",
+      "An object typically used in sports venues for timing events and games."
+    ]
+  },
+  "cloud": {
+    "visual": [
+      "An object that appears as a collection of white or gray patches in the sky.",
+      "An object that often has a fluffy, cotton-like texture.",
+      "An object that can vary in size, from small specks to large, expansive formations.",
+      "An object that may exhibit different shapes, including round, oval, and irregular forms.",
+      "An object that can have edges that are soft and undefined, blending into the sky.",
+      "An object that might display variations in color, ranging from light to dark shades of gray.",
+      "An object that can sometimes show a gradient of colors, transitioning from one shade to another."
+    ],
+    "context": [
+      "An object that is found in the sky during daytime.",
+      "An object typically used in weather forecasting and climate studies.",
+      "An object that is found in various natural landscapes, including deserts and forests.",
+      "An object typically used in photography to create scenic backdrops.",
+      "An object that is found in the atmosphere, influencing air quality and temperature.",
+      "An object typically used in art and design for abstract representations.",
+      "An object that is found in the cloudscape, often associated with rain and storms.",
+      "An object typically used in literature and poetry to symbolize change and uncertainty."
+    ]
+  },
+  "cockroach": {
+    "visual": [
+      "An object that has a segmented body with three distinct parts: head, thorax, and abdomen.",
+      "An object that possesses six legs, each ending in a claw-like structure.",
+      "An object that typically has two antennae extending from its head.",
+      "An object that may display various colors, including brown, black, or reddish-brown, depending on the species.",
+      "An object that often has a flat, oval-shaped body.",
+      "An object that exhibits a hard exoskeleton, which can vary in texture but is generally smooth."
+    ],
+    "context": [
+      "An object that is found in dark corners of homes.",
+      "An object typically used in urban areas for scavenging food scraps.",
+      "An object that is found in decaying organic matter in forests and gardens.",
+      "An object typically used in sewers and drains for adapting to low-oxygen environments.",
+      "An object that is found in the cracks and crevices of buildings.",
+      "An object typically used in kitchens for feeding on leftover food.",
+      "An object that is found in garbage bins and trash piles.",
+      "An object typically used in farms and barns for feeding on decaying plant material."
+    ]
+  },
+  "couch": {
+    "visual": [
+      "An object that has a long, rectangular shape with rounded edges.",
+      "An object that features a soft, plush texture.",
+      "An object that often displays a variety of colors, including shades of brown, beige, or blue.",
+      "An object that includes a backrest and seat cushion for comfort.",
+      "An object that may have armrests on either side.",
+      "An object that is typically upholstered with fabric or leather.",
+      "An object that is designed to be placed against a wall or in a corner.",
+      "An object that can vary in size, from small to large, depending on its intended use."
+    ],
+    "context": [
+      "An object that is found in living rooms.",
+      "An object typically used in family gatherings.",
+      "An object that is found in bedrooms for relaxation.",
+      "An object typically used in guest rooms for comfort.",
+      "An object that is found in offices for informal meetings.",
+      "An object typically used in waiting areas for seating.",
+      "An object that is found in recreational rooms for leisure activities.",
+      "An object typically used in dormitories for students' rest.",
+      "An object that is found in common areas of hotels for guests.",
+      "An object typically used in lounges for socializing."
+    ]
+  },
+  "crab": {
+    "visual": [
+      "An object that possesses pincers.",
+      "An object that has multiple legs.",
+      "An object that displays a segmented body.",
+      "An object that often has claws.",
+      "An object that may exhibit a variety of colors, including shades of brown, red, or blue.",
+      "An object that typically has a rounded or oval-shaped body.",
+      "An object that might have a pair of eyes on top of its head.",
+      "An object that could have a tail-like appendage.",
+      "An object that usually has a hard shell covering its body.",
+      "An object that may display a patterned shell or carapace."
+    ],
+    "context": [
+      "An object typically used in seafood markets for sale.",
+      "An object that is found in sandy or rocky seabeds.",
+      "An object typically used in aquariums for marine life displays.",
+      "An object that is found in tidal zones during low tide.",
+      "An object typically used in culinary dishes as a main ingredient.",
+      "An object that is found in mangrove forests along the coastlines.",
+      "An object typically used in educational settings for biology lessons.",
+      "An object that is found in the intertidal zone during high tide.",
+      "An object typically used in beachside restaurants for fresh catches."
+    ]
+  },
+  "crocodile": {
+    "visual": [
+      "An object that has a long, robust body with a broad snout.",
+      "An object that displays a patterned skin with dark, irregular patches.",
+      "An object that possesses a powerful tail used for swimming and striking.",
+      "An object that features a pair of large, sharp teeth visible even when closed.",
+      "An object that has a thick, scaly hide covering its entire body.",
+      "An object that exhibits a streamlined shape designed for efficient movement through water.",
+      "An object that has a pair of small, round eyes positioned on the sides of its head."
+    ],
+    "context": [
+      "An object that is found in freshwater rivers and lakes.",
+      "An object typically used in zoos for educational purposes.",
+      "An object that is found in tropical and subtropical regions around the world.",
+      "An object typically used in movies and documentaries about wildlife.",
+      "An object that is found in wetlands and mangrove forests.",
+      "An object typically used in scientific research studies on reptiles.",
+      "An object that is found in the wild, often near bodies of water in Africa and Asia.",
+      "An object typically used in conservation efforts to protect endangered species."
+    ]
+  },
+  "cup": {
+    "visual": [
+      "An object that has a rounded or cylindrical shape with a handle.",
+      "An object that features a wide opening at one end and a narrower base at the other.",
+      "An object that often displays a smooth, glossy surface.",
+      "An object that may have a matte finish or a textured exterior for grip.",
+      "An object that commonly comes in various colors such as white, black, blue, or red.",
+      "An object that might have a transparent body allowing visibility of its contents.",
+      "An object that could be made of materials like ceramic, glass, plastic, or metal."
+    ],
+    "context": [
+      "An object that is found in homes for drinking beverages.",
+      "An object typically used in cafes and restaurants for serving coffee.",
+      "An object that is found in offices for taking breaks and enjoying tea.",
+      "An object typically used in kitchens for preparing hot drinks.",
+      "An object that is found in bedrooms for personal use, such as water or milk.",
+      "An object typically used in classrooms for students to drink water during lessons.",
+      "An object that is found in parks for people to enjoy outdoor drinks.",
+      "An object typically used in hospitals for patients to have fluids."
+    ]
+  },
+  "dinosaur": {
+    "visual": [
+      "An object that has a long tail and four legs.",
+      "An object that possesses a bony crest on its head.",
+      "An object that displays a pattern of scales or feathers.",
+      "An object that features a large, robust body.",
+      "An object that exhibits a variety of colors, including shades of brown, green, and blue.",
+      "An object that has a distinctively elongated neck.",
+      "An object that shows a combination of sharp teeth and claws.",
+      "An object that is characterized by a pair of wings.",
+      "An object that has a dome-shaped skull."
+    ],
+    "context": [
+      "An object that is found in prehistoric museum exhibits.",
+      "An object typically used in educational settings for teaching about ancient life forms.",
+      "An object that is found in natural history documentaries.",
+      "An object typically used in theme parks and attractions to create immersive experiences.",
+      "An object that is found in fossil collections at universities and research institutions.",
+      "An object typically used in scientific research to study evolution and paleontology.",
+      "An object that is found in children's books and educational materials about dinosaurs.",
+      "An object typically used in outdoor dinosaur-themed playgrounds and parks."
+    ]
+  },
+  "dolphin": {
+    "visual": [
+      "An object that has a streamlined, torpedo-like body for efficient swimming.",
+      "An object that possesses a pair of large, flippers for maneuvering underwater.",
+      "An object that features a dorsal fin running along its back for stability.",
+      "An object that displays a distinct head with a beak-like snout for feeding.",
+      "An object that exhibits a smooth, shiny skin surface adapted for hydrodynamics.",
+      "An object that has a pair of eyes positioned on the sides of its head for wide field of vision.",
+      "An object that shows a tail fin (caudal fin) at the rear end for propulsion."
+    ],
+    "context": [
+      "An object that is found in the open ocean, often near coastal areas.",
+      "An object typically used in marine parks for educational purposes.",
+      "An object that is found in coral reefs, providing a habitat for various species.",
+      "An object typically used in research studies to understand marine life.",
+      "An object that is found in rivers and lakes, particularly in tropical regions.",
+      "An object typically used in aquariums to entertain visitors and study behavior.",
+      "An object that is found in the Mediterranean Sea, known for its playful nature.",
+      "An object typically used in conservation efforts to protect endangered species."
+    ]
+  },
+  "elephant": {
+    "visual": [
+      "An object that has a large, rounded body with a long trunk.",
+      "An object that possesses two large ears, often shaped like fans.",
+      "An object that displays a thick, wrinkled skin texture.",
+      "An object that has a massive head with prominent tusks.",
+      "An object that exhibits a tall, curved tail.",
+      "An object that is typically grayish-brown in color.",
+      "An object that has a large, flat foot with a broad sole.",
+      "An object that shows a distinctive pattern of folds and creases on its skin.",
+      "An object that has a long, flexible trunk used for various tasks."
+    ],
+    "context": [
+      "An object that is found in savannas and grasslands.",
+      "An object typically used in zoos for educational purposes.",
+      "An object that is found in dense forests of Africa.",
+      "An object typically used in wildlife conservation efforts.",
+      "An object that is found in national parks for habitat preservation.",
+      "An object typically used in circus performances for entertainment.",
+      "An object that is found in riverbanks and floodplains for water access.",
+      "An object typically used in research studies for scientific understanding.",
+      "An object that is found in urban areas for public displays."
+    ]
+  },
+  "flatfish": {
+    "visual": [
+      "An object that has a flattened body, often appearing disc-like or oval-shaped.",
+      "An object that displays bilateral symmetry, with both eyes on one side of its body.",
+      "An object that may have a mottled or speckled pattern for camouflage.",
+      "An object that exhibits a smooth, scaleless skin texture.",
+      "An object that possesses two large, prominent eyes positioned on the same side of its head.",
+      "An object that might show a variety of colors including shades of brown, gray, or yellow.",
+      "An object that could have a wide, broad mouth opening."
+    ],
+    "context": [
+      "An object that is found in coastal waters and estuaries.",
+      "An object typically used in marine aquaculture facilities.",
+      "An object that is found in sandy or muddy seabeds.",
+      "An object typically used in commercial fishing operations.",
+      "An object that is found in the shallows near coral reefs.",
+      "An object typically used in educational settings for biology classes.",
+      "An object that is found in the depths of the ocean, particularly in cold regions.",
+      "An object typically used in culinary arts for seafood dishes.",
+      "An object that is found in the intertidal zones during low tide.",
+      "An object typically used in ornamental aquariums for aesthetic purposes."
+    ]
+  },
+  "forest": {
+    "visual": [
+      "An object that has a dense canopy covering the ground, blocking much of the sunlight.",
+      "An object that displays a variety of colors depending on the season, including greens, browns, and reds.",
+      "An object that often features a mix of different tree species, each contributing to a diverse landscape.",
+      "An object that exhibits a complex network of roots spreading out underground, anchoring the trees firmly.",
+      "An object that may include visible signs of wildlife, such as animal tracks or nests, indicating its role in biodiversity."
+    ],
+    "context": [
+      "An object that is found in dense woodland areas.",
+      "An object typically used in outdoor recreational activities like hiking and camping.",
+      "An object that is found in national parks and nature reserves.",
+      "An object typically used in wildlife conservation efforts.",
+      "An object that is found in temperate climates for ecological balance.",
+      "An object typically used in educational programs about biodiversity.",
+      "An object that is found in urban green spaces for environmental benefits.",
+      "An object typically used in restoration projects for degraded landscapes.",
+      "An object that is found in remote wilderness regions for survival purposes.",
+      "An object typically used in research studies on ecosystem health."
+    ]
+  },
+  "fox": {
+    "visual": [
+      "An object that has a pointed snout and large, upright ears.",
+      "An object that displays a coat with a mix of reddish-brown, white, and black fur patterns.",
+      "An object that possesses a slender body with a bushy tail.",
+      "An object that exhibits a compact head with a pointed nose.",
+      "An object that has a thick, fluffy coat for insulation.",
+      "An object that features a long, tapering tail with a tufted tip.",
+      "An object that shows a facial mask with dark markings around the eyes.",
+      "An object that has a robust build with strong legs adapted for running."
+    ],
+    "context": [
+      "An object that is found in forests and woodlands.",
+      "An object typically used in rural areas for hunting small mammals.",
+      "An object that is found in grasslands and savannas.",
+      "An object typically used in urban parks for wildlife observation.",
+      "An object that is found in suburban gardens, often as a pet.",
+      "An object typically used in zoos for educational purposes.",
+      "An object that is found in mountainous regions, adapting to high altitudes.",
+      "An object typically used in agricultural fields for pest control.",
+      "An object that is found in wetlands and marshes, particularly in North America."
+    ]
+  },
+  "girl": {
+    "visual": [
+      "An object that has a distinct silhouette often associated with human form.",
+      "An object that displays features such as hair, clothing, and accessories.",
+      "An object that may exhibit facial features like eyes, nose, and mouth.",
+      "An object that can have varying skin tones and expressions.",
+      "An object that might wear makeup or jewelry, adding to its visual complexity.",
+      "An object that could be adorned with clothing items like dresses, skirts, or tops.",
+      "An object that might carry personal items such as bags or purses.",
+      "An object that can display posture and stance, contributing to its overall appearance."
+    ],
+    "context": [
+      "An object that is found in schools and classrooms.",
+      "An object typically used in homes for personal care routines.",
+      "An object that is found in parks and playgrounds during outdoor activities.",
+      "An object typically used in hospitals for medical examinations.",
+      "An object that is found in bedrooms for sleeping and relaxation.",
+      "An object typically used in offices for professional communication.",
+      "An object that is found in libraries for educational purposes.",
+      "An object typically used in sports fields for athletic training.",
+      "An object that is found in gardens for gardening activities.",
+      "An object typically used in restaurants for dining experiences."
+    ]
+  },
+  "hamster": {
+    "visual": [
+      "An object that has a small, rounded body.",
+      "An object that possesses a short, stubby tail.",
+      "An object that displays fur covering its entire body.",
+      "An object that has small, round ears.",
+      "An object that features a pair of tiny, dark eyes.",
+      "An object that exhibits a compact, cylindrical shape.",
+      "An object that has a short, sturdy snout.",
+      "An object that shows a combination of soft, fluffy fur textures.",
+      "An object that may have a mix of colors including shades of brown, gray, or white."
+    ],
+    "context": [
+      "An object that is found in pet stores.",
+      "An object typically used in homes for companionship.",
+      "An object that is found in small enclosures designed for pets.",
+      "An object typically used in educational settings to teach about animals.",
+      "An object that is found in zoos for educational and conservation purposes.",
+      "An object typically used in research facilities for behavioral studies.",
+      "An object that is found in parks during outdoor events where pets are allowed.",
+      "An object typically used in veterinary clinics for examinations and treatments.",
+      "An object that is found in residential gardens for outdoor play areas.",
+      "An object typically used in schools for science projects involving small mammals."
+    ]
+  },
+  "house": {
+    "visual": [
+      "An object that has a rectangular or square outline with multiple sides.",
+      "An object that features windows and doors for entry and light.",
+      "An object that displays a roof covering its upper part.",
+      "An object that often includes chimneys for ventilation or heating.",
+      "An object that may have various colors depending on materials and paint.",
+      "An object that shows a facade with siding, brick, or stucco textures.",
+      "An object that typically has a foundation supporting its structure.",
+      "An object that may include a yard or garden area surrounding it."
+    ],
+    "context": [
+      "An object that is found in residential neighborhoods.",
+      "An object typically used in family homes for living and sleeping quarters.",
+      "An object that is found in suburban areas for private living spaces.",
+      "An object typically used in urban settings as part of a community.",
+      "An object that is found in rural areas for isolated living situations.",
+      "An object typically used in vacation spots for temporary stays.",
+      "An object that is found in historical districts for preserving architectural heritage.",
+      "An object typically used in schools and universities for educational purposes.",
+      "An object that is found in military bases for housing personnel."
+    ]
+  },
+  "kangaroo": {
+    "visual": [
+      "An object that possesses a long, prehensile tail.",
+      "An object that displays a distinctive, boxy head with a small snout.",
+      "An object that features a robust body with powerful hind legs adapted for hopping.",
+      "An object that exhibits a coat of fur ranging from light brown to reddish-brown.",
+      "An object that has a unique, hump-like structure on its back.",
+      "An object that shows a pair of large, forward-facing eyes.",
+      "An object that has a broad, flat tail used for balance during hopping.",
+      "An object that displays a strong, curved jawline."
+    ],
+    "context": [
+      "An object that is found in grasslands and savannas.",
+      "An object typically used in wildlife reserves and zoos.",
+      "An object that is found in natural habitats such as Australia's outback.",
+      "An object typically used in educational settings for biology lessons.",
+      "An object that is found in parks and urban areas for conservation efforts.",
+      "An object typically used in documentaries about Australian wildlife.",
+      "An object that is found in rural areas for agricultural purposes, though not commonly.",
+      "An object typically used in sports, particularly in袋鼠跳 (kangaroo hop) competitions."
+    ]
+  },
+  "keyboard": {
+    "visual": [
+      "An object that features a variety of colored keys arranged in rows.",
+      "An object that displays a distinct layout of keys, often including a QWERTY pattern.",
+      "An object that may have a glossy or matte finish depending on its material.",
+      "An object that shows a consistent spacing between keys for ergonomic use.",
+      "An object that might include additional features like a numeric keypad or function keys.",
+      "An object that could have a backlit design for visibility in low-light conditions.",
+      "An object that may feature a wrist rest or palm rest for comfort during use."
+    ],
+    "context": [
+      "An object that is found in offices, providing a workspace for typing and data entry.",
+      "An object typically used in homes, facilitating communication through computers and smartphones.",
+      "An object that is found in schools, essential for students learning to type and use computers.",
+      "An object typically used in cafes, allowing patrons to work remotely while enjoying their beverages.",
+      "An object that is found in libraries, supporting researchers and students in their studies.",
+      "An object typically used in gaming rooms, enabling players to control games through input devices.",
+      "An object that is found in bedrooms, serving as a tool for writing emails and managing personal schedules."
+    ]
+  },
+  "lamp": {
+    "visual": [
+      "An object that has a distinct light source, often emitting a glow.",
+      "An object that may have a bulb or filament visible within its body.",
+      "An object that can vary in shape, from cylindrical to spherical, depending on design.",
+      "An object that typically features a base for stability, which can be round, square, or another geometric form.",
+      "An object that may display a variety of colors, including white, yellow, red, or blue, depending on the type of light emitted.",
+      "An object that can have a glossy or matte finish, affecting how light reflects off its surface."
+    ],
+    "context": [
+      "An object that is found in bedrooms for providing light and creating a cozy atmosphere.",
+      "An object typically used in offices to enhance visibility and comfort during work hours.",
+      "An object that is found in living rooms to illuminate spaces and add aesthetic appeal.",
+      "An object typically used in dining areas to set a warm ambiance for meals.",
+      "An object that is found in study rooms to aid in reading and studying by providing focused lighting.",
+      "An object typically used in hallways to guide people through spaces and ensure safety.",
+      "An object that is found in bathrooms to provide illumination while using the facilities."
+    ]
+  },
+  "lawn mower": {
+    "visual": [
+      "An object that features a rotating deck with blades.",
+      "An object that displays a pattern of wheels for mobility.",
+      "An object that often has a grass catcher attached at the back.",
+      "An object that may include a fuel tank visible on its side.",
+      "An object that frequently has a seat for the operator.",
+      "An object that might have a safety guard over the blades.",
+      "An object that could show a control panel with buttons or levers.",
+      "An object that typically has a storage compartment for tools or accessories.",
+      "An object that may display a logo or brand name on its body."
+    ],
+    "context": [
+      "An object that is found in residential gardens.",
+      "An object typically used in suburban neighborhoods for maintaining lawns.",
+      "An object that is found in community parks for keeping grass trimmed.",
+      "An object typically used in commercial landscapes to maintain grounds.",
+      "An object that is found in private estates for landscaping purposes.",
+      "An object typically used in agricultural fields for crop management.",
+      "An object that is found in public spaces like schools and universities for groundskeeping.",
+      "An object typically used in golf courses for maintaining fairways and greens.",
+      "An object that is found in backyard settings for personal use.",
+      "An object typically used in sports fields for regular mowing and maintenance."
+    ]
+  },
+  "leopard": {
+    "visual": [
+      "An object that has a distinctive spotted coat pattern.",
+      "An object that displays a mix of black spots on a tawny background.",
+      "An object that features rosettes, which are circular patterns with a raised center.",
+      "An object that possesses a robust, muscular body structure.",
+      "An object that exhibits a long tail with a tufted tip.",
+      "An object that has large, rounded ears with a tuft of hair at the base.",
+      "An object that shows a slender, elongated snout.",
+      "An object that has a short, dense coat with a slightly glossy sheen."
+    ],
+    "context": [
+      "An object that is found in dense forests and grasslands.",
+      "An object typically used in wildlife reserves and national parks.",
+      "An object that is found in savannas and woodland areas.",
+      "An object typically used in zoos for educational purposes.",
+      "An object that is found in remote regions of Africa and Asia.",
+      "An object typically used in hunting and tracking activities by humans.",
+      "An object that is found in areas with a mix of trees and open spaces.",
+      "An object typically used in conservation efforts to protect endangered species.",
+      "An object that is found in areas with a high concentration of prey animals."
+    ]
+  },
+  "lion": {
+    "visual": [
+      "An object that has a large, muscular body with a mane around its neck.",
+      "An object that displays a tawny coat with dark rosettes.",
+      "An object that possesses a broad head with a short muzzle.",
+      "An object that features a pair of powerful legs ending in large paws.",
+      "An object that has a long tail with tufted ends.",
+      "An object that exhibits a distinctive facial expression with a wide mouth and prominent teeth.",
+      "An object that has a thick, shaggy mane on males, which is absent in females."
+    ],
+    "context": [
+      "An object that is found in savannas and grasslands across Africa.",
+      "An object typically used in wildlife documentaries and nature reserves.",
+      "An object that is found in zoos for educational purposes.",
+      "An object typically used in African safari tours.",
+      "An object that is found in national parks protecting endangered species.",
+      "An object typically used in conservation efforts to study animal behavior.",
+      "An object that is found in the wild during hunting seasons.",
+      "An object typically used in literature and art to symbolize strength and courage."
+    ]
+  },
+  "lizard": {
+    "visual": [
+      "An object that possesses a long tail.",
+      "An object that has two pairs of limbs.",
+      "An object that typically has a pointed snout.",
+      "An object that often displays vibrant colors.",
+      "An object that may have patterns or stripes.",
+      "An object that usually has a forked tongue.",
+      "An object that can vary in size from small to large.",
+      "An object that might have a bumpy or smooth surface.",
+      "An object that can change color depending on its environment or mood.",
+      "An object that possesses a long tail."
+    ],
+    "context": [
+      "An object that is found in tropical rainforests.",
+      "An object typically used in reptile exhibits at zoos.",
+      "An object that is found in arid deserts.",
+      "An object typically used in educational settings for biology lessons.",
+      "An object that is found in grasslands and savannas.",
+      "An object typically used in pet stores for sale.",
+      "An object that is found in rocky mountainous areas.",
+      "An object typically used in outdoor nature walks for observation.",
+      "An object that is found in coastal regions near beaches.",
+      "An object typically used in scientific research studies."
+    ]
+  },
+  "lobster": {
+    "visual": [
+      "An object that has a segmented body with a hard exoskeleton.",
+      "An object that displays a coloration ranging from reddish-brown to orange.",
+      "An object that features large pincers at the front of its body.",
+      "An object that possesses long antennae extending from its head.",
+      "An object that has a tail with a curved shape, often ending in a fan-like structure.",
+      "An object that exhibits a series of claws along its legs for gripping.",
+      "An object that has a pair of eyes located on top of its head."
+    ],
+    "context": [
+      "An object that is found in coastal waters and rocky reefs.",
+      "An object typically used in seafood restaurants for its culinary appeal.",
+      "An object that is found in aquariums for marine life enthusiasts.",
+      "An object typically used in fishing competitions as a prized catch.",
+      "An object that is found in the wild during its natural habitat, which includes oceanic regions.",
+      "An object typically used in scientific research for studying marine ecosystems.",
+      "An object that is found in seafood markets for sale to consumers.",
+      "An object typically used in home cooking for its distinctive flavor and texture.",
+      "An object that is found in the wild during its migratory patterns across different oceanic zones."
+    ]
+  },
+  "man": {
+    "visual": [
+      "An object that has two arms and legs.",
+      "An object that typically has a head with facial features.",
+      "An object that often has hair covering the head.",
+      "An object that usually has a torso with shoulders.",
+      "An object that may have a visible chest area.",
+      "An object that commonly has a waistline.",
+      "An object that generally has a pair of buttocks.",
+      "An object that frequently has a pair of feet.",
+      "An object that may display clothing covering various parts of the body.",
+      "An object that can show a variety of skin tones and textures."
+    ],
+    "context": [
+      "An object that is found in urban parks for recreational activities.",
+      "An object typically used in construction sites for lifting heavy materials.",
+      "An object that is found in educational settings for teaching and learning.",
+      "An object typically used in medical facilities for patient care and treatment.",
+      "An object that is found in residential homes for personal use and comfort.",
+      "An object typically used in offices for communication and organization.",
+      "An object that is found in industrial plants for manufacturing processes.",
+      "An object typically used in sports arenas for competitive events.",
+      "An object that is found in libraries for storing and accessing information."
+    ]
+  },
+  "maple tree": {
+    "visual": [
+      "An object that displays a characteristic reddish-brown bark pattern.",
+      "An object that features a tall, slender trunk with a narrow canopy.",
+      "An object that shows a symmetrical, rounded crown when mature.",
+      "An object that exhibits smooth, light-colored bark on younger trees.",
+      "An object that has a strong, upright growth habit.",
+      "An object that often has a taproot system.",
+      "An object that may display a range of colors in its leaves during autumn.",
+      "An object that typically has a smooth, light-colored trunk in its early stages."
+    ],
+    "context": [
+      "An object that is found in deciduous forests across North America and Europe.",
+      "An object typically used in parks and gardens for its aesthetic appeal and shade.",
+      "An object that is found in urban landscapes, often planted along streets and in public spaces.",
+      "An object typically used in wood products such as furniture and flooring due to its strength and beauty.",
+      "An object that is found in natural reserves and national parks, contributing to biodiversity.",
+      "An object typically used in landscaping for its ability to attract wildlife and provide habitat."
+    ]
+  },
+  "motorcycle": {
+    "visual": [
+      "An object that has two wheels, often with a seat and handlebars.",
+      "An object that features a frame connecting the wheels and engine.",
+      "An object that may have a windshield for protection against wind.",
+      "An object that commonly includes a headlight at the front.",
+      "An object that might have a rearview mirror for visibility behind.",
+      "An object that could display a license plate at the back.",
+      "An object that may have foot pegs for the rider's feet.",
+      "An object that can vary in size, from small scooters to large touring bikes."
+    ],
+    "context": [
+      "An object that is found in urban streets for commuting.",
+      "An object typically used in rural areas for transportation.",
+      "An object that is found in mountainous regions for off-road adventures.",
+      "An object typically used in racing circuits for high-speed competitions.",
+      "An object that is found in parks and recreational areas for leisure rides.",
+      "An object typically used in police departments for law enforcement purposes.",
+      "An object that is found in desert landscapes for long-distance travel.",
+      "An object typically used in military operations for mobility.",
+      "An object that is found in city centers for delivery services."
+    ]
+  },
+  "mountain": {
+    "visual": [
+      "An object that displays a range of colors, often including shades of green, brown, and gray.",
+      "An object that exhibits a layered structure, resembling stratified rock formations.",
+      "An object that may have peaks and valleys, creating a three-dimensional silhouette.",
+      "An object that can show signs of erosion, such as crevices and ridges.",
+      "An object that might have a mix of smooth and rough textures, depending on its composition.",
+      "An object that can vary in height, with some parts appearing taller than others."
+    ],
+    "context": [
+      "An object that is found in high-altitude regions.",
+      "An object typically used in hiking and mountaineering expeditions.",
+      "An object that is found in national parks and nature reserves.",
+      "An object typically used in geological studies and research.",
+      "An object that is found in remote wilderness areas.",
+      "An object typically used in outdoor adventure sports like skiing and climbing.",
+      "An object that is found in mountainous terrain for recreational purposes.",
+      "An object typically used in military operations in rugged terrains.",
+      "An object that is found in scenic overlooks and viewpoints."
+    ]
+  },
+  "mouse": {
+    "visual": [
+      "An object that has a rounded body with a distinct head and tail.",
+      "An object that features two small, round ears and a pair of eyes.",
+      "An object that possesses a long, slender tail.",
+      "An object that displays a soft, fur-like texture.",
+      "An object that often has a light brown or grayish coloration.",
+      "An object that may have a white underside.",
+      "An object that typically has four small, delicate legs.",
+      "An object that is usually seen in environments like homes, offices, or computer desks."
+    ],
+    "context": [
+      "An object that is found in computer workstations and offices.",
+      "An object typically used in video games for precise control.",
+      "An object that is found in libraries and study areas for browsing books.",
+      "An object typically used in classrooms for interactive learning activities.",
+      "An object that is found in homes for personal computing tasks.",
+      "An object typically used in research labs for data input and analysis.",
+      "An object that is found in gaming cafes for competitive play sessions.",
+      "An object typically used in home entertainment systems for media navigation.",
+      "An object that is found in educational institutions for teaching purposes."
+    ]
+  },
+  "mushroom": {
+    "visual": [
+      "An object that may have gills underneath its cap.",
+      "An object that could display a variety of colors including white, brown, yellow, or red.",
+      "An object that might have a smooth or bumpy texture on its surface.",
+      "An object that can vary in size, from small to large, depending on species.",
+      "An object that may have a stem that supports the cap above the ground.",
+      "An object that can sometimes have a ring around the stem near the base.",
+      "An object that might have a skirt-like structure at the bottom of the stem."
+    ],
+    "context": [
+      "An object that is found in forest floors, providing sustenance for various wildlife.",
+      "An object typically used in culinary dishes, enhancing the flavor profile of many meals.",
+      "An object that is found in gardens, often serving as a decorative element in landscaping.",
+      "An object typically used in traditional medicine, believed to have healing properties in some cultures.",
+      "An object that is found in compost piles, playing a crucial role in decomposition and nutrient cycling.",
+      "An object typically used in gardening, as a natural fertilizer source for plants.",
+      "An object that is found in wetlands, contributing to the biodiversity of these ecosystems."
+    ]
+  },
+  "oak tree": {
+    "visual": [
+      "An object that displays a bark with deep furrows and ridges.",
+      "An object that features leaves with lobed edges and a green coloration.",
+      "An object that exhibits a trunk with a rough, scaly texture.",
+      "An object that shows acorns attached to its branches.",
+      "An object that has a sturdy, upright growth habit.",
+      "An object that often grows in clusters of trees in forests.",
+      "An object that may have a mix of deciduous and evergreen varieties.",
+      "An object that can vary in height from small shrubs to large trees."
+    ],
+    "context": [
+      "An object that is found in forests and woodlands across temperate regions.",
+      "An object typically used in landscaping for parks and gardens due to its aesthetic appeal and shade-providing qualities.",
+      "An object that is found in rural areas, often serving as a focal point in open spaces like meadows and clearings.",
+      "An object typically used in construction for its durability and strength, particularly in building houses and furniture.",
+      "An object that is found in urban settings, especially in public spaces such as city squares and along streets, enhancing the environment's natural beauty."
+    ]
+  },
+  "orange": {
+    "visual": [
+      "An object that has a bright, warm hue resembling the color of ripe citrus fruits.",
+      "An object that displays a smooth, glossy surface, often reflecting light.",
+      "An object that may have slight variations in shade, ranging from deep orange to lighter hues.",
+      "An object that can exhibit a subtle gradient of color, darker at the top and lighter towards the bottom.",
+      "An object that might show small imperfections or blemishes, typical of natural fruit.",
+      "An object that could have a slightly irregular, rounded shape, sometimes with slight indentations or protrusions."
+    ],
+    "context": [
+      "An object that is found in fruit markets and grocery stores.",
+      "An object typically used in cooking for its sweet flavor.",
+      "An object that is found in citrus groves and orchards.",
+      "An object typically used in beverages like orange juice.",
+      "An object that is found in children's play areas due to its bright color.",
+      "An object typically used in skincare products for its vitamin C content.",
+      "An object that is found in parks and gardens as a decorative element.",
+      "An object typically used in art and crafts for its vibrant hue.",
+      "An object that is found in tropical regions where it thrives naturally."
+    ]
+  },
+  "orchid": {
+    "visual": [
+      "An object that has a distinctive, often intricate petal arrangement.",
+      "An object that displays a wide range of colors, including vibrant hues and patterns.",
+      "An object that features a unique combination of smooth and textured surfaces.",
+      "An object that exhibits a complex, layered structure with visible veins or ridges.",
+      "An object that may have a glossy or matte finish depending on its species.",
+      "An object that can vary in size, from small and delicate to large and showy.",
+      "An object that often has a symmetrical or asymmetrical shape, depending on the species."
+    ],
+    "context": [
+      "An object that is found in tropical rainforests.",
+      "An object typically used in floral arrangements.",
+      "An object that is found in botanical gardens.",
+      "An object typically used in home decor.",
+      "An object that is found in humid terrariums.",
+      "An object typically used in wedding decorations.",
+      "An object that is found in high-altitude mountainous regions.",
+      "An object typically used in landscaping for its aesthetic appeal.",
+      "An object that is found in greenhouses.",
+      "An object typically used in scientific research due to its unique characteristics."
+    ]
+  },
+  "otter": {
+    "visual": [
+      "An object that has a streamlined body designed for swimming.",
+      "An object that possesses a dense, water-repellent fur coat.",
+      "An object that displays a distinctive black and white coloration.",
+      "An object that features webbed feet adapted for aquatic movement.",
+      "An object that exhibits a long, slender tail used for steering and balance.",
+      "An object that has small, rounded ears partially hidden by fur.",
+      "An object that shows a compact head with a short snout.",
+      "An object that displays a robust, muscular build optimized for underwater activity."
+    ],
+    "context": [
+      "An object that is found in freshwater streams and rivers.",
+      "An object typically used in coastal areas for hunting fish.",
+      "An object that is found in wetlands and marshes.",
+      "An object typically used in marine environments for swimming and diving.",
+      "An object that is found in ponds and lakes.",
+      "An object typically used in parks and zoos for educational purposes.",
+      "An object that is found in rocky shorelines.",
+      "An object typically used in aquariums for display and conservation efforts.",
+      "An object that is found in freshwater streams and rivers.",
+      "An object typically used in coastal areas for hunting fish."
+    ]
+  },
+  "palm tree": {
+    "visual": [
+      "An object that has a tall, slender trunk with a broad, fan-like canopy of leaves.",
+      "An object that displays a distinctive, symmetrical crown of fronds radiating outward from a central point.",
+      "An object that features a smooth, often grayish-brown bark that peels off in long strips.",
+      "An object that exhibits large, leathery leaves that are typically green but can vary in color depending on species.",
+      "An object that has a robust, woody trunk that can grow quite thick, especially in tropical environments."
+    ],
+    "context": [
+      "An object that is found in tropical and subtropical coastal regions.",
+      "An object typically used in landscaping for creating a lush, exotic look.",
+      "An object that is found in botanical gardens showcasing diverse plant life.",
+      "An object typically used in beachside resorts to enhance the tropical ambiance.",
+      "An object that is found in urban parks providing shade and aesthetic appeal.",
+      "An object typically used in desert oases to provide a touch of greenery.",
+      "An object that is found in rainforests contributing to biodiversity.",
+      "An object typically used in decorative settings for its unique shape and texture."
+    ]
+  },
+  "pear": {
+    "visual": [
+      "An object that has a rounded, slightly elongated shape with a slight indentation at one end.",
+      "An object that displays a smooth, glossy surface with a mix of green and yellow hues depending on ripeness.",
+      "An object that features a short stem attached near its narrower end.",
+      "An object that exhibits a bumpy or slightly rough texture on its skin.",
+      "An object that has a symmetrical structure with a broad base tapering towards the narrower end.",
+      "An object that shows a distinct core cavity when cut open, containing seeds."
+    ],
+    "context": [
+      "An object that is found in fruit markets and grocery stores.",
+      "An object typically used in baking, particularly in pies and cakes.",
+      "An object that is found in orchards during the harvest season.",
+      "An object typically used in salads for a sweet and tangy flavor.",
+      "An object that is found in home gardens, especially in temperate climates.",
+      "An object typically used in desserts like sorbets and jams.",
+      "An object that is found in fruit baskets as a fresh snack.",
+      "An object typically used in cooking to add sweetness to various dishes."
+    ]
+  },
+  "pickup truck": {
+    "visual": [
+      "An object that has a boxy, elongated body with a flat bed at the rear.",
+      "An object that features a prominent front grille and large headlights.",
+      "An object that often includes a hood scoop for improved engine cooling.",
+      "An object that may have a raised suspension for better ground clearance.",
+      "An object that frequently displays a chrome bumper and side mirrors.",
+      "An object that can have a variety of colors including red, blue, white, or black.",
+      "An object that might show signs of wear such as scratches or dents."
+    ],
+    "context": [
+      "An object that is found in rural areas for transporting goods and materials.",
+      "An object typically used in construction sites for hauling equipment.",
+      "An object that is found in agricultural regions for farming activities.",
+      "An object typically used in off-road adventures for exploring rugged terrains.",
+      "An object that is found in suburban neighborhoods for personal use and family outings.",
+      "An object typically used in landscaping projects for moving soil and plants.",
+      "An object that is found in recreational parks for park maintenance tasks.",
+      "An object typically used in mining operations for transporting heavy loads."
+    ]
+  },
+  "pine tree": {
+    "visual": [
+      "An object that displays a mix of green and brown needles.",
+      "An object that features a thick, rough bark texture.",
+      "An object that has a symmetrical, tiered branching pattern.",
+      "An object that shows a series of overlapping scales on its cones.",
+      "An object that exhibits a tall, slender trunk with a flared base.",
+      "An object that has a dense canopy of foliage at the top.",
+      "An object that presents a distinctive, layered look in its trunk's cross-section.",
+      "An object that often has a reddish-brown trunk with white patches."
+    ],
+    "context": [
+      "An object that is found in dense forests across North America and Europe.",
+      "An object typically used in construction for its strong, durable wood.",
+      "An object that is found in parks and gardens for landscaping purposes.",
+      "An object typically used in paper production due to its high cellulose content.",
+      "An object that is found in mountainous regions providing habitat for various wildlife species.",
+      "An object typically used in firewood for its ability to burn efficiently.",
+      "An object that is found in coastal areas, often used in coastal erosion control.",
+      "An object typically used in the creation of furniture due to its aesthetic appeal and strength."
+    ]
+  },
+  "plain": {
+    "visual": [
+      "An object that has a smooth surface without any visible patterns.",
+      "An object that displays a uniform color across its entire surface.",
+      "An object that lacks any distinct protrusions or indentations.",
+      "An object that appears to have a consistent thickness throughout.",
+      "An object that shows no variation in its texture.",
+      "An object that does not exhibit any reflective properties.",
+      "An object that maintains a constant size and shape without any irregularities.",
+      "An object that does not display any signs of wear or damage.",
+      "An object that presents a clean and unblemished appearance."
+    ],
+    "context": [
+      "An object that is found in rural areas for agricultural purposes.",
+      "An object typically used in sports for athletic activities.",
+      "An object that is found in urban parks for recreational use.",
+      "An object typically used in classrooms for educational materials.",
+      "An object that is found in homes for personal grooming routines.",
+      "An object typically used in offices for administrative tasks.",
+      "An object that is found in hospitals for medical procedures.",
+      "An object typically used in kitchens for food preparation.",
+      "An object that is found in gardens for landscaping and decoration.",
+      "An object typically used in theaters for stage performances."
+    ]
+  },
+  "plate": {
+    "visual": [
+      "An object that often has a raised rim around its edge.",
+      "An object that may feature a glossy or matte finish depending on the material.",
+      "An object that can come in various colors including white, blue, green, or red.",
+      "An object that might have a smooth texture or a slightly rougher surface for grip.",
+      "An object that can display intricate patterns, designs, or simple solid colors.",
+      "An object that can vary in size, ranging from small plates for individual servings to large ones for sharing.",
+      "An object that may have a reflective quality if made of glass or ceramic."
+    ],
+    "context": [
+      "An object that is found in dining rooms.",
+      "An object typically used in restaurants for serving food.",
+      "An object that is found in kitchens for preparing meals.",
+      "An object typically used in cafes for presenting beverages.",
+      "An object that is found in picnic areas for outdoor eating.",
+      "An object typically used in homes for family gatherings.",
+      "An object that is found in school cafeterias for lunchtime meals.",
+      "An object typically used in hotels for breakfast service.",
+      "An object that is found in office break rooms for casual meals.",
+      "An object typically used in bakeries for displaying pastries."
+    ]
+  },
+  "poppy": {
+    "visual": [
+      "An object that has a distinctive, rounded, cup-like shape with petals radiating outward.",
+      "An object that displays vibrant colors ranging from deep reds to bright yellows, often with black centers.",
+      "An object that exhibits a soft, velvety texture, especially noticeable on its petals.",
+      "An object that features a central dome-like structure surrounded by petal-like appendages.",
+      "An object that is typically found in clusters, with each individual bloom standing out due to its unique form and coloration.",
+      "An object that may have a slight sheen or glossiness on its surface, particularly on the petals."
+    ],
+    "context": [
+      "An object that is found in gardens and parks for decorative purposes.",
+      "An object typically used in remembrance ceremonies due to its association with fallen soldiers.",
+      "An object that is found in wildflower meadows and along roadsides, thriving in natural habitats.",
+      "An object typically used in floral arrangements for its vibrant colors and delicate petals.",
+      "An object that is found in agricultural fields, often cultivated for its seeds which are used in various products like opium and papaverine.",
+      "An object typically used in traditional medicine for its pain-relieving properties."
+    ]
+  },
+  "porcupine": {
+    "visual": [
+      "An object that has a rounded body covered in quills.",
+      "An object that displays a mix of brown and black colors.",
+      "An object that exhibits a spiky texture due to its quills.",
+      "An object that possesses a robust, sturdy build typical of rodents.",
+      "An object that has a distinctive tail that may be bushy or thin.",
+      "An object that often appears in natural settings like forests or grasslands.",
+      "An object that is typically seen on the ground or near trees.",
+      "An object that might have a slightly lighter underbelly compared to its back."
+    ],
+    "context": [
+      "An object that is found in dense forests and grasslands across North America.",
+      "An object typically used in burrows for shelter by digging into the ground.",
+      "An object that is found in areas with abundant food sources like fruits, nuts, and seeds.",
+      "An object typically used in regions with seasonal changes, adapting its diet accordingly.",
+      "An object that is found in areas with little human interference, allowing it to thrive naturally.",
+      "An object typically used in the wild, avoiding predators by using quills for defense.",
+      "An object that is found in habitats with diverse vegetation, providing it with varied food options."
+    ]
+  },
+  "possum": {
+    "visual": [
+      "An object that has a rounded body with a somewhat elongated snout.",
+      "An object that displays a mix of brown and gray fur, often with a lighter underbelly.",
+      "An object that possesses a prehensile tail which is usually bushy and longer than its body.",
+      "An object that features small, dark eyes and a pointed nose.",
+      "An object that exhibits a compact, sturdy build with short legs.",
+      "An object that has a distinctive, somewhat flattened head with a slightly upturned muzzle.",
+      "An object that may have visible whiskers around its mouth area."
+    ],
+    "context": [
+      "An object that is found in urban areas, often in parks and gardens.",
+      "An object typically used in rural settings, particularly in forests and woodlands.",
+      "An object that is found in suburban neighborhoods, often near residential homes.",
+      "An object typically used in agricultural regions, commonly seen in fields and orchards.",
+      "An object that is found in natural reserves and national parks, providing habitat for wildlife.",
+      "An object typically used in backyards, where it may be attracted by bird feeders or fruit trees.",
+      "An object that is found in urban wildlife sanctuaries, designed to protect and study local fauna."
+    ]
+  },
+  "rabbit": {
+    "visual": [
+      "An object that has two long ears standing upright.",
+      "An object that possesses a rounded body with a short tail.",
+      "An object that displays fur with varying shades, often white, brown, or gray.",
+      "An object that has small, round eyes positioned on the sides of its head.",
+      "An object that exhibits four short legs with small hooves.",
+      "An object that has a compact, oval-shaped face with a small snout.",
+      "An object that may have a distinctive white stripe down the middle of its back.",
+      "An object that shows a patterned coat, sometimes with spots or stripes."
+    ],
+    "context": [
+      "An object that is found in grassy fields and meadows.",
+      "An object typically used in pet stores for domesticated animals.",
+      "An object that is found in rural areas with abundant vegetation.",
+      "An object typically used in educational settings for biology lessons.",
+      "An object that is found in zoos and wildlife reserves for conservation efforts.",
+      "An object typically used in agricultural settings for pest control.",
+      "An object that is found in suburban gardens as a common pet.",
+      "An object typically used in literature and art as a symbol of innocence and fertility."
+    ]
+  },
+  "raccoon": {
+    "visual": [
+      "An object that has a distinctive mask-like marking around its eyes.",
+      "An object that features a bushy tail with rings.",
+      "An object that displays a coat with a mix of black and gray fur.",
+      "An object that exhibits a stocky body with a short snout.",
+      "An object that has a face with a combination of white and black fur.",
+      "An object that shows a pattern of stripes on its legs.",
+      "An object that has a rounded head with a pointed nose.",
+      "An object that displays a ringed tail with alternating dark and light bands."
+    ],
+    "context": [
+      "An object that is found in urban areas, often scavenging for food in trash bins.",
+      "An object typically used in forested regions, where it forages for berries and nuts.",
+      "An object that is found in parks, particularly in areas with ample vegetation and water sources.",
+      "An object typically used in suburban neighborhoods, where it may be seen near residential backyards.",
+      "An object that is found in wetlands, where it hunts for fish and crayfish.",
+      "An object typically used in zoos, where it is kept in enclosures designed to mimic its natural habitat."
+    ]
+  },
+  "ray": {
+    "visual": [
+      "An object that appears as a thin, elongated shape, often straight or slightly curved.",
+      "An object that may have a uniform or gradient color, ranging from light to dark.",
+      "An object that might exhibit a smooth surface texture, without visible bumps or roughness.",
+      "An object that could have a solid structure, appearing dense and unbroken.",
+      "An object that may show a consistent width along its length, without tapering significantly.",
+      "An object that could be seen in various environments, from natural landscapes to urban settings."
+    ],
+    "context": [
+      "An object that is found in coastal areas and beaches.",
+      "An object typically used in medical imaging for diagnostic purposes.",
+      "An object that is found in underwater environments for navigation and exploration.",
+      "An object typically used in sports for competitive swimming events.",
+      "An object that is found in urban parks and recreational areas for entertainment.",
+      "An object typically used in construction for measuring distances accurately.",
+      "An object that is found in natural water bodies for aquatic life.",
+      "An object typically used in photography for capturing images of light patterns.",
+      "An object that is found in educational settings for teaching about light and optics.",
+      "An object typically used in entertainment for creating special effects in movies."
+    ]
+  },
+  "road": {
+    "visual": [
+      "An object that has a linear, elongated shape extending across the landscape.",
+      "An object that displays a variety of colors, often including shades of gray, brown, and green depending on the surroundings.",
+      "An object that exhibits a smooth surface texture, though this may vary slightly due to wear and tear.",
+      "An object that features a distinct pattern of lines and markings, indicative of its purpose for vehicle travel.",
+      "An object that is typically bordered by curbs, sidewalks, and sometimes trees or buildings.",
+      "An object that shows signs of wear through cracks, potholes, or patches, especially in older roads."
+    ],
+    "context": [
+      "An object that is found in urban areas for transportation.",
+      "An object typically used in rural settings for connecting villages.",
+      "An object that is found in tourist destinations for sightseeing routes.",
+      "An object typically used in industrial zones for logistics and delivery.",
+      "An object that is found in national parks for recreational trails.",
+      "An object typically used in agricultural regions for farm access.",
+      "An object that is found in residential neighborhoods for local streets.",
+      "An object typically used in military operations for troop movements.",
+      "An object that is found in school campuses for student transportation.",
+      "An object typically used in sports facilities for track events."
+    ]
+  },
+  "rocket": {
+    "visual": [
+      "An object that has a long, slender body with fins or stabilizers at the base.",
+      "An object that features a cylindrical or conical shape with a pointed tip.",
+      "An object that displays a series of stages or sections, each potentially with different colors or markings.",
+      "An object that may have a metallic or composite material appearance, often with a lustrous finish.",
+      "An object that might exhibit a gradient of colors, such as transitioning from white to red or black.",
+      "An object that could have visible fins or wings for aerodynamic control."
+    ],
+    "context": [
+      "An object that is found in space exploration missions.",
+      "An object typically used in military operations for long-range missile launches.",
+      "An object that is found in launch pads at space centers.",
+      "An object typically used in scientific research for studying atmospheric conditions.",
+      "An object that is found in remote areas for communication purposes.",
+      "An object typically used in entertainment for fireworks displays.",
+      "An object that is found in educational settings for teaching physics and engineering principles.",
+      "An object typically used in disaster relief efforts for rapid deployment of aid.",
+      "An object that is found in industrial settings for testing new materials under extreme conditions."
+    ]
+  },
+  "rose": {
+    "visual": [
+      "An object that has five pointed petals arranged in a circular pattern.",
+      "An object that displays vibrant colors ranging from deep reds to soft pinks.",
+      "An object that features a smooth, velvety texture on its surface.",
+      "An object that possesses a central cluster of stamens and pistils at its core.",
+      "An object that often has a glossy sheen, especially when wet.",
+      "An object that may have a slight curve or arch in its overall form.",
+      "An object that can vary in size, from small buds to fully bloomed flowers."
+    ],
+    "context": [
+      "An object that is found in gardens and parks.",
+      "An object typically used in floral arrangements for weddings.",
+      "An object that is found in bouquets at formal events.",
+      "An object typically used in landscaping to enhance the aesthetic appeal of residential areas.",
+      "An object that is found in botanical gardens showcasing various species.",
+      "An object typically used in aromatherapy for its calming scent.",
+      "An object that is found in natural settings like forests and meadows, though it's often cultivated.",
+      "An object typically used in perfumes and colognes for its fragrance."
+    ]
+  },
+  "sea": {
+    "visual": [
+      "An object that displays varying shades of blue, green, or brown depending on depth and time of day.",
+      "An object that may show ripples, waves, or foam indicating movement.",
+      "An object that can have reflections of the sky or surrounding landscape on its surface.",
+      "An object that might contain visible marine life such as fish, coral, or seaweed.",
+      "An object that can exhibit different textures, from smooth to rough, depending on the presence of sand, rocks, or algae.",
+      "An object that often has a horizon line separating the water from the sky."
+    ],
+    "context": [
+      "An object that is found in vast expanses of water covering about 71% of Earth's surface.",
+      "An object typically used in maritime transportation for travel and trade across oceans.",
+      "An object that is found in coastal areas, providing habitats for various marine life forms.",
+      "An object typically used in recreational activities such as swimming, surfing, and diving.",
+      "An object that is found in the context of weather patterns, influencing climate and weather systems globally.",
+      "An object typically used in scientific research to study oceanography, marine biology, and climate change."
+    ]
+  },
+  "seal": {
+    "visual": [
+      "An object that has a rounded body with a streamlined shape for efficient swimming.",
+      "An object that displays a mottled gray or brown coloration, often with lighter patches on its underside.",
+      "An object that exhibits a thick layer of blubber beneath its skin, giving it a plump appearance.",
+      "An object that possesses a flat tail used for propulsion underwater.",
+      "An object that has flippers instead of legs, adapted for swimming.",
+      "An object that features a small head with large eyes and a short snout.",
+      "An object that shows whiskers around its mouth, aiding in sensing prey."
+    ],
+    "context": [
+      "An object that is found in icy waters near polar regions.",
+      "An object typically used in marine wildlife sanctuaries for conservation efforts.",
+      "An object that is found in coastal areas, particularly in the vicinity of rocky shores.",
+      "An object typically used in educational settings to teach about marine life and ecosystems.",
+      "An object that is found in zoos and aquariums for public display and research purposes.",
+      "An object typically used in research studies to monitor ocean health and climate change impacts.",
+      "An object that is found in remote islands and beaches during breeding seasons."
+    ]
+  },
+  "shark": {
+    "visual": [
+      "An object that has a streamlined body designed for efficient swimming through water.",
+      "An object that possesses a distinctive dorsal fin located along its back.",
+      "An object that displays a patterned skin texture, often with shades of gray, brown, or black.",
+      "An object that features a set of gills on either side of its head, visible as small slits.",
+      "An object that has a powerful tail fin, which aids in propulsion.",
+      "An object that exhibits a series of pectoral fins near its head, aiding in maneuverability."
+    ],
+    "context": [
+      "An object that is found in deep blue ocean waters.",
+      "An object typically used in marine research expeditions.",
+      "An object that is found in coral reefs and tropical waters.",
+      "An object typically used in aquariums for educational purposes.",
+      "An object that is found in coastal areas near beaches.",
+      "An object typically used in shark conservation efforts.",
+      "An object that is found in open ocean environments.",
+      "An object typically used in shark fishing competitions.",
+      "An object that is found in freshwater lakes and rivers.",
+      "An object typically used in shark-themed movies and documentaries.",
+      "An object that is found in the depths of the Mediterranean Sea."
+    ]
+  },
+  "shrew": {
+    "visual": [
+      "An object that has a slender body with a pointed snout.",
+      "An object that possesses small, dark eyes and a long tail.",
+      "An object that displays a fur coat with a mix of brown and gray tones.",
+      "An object that exhibits a compact, elongated form with a short neck.",
+      "An object that has a pair of small, rounded ears.",
+      "An object that shows a quick, darting movement when in motion.",
+      "An object that has a delicate, almost translucent membrane covering its body.",
+      "An object that is often seen in dense vegetation or under rocks."
+    ],
+    "context": [
+      "An object that is found in dense forests and grasslands.",
+      "An object typically used in laboratory settings for scientific research.",
+      "An object that is found in urban areas, often near human habitations.",
+      "An object typically used in pest control due to its small size and nocturnal habits.",
+      "An object that is found in wetlands and marshes, where it thrives in aquatic environments.",
+      "An object typically used in educational settings to teach about wildlife and ecosystems."
+    ]
+  },
+  "skunk": {
+    "visual": [
+      "An object that has a distinctive black and white striped pattern.",
+      "An object that features a long, narrow body with a short tail.",
+      "An object that possesses a pointed snout and small eyes.",
+      "An object that displays a thick, oily substance on its skin.",
+      "An object that has a robust build with a stocky body.",
+      "An object that exhibits a glossy, wet-looking fur coat.",
+      "An object that has a bushy tail with a white tip.",
+      "An object that is typically found in grassy areas or wooded regions.",
+      "An object that has a unique scent gland located near the base of its tail."
+    ],
+    "context": [
+      "An object that is found in grassy fields and meadows.",
+      "An object typically used in forests for hunting small mammals.",
+      "An object that is found in urban areas near human settlements.",
+      "An object typically used in rural areas for pest control.",
+      "An object that is found in suburban gardens, especially those with pet food left out.",
+      "An object typically used in agricultural settings to deter pests from crops.",
+      "An object that is found in parks and wildlife reserves, often near water sources.",
+      "An object typically used in zoos and wildlife sanctuaries for educational purposes."
+    ]
+  },
+  "skyscraper": {
+    "visual": [
+      "An object that has a tall vertical structure with multiple stories.",
+      "An object that often features a rectangular or boxy shape.",
+      "An object that may have a smooth or glassy exterior surface.",
+      "An object that frequently displays a uniform facade across its height.",
+      "An object that is typically taller than surrounding buildings.",
+      "An object that might include visible windows along its length.",
+      "An object that could have a flat roof or a series of terraces.",
+      "An object that is often seen in urban landscapes, particularly in cities.",
+      "An object that may have decorative elements at the top, such as spires or domes."
+    ],
+    "context": [
+      "An object that is found in urban centers around the world.",
+      "An object typically used in high-density residential areas.",
+      "An object that is found in financial districts, often housing banks and corporate headquarters.",
+      "An object typically used in business districts for office spaces.",
+      "An object that is found in major cities known for their architectural landmarks.",
+      "An object typically used in areas with significant economic activity and population density.",
+      "An object that is found in places where there is a need for vertical space due to limited horizontal space.",
+      "An object typically used in locations where there is a high demand for commercial real estate."
+    ]
+  },
+  "snail": {
+    "visual": [
+      "An object that has a coiled shell with a spiral pattern.",
+      "An object that displays a soft, fleshy body emerging from its shell.",
+      "An object that exhibits a slimy, mucous trail when moving.",
+      "An object that possesses a series of tentacles on its head.",
+      "An object that has a mantle covering its body and shell.",
+      "An object that often has a brownish or grayish coloration.",
+      "An object that may display various patterns or spots on its shell.",
+      "An object that has a distinct, segmented foot for movement."
+    ],
+    "context": [
+      "An object that is found in gardens and parks.",
+      "An object typically used in educational settings for biology lessons.",
+      "An object that is found in moist soil in forests and meadows.",
+      "An object typically used in nature reserves to study biodiversity.",
+      "An object that is found in the wild, often in areas with abundant vegetation.",
+      "An object typically used in literature and art as a symbol of slow progress or patience.",
+      "An object that is found in urban gardens and community planters.",
+      "An object typically used in gardening as a natural pest control method."
+    ]
+  },
+  "snake": {
+    "visual": [
+      "An object that has a long, slender body with a distinct head.",
+      "An object that possesses a smooth or scaly surface texture.",
+      "An object that displays a variety of colors including patterns, stripes, or spots.",
+      "An object that exhibits a forked tongue when sensing its environment.",
+      "An object that has a flexible body capable of bending and twisting.",
+      "An object that lacks limbs, wings, or any appendages.",
+      "An object that may have a patterned or mottled appearance.",
+      "An object that can vary in size, from small to quite large."
+    ],
+    "context": [
+      "An object that is found in tropical rainforests.",
+      "An object that is found in grasslands.",
+      "An object that is found in deserts.",
+      "An object that is found in forests.",
+      "An object that is found in caves.",
+      "An object that is found in urban areas, often in parks and gardens.",
+      "An object typically used in pest control for its ability to prey on rodents.",
+      "An object typically used in scientific research for studying animal behavior and biology.",
+      "An object typically used in traditional medicine in some cultures due to its venom properties."
+    ]
+  },
+  "spider": {
+    "visual": [
+      "An object that has eight legs, typically arranged in two pairs.",
+      "An object that possesses a body divided into cephalothorax and abdomen.",
+      "An object that often displays a variety of colors including shades of brown, black, or yellow.",
+      "An object that may have a shiny or matte texture depending on its species.",
+      "An object that can exhibit a range of shapes, from spherical to elongated, depending on the species.",
+      "An object that might have a patterned or mottled appearance on its body."
+    ],
+    "context": [
+      "An object that is found in forests and grasslands.",
+      "An object typically used in web design for navigation menus.",
+      "An object that is found in urban areas, often on walls and ceilings.",
+      "An object typically used in literature to symbolize fear or isolation.",
+      "An object that is found in gardens and parks, where it builds webs.",
+      "An object typically used in scientific research for studying behavior and ecology.",
+      "An object that is found in caves and underground tunnels.",
+      "An object typically used in cooking to add flavor to dishes like pasta and salads.",
+      "An object that is found in deserts, where it can be seen on sand dunes."
+    ]
+  },
+  "squirrel": {
+    "visual": [
+      "An object that has a bushy tail.",
+      "An object that possesses a rounded body.",
+      "An object that displays a mix of brown and gray fur.",
+      "An object that has small, rounded ears.",
+      "An object that features a long, slender snout.",
+      "An object that exhibits a combination of smooth and slightly rough fur texture.",
+      "An object that has a distinctively bushy tail with rings of darker and lighter fur.",
+      "An object that shows a compact, agile body structure.",
+      "An object that has a pair of sharp, pointed teeth visible when it opens its mouth."
+    ],
+    "context": [
+      "An object that is found in parks and gardens.",
+      "An object typically used in forested areas for food storage.",
+      "An object that is found in urban settings, often in trees near residential buildings.",
+      "An object typically used in natural reserves and wildlife sanctuaries.",
+      "An object that is found in backyards, especially those with trees and shrubs.",
+      "An object typically used in suburban neighborhoods, particularly in areas with mature trees.",
+      "An object that is found in zoos and wildlife exhibits, often in enclosures designed to mimic natural habitats."
+    ]
+  },
+  "streetcar": {
+    "visual": [
+      "An object that has a long, rectangular body with windows along its sides.",
+      "An object that features a series of wheels underneath for mobility.",
+      "An object that often displays advertisements or route information on its sides.",
+      "An object that may have a distinct roof structure, sometimes with a raised platform at the front.",
+      "An object that frequently has a streamlined design, especially in modern models.",
+      "An object that can vary in color, but common colors include red, green, or blue.",
+      "An object that might have a slightly elevated front end compared to the rest of its body."
+    ],
+    "context": [
+      "An object that is found in urban areas with dense populations.",
+      "An object typically used in city centers for public transportation.",
+      "An object that is found in historical districts, often serving as a tourist attraction.",
+      "An object typically used in areas with narrow streets and high pedestrian traffic.",
+      "An object that is found in places where there is a need for efficient and eco-friendly transport solutions.",
+      "An object typically used in areas with well-maintained tracks and infrastructure.",
+      "An object that is found in cities with a focus on sustainable and green transportation methods."
+    ]
+  },
+  "sunflower": {
+    "visual": [
+      "An object that has a large, round head with numerous petals radiating outward.",
+      "An object that displays vibrant yellow petals surrounding a dark brown center.",
+      "An object that features a tall, sturdy stem supporting its head.",
+      "An object that exhibits a fuzzy texture on its surface, especially noticeable on the back of the head.",
+      "An object that has a distinct, symmetrical arrangement of petals around a central disk.",
+      "An object that is often found growing in fields or gardens, with a broad, flat head.",
+      "An object that can vary in size, with some specimens being significantly larger than others."
+    ],
+    "context": [
+      "An object that is found in vast open fields, often in agricultural settings.",
+      "An object typically used in gardens for ornamental purposes due to its large, colorful blooms.",
+      "An object that is found in parks and public spaces, adding a vibrant touch to urban landscapes.",
+      "An object typically used in educational settings to teach about pollination and plant life cycles.",
+      "An object that is found in natural habitats such as prairies and meadows, thriving in sunny conditions.",
+      "An object typically used in landscaping to attract pollinators like bees and butterflies."
+    ]
+  },
+  "sweet pepper": {
+    "visual": [
+      "An object that has a smooth, glossy surface.",
+      "An object that displays vibrant hues of red, green, yellow, or orange.",
+      "An object that is typically elongated and cylindrical in shape.",
+      "An object that features a bumpy or ridged skin texture.",
+      "An object that is often found in clusters or pairs.",
+      "An object that has a firm, solid structure.",
+      "An object that is usually bright and vivid in coloration.",
+      "An object that is commonly found in various shades of green, red, or yellow.",
+      "An object that has a slightly wrinkled or bumpy outer layer."
+    ],
+    "context": [
+      "An object that is found in home gardens, often planted in raised beds or hanging baskets.",
+      "An object typically used in culinary settings, particularly in the preparation of salads and stir-fries.",
+      "An object that is found in community vegetable patches, contributing to local food production efforts.",
+      "An object typically used in school gardens, teaching children about plant growth and nutrition.",
+      "An object that is found in farmers' markets, displayed alongside other fresh produce for sale.",
+      "An object typically used in commercial kitchens, where it is chopped and sautéed for various dishes."
+    ]
+  },
+  "table": {
+    "visual": [
+      "An object that often has four legs supporting its structure.",
+      "An object that may have a rectangular or square shape.",
+      "An object that can vary in color, from plain white to vibrant hues.",
+      "An object that might feature a smooth or textured surface depending on its material.",
+      "An object that can display various finishes, such as glossy or matte.",
+      "An object that can have different sizes, from small side tables to large dining tables.",
+      "An object that may include drawers, shelves, or other storage features.",
+      "An object that can be made of materials like wood, metal, glass, or plastic."
+    ],
+    "context": [
+      "An object that is found in dining rooms.",
+      "An object typically used in offices for meetings.",
+      "An object that is found in bedrooms for personal use.",
+      "An object typically used in kitchens for food preparation.",
+      "An object that is found in living rooms for social gatherings.",
+      "An object typically used in classrooms for educational purposes.",
+      "An object that is found in libraries for reading and studying.",
+      "An object typically used in restaurants for serving meals.",
+      "An object that is found in bedrooms for storage.",
+      "An object typically used in workshops for work-related tasks.",
+      "An object that is found in dining rooms."
+    ]
+  },
+  "tank": {
+    "visual": [
+      "An object that features a turret mounted on top for mobility and firepower.",
+      "An object that displays a thick, dark green or olive camouflage pattern.",
+      "An object that exhibits a robust, heavy-duty design with visible tracks or wheels.",
+      "An object that has a flat, rectangular front with a large gun barrel protruding forward.",
+      "An object that shows a series of rivets or bolts along its surface, indicating a metal construction.",
+      "An object that has a high profile, often towering above the ground when stationary.",
+      "An object that may have a large, circular opening at the top for observation and communication."
+    ],
+    "context": [
+      "An object that is found in military operations and combat zones.",
+      "An object typically used in construction sites for heavy lifting and earthmoving tasks.",
+      "An object that is found in amusement parks and theme parks for rides and attractions.",
+      "An object typically used in water treatment facilities for filtration processes.",
+      "An object that is found in industrial settings for manufacturing and production.",
+      "An object typically used in research laboratories for experiments and testing.",
+      "An object that is found in urban areas for public transportation systems.",
+      "An object typically used in agriculture for irrigation and farming activities.",
+      "An object that is found in natural reserves and wildlife sanctuaries for habitat restoration projects."
+    ]
+  },
+  "telephone": {
+    "visual": [
+      "An object that has a rectangular or oval body with a flat surface.",
+      "An object that features a screen for displaying information.",
+      "An object that includes buttons or a keypad for inputting numbers or commands.",
+      "An object that may have a receiver or earpiece for audio communication.",
+      "An object that often has a cord or a wireless connection for operation.",
+      "An object that can be held in one hand for portability.",
+      "An object that typically has a display area for showing caller ID or messages.",
+      "An object that may include a speaker for outputting sounds."
+    ],
+    "context": [
+      "An object that is found in homes, allowing residents to communicate with others.",
+      "An object typically used in offices for professional communication and coordination.",
+      "An object that is found in schools, facilitating student-teacher interactions and learning.",
+      "An object typically used in hospitals for patient care and medical consultations.",
+      "An object that is found in public places like libraries, enabling access to information resources.",
+      "An object typically used in businesses for customer service and sales support.",
+      "An object that is found in vehicles, providing communication capabilities during travel.",
+      "An object typically used in emergency services for rapid communication in critical situations."
+    ]
+  },
+  "television": {
+    "visual": [
+      "An object that has a rectangular or square frame with a screen displaying images.",
+      "An object that features buttons or a remote control interface for operation.",
+      "An object that often includes a stand or base for support.",
+      "An object that may have a glossy or matte finish depending on its design.",
+      "An object that typically displays a variety of colors and brightness levels on its screen.",
+      "An object that can vary in size, from small tabletop models to large wall-mounted units.",
+      "An object that may include a speaker or speakers for audio output."
+    ],
+    "context": [
+      "An object that is found in living rooms.",
+      "An object typically used in bedrooms for entertainment.",
+      "An object that is found in family rooms.",
+      "An object typically used in offices for presentations.",
+      "An object that is found in classrooms for educational purposes.",
+      "An object typically used in sports bars for viewing games.",
+      "An object that is found in waiting areas at airports.",
+      "An object typically used in hotels for guest enjoyment.",
+      "An object that is found in restaurants for background entertainment.",
+      "An object typically used in homes for personal viewing."
+    ]
+  },
+  "tiger": {
+    "visual": [
+      "An object that has a distinctive orange coat with black stripes.",
+      "An object that possesses a robust, muscular body structure.",
+      "An object that displays a pattern of alternating dark and light bands.",
+      "An object that features a large head with a broad snout.",
+      "An object that has a pair of powerful, curved claws.",
+      "An object that exhibits a thick, dense fur coat.",
+      "An object that has a long tail with a tufted tip.",
+      "An object that has a mane-like tuft of hair around its neck."
+    ],
+    "context": [
+      "An object that is found in dense forests and grasslands.",
+      "An object typically used in zoos for educational purposes.",
+      "An object that is found in national parks and wildlife reserves.",
+      "An object typically used in movies and documentaries for entertainment.",
+      "An object that is found in savannas and tropical rainforests.",
+      "An object typically used in conservation efforts to protect endangered species.",
+      "An object that is found in the wild, roaming through jungles and riverbanks.",
+      "An object typically used in literature and art for symbolic representation of power and strength."
+    ]
+  },
+  "tractor": {
+    "visual": [
+      "An object that has a large, boxy body with a flat front for plowing.",
+      "An object that features a prominent cabin with windows and a roof.",
+      "An object that displays a series of wheels arranged in a row for stability.",
+      "An object that often includes a large engine compartment at the rear.",
+      "An object that may have a variety of colors, including red, green, or yellow.",
+      "An object that frequently has a distinct front loader or bucket attachment.",
+      "An object that shows a robust frame designed to support heavy loads.",
+      "An object that might have a visible exhaust pipe extending from the top."
+    ],
+    "context": [
+      "An object that is found in agricultural fields for plowing and planting.",
+      "An object typically used in rural areas for farming operations.",
+      "An object that is found in construction sites for heavy lifting and earthmoving tasks.",
+      "An object typically used in landscaping for grading and moving soil.",
+      "An object that is found in industrial settings for material handling and transport.",
+      "An object typically used in mining for excavation and transportation of materials.",
+      "An object that is found in parks and gardens for mowing lawns and maintaining green spaces.",
+      "An object typically used in sports facilities for maintaining playing fields.",
+      "An object that is found in orchards and vineyards for harvesting crops."
+    ]
+  },
+  "train": {
+    "visual": [
+      "An object that features multiple connected carriages.",
+      "An object that displays windows along its length.",
+      "An object that often has a distinct, boxy shape at the front.",
+      "An object that may exhibit a variety of colors depending on the model and design.",
+      "An object that typically has a smooth, metallic surface.",
+      "An object that is often seen with a series of wheels underneath.",
+      "An object that can have varying levels of detail in its structure, from simple to complex.",
+      "An object that might display signs or advertisements on its sides.",
+      "An object that can sometimes feature a roof or canopy over part of its structure."
+    ],
+    "context": [
+      "An object that is found in urban areas for public transportation.",
+      "An object typically used in rural regions for long-distance travel.",
+      "An object that is found in industrial zones for freight transport.",
+      "An object typically used in tourist destinations for sightseeing tours.",
+      "An object that is found in school systems for educational field trips.",
+      "An object typically used in military operations for troop and equipment transport.",
+      "An object that is found in construction sites for material delivery.",
+      "An object typically used in disaster relief efforts for rapid deployment of aid.",
+      "An object that is found in theme parks for scenic rides.",
+      "An object typically used in sports events for transporting athletes and equipment."
+    ]
+  },
+  "trout": {
+    "visual": [
+      "An object that displays a silvery-blue coloration with darker vertical bars.",
+      "An object that exhibits a pattern of spots or stripes along its body.",
+      "An object that has a forked tail fin.",
+      "An object that possesses a row of small, sharp teeth along its jaw.",
+      "An object that shows a distinct lateral line running along its side.",
+      "An object that has a dorsal fin positioned near the middle of its back.",
+      "An object that displays a ventral fin under its belly.",
+      "An object that has a pectoral fin located near the head."
+    ],
+    "context": [
+      "An object typically used in fishing competitions and recreational fishing.",
+      "An object that is found in aquariums for ornamental purposes.",
+      "An object typically used in aquaculture for food production.",
+      "An object that is found in lakes and ponds, especially those with clear water.",
+      "An object typically used in fly fishing due to its preference for certain types of insects.",
+      "An object that is found in cold mountain streams, providing habitat for various species.",
+      "An object typically used in ecological studies to assess water quality.",
+      "An object that is found in the wild, often in areas with moderate to high rainfall."
+    ]
+  },
+  "tulip": {
+    "visual": [
+      "An object that has a bell-shaped petal arrangement.",
+      "An object that displays vibrant colors ranging from yellow to red.",
+      "An object that features smooth, glossy petals.",
+      "An object that has a sturdy, upright stem.",
+      "An object that possesses a distinctive, layered petal structure.",
+      "An object that often has a prominent, cup-like shape at its base.",
+      "An object that may exhibit a gradient of colors from the center outward.",
+      "An object that can have a variety of petal shapes, including rounded or pointed tips.",
+      "An object that might show signs of a natural droop or curve in the petals."
+    ],
+    "context": [
+      "An object that is found in gardens and parks, enhancing their beauty.",
+      "An object typically used in floral arrangements for celebrations and events.",
+      "An object that is found in home decor, adding a touch of nature indoors.",
+      "An object typically used in landscaping to create vibrant flower beds.",
+      "An object that is found in public spaces like city squares and botanical gardens.",
+      "An object typically used in wedding ceremonies for its symbolic meaning.",
+      "An object that is found in nurseries and greenhouses for cultivation and sale.",
+      "An object typically used in floral design competitions showcasing artistic skills."
+    ]
+  },
+  "turtle": {
+    "visual": [
+      "An object that has a hard, bony shell covering its body.",
+      "An object that possesses four legs, typically short and strong.",
+      "An object that has a long neck, often curved upwards.",
+      "An object that displays a patterned or mottled skin surface.",
+      "An object that has a flat, broad head with a beak-like mouth.",
+      "An object that exhibits a variety of colors, including shades of green, brown, and black.",
+      "An object that has a distinctively rounded or oval-shaped body.",
+      "An object that features a pair of eyes positioned on top of its head."
+    ],
+    "context": [
+      "An object that is found in tropical and subtropical coastal areas.",
+      "An object typically used in aquariums for decorative purposes.",
+      "An object that is found in freshwater lakes and rivers.",
+      "An object typically used in educational settings to teach about marine life.",
+      "An object that is found in wetlands and marshes.",
+      "An object typically used in research studies on animal behavior.",
+      "An object that is found in coral reefs and tropical oceans.",
+      "An object typically used in pet stores for sale as pets.",
+      "An object that is found in forests and grasslands."
+    ]
+  },
+  "wardrobe": {
+    "visual": [
+      "An object that has a rectangular or square shape with multiple compartments.",
+      "An object that displays a variety of colors, often including shades of blue, red, black, and white.",
+      "An object that features a smooth texture with fabric or synthetic material.",
+      "An object that includes hanging rods for clothes and shelves for accessories.",
+      "An object that may have a mirror or a reflective surface at the back.",
+      "An object that is typically found in bedrooms or dressing rooms.",
+      "An object that is designed to store clothing items such as shirts, pants, dresses, and jackets."
+    ],
+    "context": [
+      "An object that is found in bedrooms.",
+      "An object typically used in dressing rooms.",
+      "An object that is found in closets.",
+      "An object commonly seen in homes.",
+      "An object that is used in personal spaces for storage.",
+      "An object typically found in hotel rooms.",
+      "An object that is used in fashion boutiques.",
+      "An object that is found in walk-in closets.",
+      "An object commonly used in changing areas.",
+      "An object that is found in dormitories.",
+      "An object that is found in bedrooms.",
+      "An object typically used in dressing rooms."
+    ]
+  },
+  "whale": {
+    "visual": [
+      "An object that has a long, streamlined body.",
+      "An object that possesses a large, flat tail fin.",
+      "An object that displays a series of ridges along its back.",
+      "An object that features a pair of small pectoral fins.",
+      "An object that exhibits a distinct head with a large mouth.",
+      "An object that has a smooth, wet-looking skin surface.",
+      "An object that is typically seen in aquatic environments.",
+      "An object that is often observed moving through water with a rhythmic, undulating motion.",
+      "An object that can vary greatly in size, from small to massive."
+    ],
+    "context": [
+      "An object that is found in deep blue ocean waters.",
+      "An object typically used in marine research and conservation efforts.",
+      "An object that is found in the open sea, far from land.",
+      "An object typically used in the context of marine biology studies.",
+      "An object that is found in the habitat of large aquatic mammals.",
+      "An object typically used in the field of marine ecology.",
+      "An object that is found in the environment of cold, deep-sea trenches.",
+      "An object typically used in the practice of whale watching tours.",
+      "An object that is found in the ecosystem of coral reefs and tropical waters."
+    ]
+  },
+  "willow tree": {
+    "visual": [
+      "An object that has slender, drooping branches that often hang down.",
+      "An object that features long, narrow leaves that are light green in color.",
+      "An object that displays a distinctive zigzag pattern in its trunk and branches.",
+      "An object that has a dense canopy of foliage that spreads outwards.",
+      "An object that shows a smooth bark that peels off in thin strips.",
+      "An object that exhibits a graceful, arching silhouette when viewed from a distance.",
+      "An object that has small, catkin-like structures that appear in early spring."
+    ],
+    "context": [
+      "An object that is found in wetlands and floodplains.",
+      "An object typically used in parks for its aesthetic appeal.",
+      "An object that is found in riverbanks due to its ability to thrive in moist soil.",
+      "An object typically used in urban areas for landscaping purposes.",
+      "An object that is found in coastal regions, often near beaches.",
+      "An object typically used in gardens for its ornamental value.",
+      "An object that is found in riparian zones, providing shade and habitat for wildlife.",
+      "An object typically used in reforestation projects due to its fast growth rate."
+    ]
+  },
+  "wolf": {
+    "visual": [
+      "An object that has a long, slender body with a muscular build.",
+      "An object that possesses a pointed snout and large, erect ears.",
+      "An object that displays a thick, bushy tail that often curls over its back.",
+      "An object that features a coat with a mix of gray, black, and white fur, often with a lighter underbelly.",
+      "An object that exhibits a strong, powerful jaw capable of gripping prey.",
+      "An object that has a pair of sharp, curved canine teeth.",
+      "An object that shows a robust, sturdy frame with a deep chest and broad shoulders."
+    ],
+    "context": [
+      "An object that is found in dense forests and mountainous regions.",
+      "An object typically used in wildlife documentaries and nature reserves.",
+      "An object that is found in zoos and wildlife sanctuaries for conservation purposes.",
+      "An object typically used in hunting and trapping activities by humans.",
+      "An object that is found in remote wilderness areas, far from human settlements.",
+      "An object typically used in educational materials about animal behavior and ecology.",
+      "An object that is found in national parks and protected areas to maintain biodiversity.",
+      "An object typically used in research studies on predator-prey relationships in ecosystems."
+    ]
+  },
+  "woman": {
+    "visual": [
+      "An object that has a distinct head, shoulders, and limbs.",
+      "An object that displays a range of facial features including eyes, nose, and mouth.",
+      "An object that often has hair covering the top of the head.",
+      "An object that may exhibit clothing, which can vary widely in style and color.",
+      "An object that typically has two arms and two legs.",
+      "An object that can display a variety of skin tones and textures.",
+      "An object that may have a visible breast area.",
+      "An object that can show a range of postures and expressions."
+    ],
+    "context": [
+      "An object that is found in homes for personal use.",
+      "An object typically used in professional settings like offices and classrooms.",
+      "An object that is found in public spaces such as parks and shopping centers.",
+      "An object typically used in healthcare facilities for patient care.",
+      "An object that is found in educational institutions for teaching purposes.",
+      "An object typically used in sports and fitness activities for exercise and training.",
+      "An object that is found in recreational areas for leisure activities.",
+      "An object typically used in fashion and beauty for personal grooming.",
+      "An object that is found in various industries for manufacturing and production processes."
+    ]
+  },
+  "worm": {
+    "visual": [
+      "An object that often appears in various shades of brown, gray, or black.",
+      "An object that may have a smooth or slightly rough surface texture.",
+      "An object that can vary in size but is typically elongated.",
+      "An object that might exhibit segments along its length.",
+      "An object that could have a moist, slimy appearance.",
+      "An object that might be seen wriggling or moving slowly.",
+      "An object that could be found in soil, compost, or moist environments.",
+      "An object that might have a translucent quality in certain lighting conditions."
+    ],
+    "context": [
+      "An object that is found in soil and compost.",
+      "An object typically used in gardening for improving soil quality.",
+      "An object that is found in the digestive systems of many animals.",
+      "An object typically used in fishing as bait.",
+      "An object that is found in the intestines of humans and other animals.",
+      "An object typically used in scientific research for studying genetics and development.",
+      "An object that is found in the natural environment of forests and fields.",
+      "An object typically used in agriculture for pest control and soil aeration.",
+      "An object that is found in the ecosystem of freshwater and marine environments.",
+      "An object typically used in composting for organic waste decomposition."
+    ]
+  }
+}

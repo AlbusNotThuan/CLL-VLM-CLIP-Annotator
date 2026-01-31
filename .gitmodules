@@ -1,0 +1,6 @@
+[submodule "cll_vlm/vlm/Janus"]
+	path = cll_vlm/vlm/Janus
+	url = https://github.com/deepseek-ai/Janus.git
+[submodule "cll_vlm/vlm/CLIP"]
+	path = cll_vlm/vlm/CLIP
+	url = https://github.com/openai/CLIP.git

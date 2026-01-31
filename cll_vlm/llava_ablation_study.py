@@ -40,7 +40,7 @@ def generate_random_label_lookup(class_list, n_random=4, seed=42, noise=True):
             # Generate candidate labels without noise (true label + random others)
             true_label = class_list[k]
             other_labels = [label for label in class_list if label != true_label]
-            selected_labels = random.sample(other_labels, min(n_random - 1, len(other_labels)))
+            selected_labels = random.sample(other_labels, min(n_random , len(other_labels)))
             lookup[k] = selected_labels
         
     
@@ -191,7 +191,13 @@ def main():
     if not os.path.exists("results"):
         os.makedirs("results")
     
-    filename = f"llava_{args.dataset}_nrand={args.n_random}_seed={args.seed}"
+    filename = f"llava_{args.dataset}"
+    filename += f"_nrand={args.n_random}"
+    if args.noise:
+        filename += "_noise=True"
+    else:
+        filename += "_noise=False"
+    filename += f"_seed={args.seed}"
     output_path = f"results/{filename}.csv"
     
     # Write CSV header

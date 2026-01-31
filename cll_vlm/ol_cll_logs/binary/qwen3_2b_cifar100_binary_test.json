@@ -1,0 +1,89 @@
+[
+  {
+    "img_idx": 0,
+    "true_label": "cattle",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": [
+      "The image shows a cow, not a boy. The label 'boy' does not correspond to the image.",
+      "The image depicts a cow, not a boy. The label 'boy' does not correspond to the image.",
+      "The image contains a cow, not a boy. The label 'boy' is incorrect for the image.",
+      "The image displays a cow, not a boy. The label 'boy' does not match the content of the image.",
+      "The image shows a cow, not a boy. The label 'boy' is not applicable to the image."
+    ]
+  },
+  {
+    "img_idx": 1,
+    "true_label": "dinosaur",
+    "shuffled_label": "lobster",
+    "answer": "NO",
+    "reason": [
+      "The image shows a dinosaur, specifically a stegosaurus, which is a prehistoric reptile. The label 'lobster' refers to a type of crustacean, which is a different animal entirely. Therefore, the label 'lobster' does not correspond to the image.",
+      "The image depicts a stegosaurus, a type of dinosaur, while the label 'lobster' refers to a crustacean. These are entirely different animals, so the label does not correspond to the image.",
+      "The image shows a stegosaurus, a dinosaur, while the label 'lobster' refers to a crustacean. These are different animals, so the label does not correspond to the image.",
+      "The image displays a stegosaurus, a type of dinosaur, whereas the label 'lobster' refers to a crustacean. These are distinct animals, so the label does not correspond to the image."
+    ]
+  },
+  {
+    "img_idx": 2,
+    "true_label": "apple",
+    "shuffled_label": "girl",
+    "answer": "NO",
+    "reason": [
+      "The image contains a red apple, not a girl.",
+      "The image displays a red apple, which is a fruit, not a person.",
+      "The image is of a red apple, not a girl.",
+      "The image shows a red apple, which is not a girl.",
+      "The image depicts a red apple, not a girl."
+    ]
+  },
+  {
+    "img_idx": 3,
+    "true_label": "boy",
+    "shuffled_label": "palm_tree",
+    "answer": "NO",
+    "reason": [
+      "The image shows a person, not a palm tree. The label 'palm_tree' does not correspond to the content of the image.",
+      "The image depicts a person, not a palm tree. The label 'palm_tree' does not correspond to the content of the image."
+    ]
+  },
+  {
+    "img_idx": 4,
+    "true_label": "aquarium_fish",
+    "shuffled_label": "lamp",
+    "answer": "NO",
+    "reason": []
+  },
+  {
+    "img_idx": 5,
+    "true_label": "telephone",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": [
+      "The image shows a vintage rotary telephone, not a boy.",
+      "The image depicts a rotary telephone, which is a device used for making phone calls, not a boy.",
+      "The image shows a vintage rotary telephone, which is a device for communication, not a boy.",
+      "The image displays a rotary telephone, which is an inanimate object, not a person.",
+      "The image contains a rotary telephone, which is a device, not a person.",
+      "The image shows a vintage rotary telephone, which is not a boy.",
+      "The image is of a rotary telephone, not a boy."
+    ]
+  },
+  {
+    "img_idx": 6,
+    "true_label": "train",
+    "shuffled_label": "lizard",
+    "answer": "NO",
+    "reason": [
+      "The image shows a train on a track, not a lizard.",
+      "The image depicts a train on a track, not a lizard."
+    ]
+  },
+  {
+    "img_idx": 7,
+    "true_label": "cup",
+    "shuffled_label": "hamster",
+    "answer": "NO",
+    "reason": []
+  }
+]

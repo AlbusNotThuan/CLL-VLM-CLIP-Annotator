@@ -1,0 +1,72 @@
+[
+  {
+    "img_idx": 0,
+    "true_label": "cattle",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": []
+  },
+  {
+    "img_idx": 1,
+    "true_label": "dinosaur",
+    "shuffled_label": "lobster",
+    "answer": "NO",
+    "reason": [
+      "The main object in the image is a dinosaur, specifically a Stegosaurus, identifiable by its distinctive plates and tail spikes. A lobster is a marine crustacean, which is entirely different in appearance and biological classification. Therefore, the label 'lobster' does not correctly describe the main object."
+    ]
+  },
+  {
+    "img_idx": 2,
+    "true_label": "apple",
+    "shuffled_label": "girl",
+    "answer": "NO",
+    "reason": [
+      "The main object in the image is an apple, not a girl. The label 'girl' does not match the central visual focus of the image."
+    ]
+  },
+  {
+    "img_idx": 3,
+    "true_label": "boy",
+    "shuffled_label": "palm tree",
+    "answer": "NO",
+    "reason": [
+      "The main object in the image is a person, not a palm tree. The label 'palm tree' does not describe the central visual focus of the image."
+    ]
+  },
+  {
+    "img_idx": 4,
+    "true_label": "aquarium fish",
+    "shuffled_label": "lamp",
+    "answer": "NO",
+    "reason": [
+      "The image is too blurry to clearly identify any specific object, but even if it were a lamp, the label 'lamp' does not match the visual content as the central focus. The image appears to show a fish or aquatic creature, not a lamp. Therefore, the label 'lamp' does not correctly describe the main object."
+    ]
+  },
+  {
+    "img_idx": 5,
+    "true_label": "telephone",
+    "shuffled_label": "boy",
+    "answer": "NO",
+    "reason": [
+      "The main object in the image is a rotary telephone, not a boy. The label 'boy' does not describe the central visual focus of the image."
+    ]
+  },
+  {
+    "img_idx": 6,
+    "true_label": "train",
+    "shuffled_label": "lizard",
+    "answer": "NO",
+    "reason": [
+      "The main object in the image is a train, not a lizard. The label 'lizard' does not match the central visual focus of the image."
+    ]
+  },
+  {
+    "img_idx": 7,
+    "true_label": "cup",
+    "shuffled_label": "hamster",
+    "answer": "NO",
+    "reason": [
+      "The main object in the image is a mug, not a hamster. The label 'hamster' does not match the object visually present."
+    ]
+  }
+]
