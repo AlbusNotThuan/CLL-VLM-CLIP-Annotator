@@ -15,6 +15,7 @@ data:
     cifar10: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/data/cifar10"
     cifar20: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/data/cifar20"
     cifar100: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/data/cifar100"
+    tiny200: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/data/tiny200/tiny-imagenet-200"
 
   shuffle_seed: 42
   num_workers: 4
@@ -23,7 +24,8 @@ models:
   llava:
     model_url: "llava-hf/llava-v1.6-mistral-7b-hf"
 
-  # future plan: implement llava 13b
+  llava_13b:
+    model_url: "llava-hf/llava-v1.6-vicuna-13b-hf"
 
   qwen:
     model_url: "Qwen/Qwen2.5-VL-7B-Instruct"
@@ -31,3 +33,5 @@ models:
     model_url: "Qwen/Qwen3-VL-2B-Instruct"
   qwen3_8b:
     model_url: "Qwen/Qwen3-VL-8B-Instruct"
+  qwen3_30b_a3b:
+    model_url: "Qwen/Qwen3-VL-30B-A3B-Instruct"

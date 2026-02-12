@@ -1,0 +1,403 @@
+[GPU 0] Starting qwen (bs 512)
+The image processor of type `Qwen2VLImageProcessor` is now loaded as a fast processor by default, even if the model checkpoint was saved with a slow processor. This is a breaking change and may produce slightly different outputs. To continue using the slow processor, instantiate this class with `use_fast=False`. Note that this behavior will be extended to all models in a future release.
+`torch_dtype` is deprecated! Use `dtype` instead!
+/tmp2/maitanha/vgu/cll_vlm/cll_vlm/vlm/CLIP
+[DEBUG] Output path: /tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/binary/qwen_cifar20_binary_processed_labels.json
+ [DEBUG] Model path: Qwen/Qwen2.5-VL-7B-Instruct
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.04it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.06it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.19it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:03<00:00,  1.13it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.56it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.33it/s]
+Running Inference:   0%|          | 0/98 [00:00<?, ?it/s]
+  0%|          | 0/1 [00:00<?, ?it/s][AThe following generation flags are not valid and may be ignored: ['temperature']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.69s/it][A100%|██████████| 1/1 [00:15<00:00, 15.69s/it]
+Running Inference:   1%|          | 1/98 [00:16<25:52, 16.01s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.39s/it][A100%|██████████| 1/1 [00:15<00:00, 15.39s/it]
+Running Inference:   2%|▏         | 2/98 [00:31<25:02, 15.65s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.22s/it][A100%|██████████| 1/1 [00:15<00:00, 15.22s/it]
+Running Inference:   3%|▎         | 3/98 [00:46<24:28, 15.46s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.44s/it][A100%|██████████| 1/1 [00:15<00:00, 15.44s/it]
+Running Inference:   4%|▍         | 4/98 [01:02<24:13, 15.46s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.39s/it][A100%|██████████| 1/1 [00:15<00:00, 15.39s/it]
+Running Inference:   5%|▌         | 5/98 [01:17<23:56, 15.45s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.62s/it][A100%|██████████| 1/1 [00:15<00:00, 15.62s/it]
+Running Inference:   6%|▌         | 6/98 [01:33<23:46, 15.51s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.95s/it][A100%|██████████| 1/1 [00:15<00:00, 15.95s/it]
+Running Inference:   7%|▋         | 7/98 [01:49<23:45, 15.66s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.92s/it][A100%|██████████| 1/1 [00:15<00:00, 15.92s/it]
+Running Inference:   8%|▊         | 8/98 [02:05<23:37, 15.75s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.94s/it][A100%|██████████| 1/1 [00:15<00:00, 15.94s/it]
+Running Inference:   9%|▉         | 9/98 [02:21<23:27, 15.82s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.73s/it][A100%|██████████| 1/1 [00:15<00:00, 15.73s/it]
+Running Inference:  10%|█         | 10/98 [02:36<23:09, 15.79s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.67s/it][A100%|██████████| 1/1 [00:15<00:00, 15.67s/it]
+Running Inference:  11%|█         | 11/98 [02:52<22:51, 15.76s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.95s/it][A100%|██████████| 1/1 [00:15<00:00, 15.95s/it]
+Running Inference:  12%|█▏        | 12/98 [03:08<22:40, 15.82s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.95s/it][A100%|██████████| 1/1 [00:15<00:00, 15.95s/it]
+Running Inference:  13%|█▎        | 13/98 [03:24<22:29, 15.87s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.54s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  14%|█▍        | 14/98 [03:39<22:05, 15.78s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.72s/it][A100%|██████████| 1/1 [00:15<00:00, 15.72s/it]
+Running Inference:  15%|█▌        | 15/98 [03:55<21:48, 15.77s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.53s/it][A100%|██████████| 1/1 [00:15<00:00, 15.53s/it]
+Running Inference:  16%|█▋        | 16/98 [04:11<21:27, 15.70s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.54s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  17%|█▋        | 17/98 [04:26<21:08, 15.66s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.98s/it][A100%|██████████| 1/1 [00:15<00:00, 15.98s/it]
+Running Inference:  18%|█▊        | 18/98 [04:42<21:00, 15.76s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.70s/it][A100%|██████████| 1/1 [00:15<00:00, 15.70s/it]
+Running Inference:  19%|█▉        | 19/98 [04:58<20:43, 15.75s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.80s/it][A100%|██████████| 1/1 [00:15<00:00, 15.80s/it]
+Running Inference:  20%|██        | 20/98 [05:14<20:29, 15.77s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:16<00:00, 16.14s/it][A100%|██████████| 1/1 [00:16<00:00, 16.14s/it]
+Running Inference:  21%|██▏       | 21/98 [05:30<20:23, 15.89s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.79s/it][A100%|██████████| 1/1 [00:15<00:00, 15.79s/it]
+Running Inference:  22%|██▏       | 22/98 [05:46<20:05, 15.86s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.68s/it][A100%|██████████| 1/1 [00:15<00:00, 15.68s/it]
+Running Inference:  23%|██▎       | 23/98 [06:02<19:45, 15.81s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.53s/it][A100%|██████████| 1/1 [00:15<00:00, 15.53s/it]
+Running Inference:  24%|██▍       | 24/98 [06:17<19:24, 15.73s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.59s/it][A100%|██████████| 1/1 [00:15<00:00, 15.59s/it]
+Running Inference:  26%|██▌       | 25/98 [06:33<19:05, 15.70s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.57s/it][A100%|██████████| 1/1 [00:15<00:00, 15.57s/it]
+Running Inference:  27%|██▋       | 26/98 [06:48<18:47, 15.66s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.59s/it][A100%|██████████| 1/1 [00:15<00:00, 15.59s/it]
+Running Inference:  28%|██▊       | 27/98 [07:04<18:30, 15.65s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.62s/it][A100%|██████████| 1/1 [00:15<00:00, 15.62s/it]
+Running Inference:  29%|██▊       | 28/98 [07:19<18:14, 15.64s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.99s/it][A100%|██████████| 1/1 [00:15<00:00, 15.99s/it]
+Running Inference:  30%|██▉       | 29/98 [07:36<18:06, 15.75s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.67s/it][A100%|██████████| 1/1 [00:15<00:00, 15.67s/it]
+Running Inference:  31%|███       | 30/98 [07:51<17:49, 15.73s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.68s/it][A100%|██████████| 1/1 [00:15<00:00, 15.68s/it]
+Running Inference:  32%|███▏      | 31/98 [08:07<17:33, 15.72s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.54s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  33%|███▎      | 32/98 [08:22<17:14, 15.67s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.70s/it][A100%|██████████| 1/1 [00:15<00:00, 15.70s/it]
+Running Inference:  34%|███▎      | 33/98 [08:38<16:59, 15.69s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.95s/it][A100%|██████████| 1/1 [00:15<00:00, 15.95s/it]
+Running Inference:  35%|███▍      | 34/98 [08:54<16:49, 15.77s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.55s/it][A100%|██████████| 1/1 [00:15<00:00, 15.55s/it]
+Running Inference:  36%|███▌      | 35/98 [09:10<16:29, 15.71s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.63s/it][A100%|██████████| 1/1 [00:15<00:00, 15.63s/it]
+Running Inference:  37%|███▋      | 36/98 [09:25<16:12, 15.69s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.56s/it][A100%|██████████| 1/1 [00:15<00:00, 15.56s/it]
+Running Inference:  38%|███▊      | 37/98 [09:41<15:55, 15.66s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.58s/it][A100%|██████████| 1/1 [00:15<00:00, 15.58s/it]
+Running Inference:  39%|███▉      | 38/98 [09:57<15:38, 15.64s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.95s/it][A100%|██████████| 1/1 [00:15<00:00, 15.95s/it]
+Running Inference:  40%|███▉      | 39/98 [10:13<15:28, 15.74s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.98s/it][A100%|██████████| 1/1 [00:15<00:00, 15.98s/it]
+Running Inference:  41%|████      | 40/98 [10:28<15:17, 15.82s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.93s/it][A100%|██████████| 1/1 [00:15<00:00, 15.93s/it]
+Running Inference:  42%|████▏     | 41/98 [10:44<15:03, 15.86s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.69s/it][A100%|██████████| 1/1 [00:15<00:00, 15.69s/it]
+Running Inference:  43%|████▎     | 42/98 [11:00<14:45, 15.81s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.55s/it][A100%|██████████| 1/1 [00:15<00:00, 15.55s/it]
+Running Inference:  44%|████▍     | 43/98 [11:16<14:25, 15.74s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.90s/it][A100%|██████████| 1/1 [00:15<00:00, 15.90s/it]
+Running Inference:  45%|████▍     | 44/98 [11:32<14:12, 15.79s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.97s/it][A100%|██████████| 1/1 [00:15<00:00, 15.97s/it]
+Running Inference:  46%|████▌     | 45/98 [11:48<14:00, 15.85s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.54s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  47%|████▋     | 46/98 [12:03<13:39, 15.76s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.58s/it][A100%|██████████| 1/1 [00:15<00:00, 15.58s/it]
+Running Inference:  48%|████▊     | 47/98 [12:19<13:21, 15.71s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.59s/it][A100%|██████████| 1/1 [00:15<00:00, 15.59s/it]
+Running Inference:  49%|████▉     | 48/98 [12:34<13:04, 15.68s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.98s/it][A100%|██████████| 1/1 [00:15<00:00, 15.98s/it]
+Running Inference:  50%|█████     | 49/98 [12:50<12:53, 15.78s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.73s/it][A100%|██████████| 1/1 [00:15<00:00, 15.73s/it]
+Running Inference:  51%|█████     | 50/98 [13:06<12:36, 15.77s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.67s/it][A100%|██████████| 1/1 [00:15<00:00, 15.67s/it]
+Running Inference:  52%|█████▏    | 51/98 [13:22<12:19, 15.74s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.94s/it][A100%|██████████| 1/1 [00:15<00:00, 15.94s/it]
+Running Inference:  53%|█████▎    | 52/98 [13:38<12:07, 15.81s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.77s/it][A100%|██████████| 1/1 [00:15<00:00, 15.77s/it]
+Running Inference:  54%|█████▍    | 53/98 [13:54<11:51, 15.80s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.53s/it][A100%|██████████| 1/1 [00:15<00:00, 15.53s/it]
+Running Inference:  55%|█████▌    | 54/98 [14:09<11:31, 15.73s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.53s/it][A100%|██████████| 1/1 [00:15<00:00, 15.53s/it]
+Running Inference:  56%|█████▌    | 55/98 [14:25<11:13, 15.67s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.53s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  57%|█████▋    | 56/98 [14:40<10:56, 15.64s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.73s/it][A100%|██████████| 1/1 [00:15<00:00, 15.73s/it]
+Running Inference:  58%|█████▊    | 57/98 [14:56<10:42, 15.67s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.54s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  59%|█████▉    | 58/98 [15:12<10:25, 15.64s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.65s/it][A100%|██████████| 1/1 [00:15<00:00, 15.65s/it]
+Running Inference:  60%|██████    | 59/98 [15:27<10:10, 15.65s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.54s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  61%|██████    | 60/98 [15:43<09:53, 15.62s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.55s/it][A100%|██████████| 1/1 [00:15<00:00, 15.56s/it]
+Running Inference:  62%|██████▏   | 61/98 [15:58<09:37, 15.61s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 16.00s/it][A100%|██████████| 1/1 [00:15<00:00, 16.00s/it]
+Running Inference:  63%|██████▎   | 62/98 [16:14<09:26, 15.73s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.80s/it][A100%|██████████| 1/1 [00:15<00:00, 15.80s/it]
+Running Inference:  64%|██████▍   | 63/98 [16:30<09:11, 15.76s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.73s/it][A100%|██████████| 1/1 [00:15<00:00, 15.73s/it]
+Running Inference:  65%|██████▌   | 64/98 [16:46<08:55, 15.75s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.59s/it][A100%|██████████| 1/1 [00:15<00:00, 15.59s/it]
+Running Inference:  66%|██████▋   | 65/98 [17:02<08:38, 15.71s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.57s/it][A100%|██████████| 1/1 [00:15<00:00, 15.57s/it]
+Running Inference:  67%|██████▋   | 66/98 [17:17<08:21, 15.67s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.85s/it][A100%|██████████| 1/1 [00:15<00:00, 15.85s/it]
+Running Inference:  68%|██████▊   | 67/98 [17:33<08:07, 15.73s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.91s/it][A100%|██████████| 1/1 [00:15<00:00, 15.91s/it]
+Running Inference:  69%|██████▉   | 68/98 [17:49<07:53, 15.79s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.83s/it][A100%|██████████| 1/1 [00:15<00:00, 15.84s/it]
+Running Inference:  70%|███████   | 69/98 [18:05<07:38, 15.82s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.95s/it][A100%|██████████| 1/1 [00:15<00:00, 15.95s/it]
+Running Inference:  71%|███████▏  | 70/98 [18:21<07:24, 15.86s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.52s/it][A100%|██████████| 1/1 [00:15<00:00, 15.52s/it]
+Running Inference:  72%|███████▏  | 71/98 [18:36<07:05, 15.77s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.53s/it][A100%|██████████| 1/1 [00:15<00:00, 15.53s/it]
+Running Inference:  73%|███████▎  | 72/98 [18:52<06:48, 15.70s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.60s/it][A100%|██████████| 1/1 [00:15<00:00, 15.60s/it]
+Running Inference:  74%|███████▍  | 73/98 [19:07<06:31, 15.68s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.56s/it][A100%|██████████| 1/1 [00:15<00:00, 15.56s/it]
+Running Inference:  76%|███████▌  | 74/98 [19:23<06:15, 15.65s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.87s/it][A100%|██████████| 1/1 [00:15<00:00, 15.87s/it]
+Running Inference:  77%|███████▋  | 75/98 [19:39<06:01, 15.72s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.68s/it][A100%|██████████| 1/1 [00:15<00:00, 15.68s/it]
+Running Inference:  78%|███████▊  | 76/98 [19:55<05:45, 15.71s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.68s/it][A100%|██████████| 1/1 [00:15<00:00, 15.68s/it]
+Running Inference:  79%|███████▊  | 77/98 [20:10<05:29, 15.71s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.52s/it][A100%|██████████| 1/1 [00:15<00:00, 15.52s/it]
+Running Inference:  80%|███████▉  | 78/98 [20:26<05:13, 15.66s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.87s/it][A100%|██████████| 1/1 [00:15<00:00, 15.88s/it]
+Running Inference:  81%|████████  | 79/98 [20:42<04:58, 15.73s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.51s/it][A100%|██████████| 1/1 [00:15<00:00, 15.51s/it]
+Running Inference:  82%|████████▏ | 80/98 [20:57<04:42, 15.67s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.64s/it][A100%|██████████| 1/1 [00:15<00:00, 15.64s/it]
+Running Inference:  83%|████████▎ | 81/98 [21:13<04:26, 15.67s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.68s/it][A100%|██████████| 1/1 [00:15<00:00, 15.68s/it]
+Running Inference:  84%|████████▎ | 82/98 [21:29<04:10, 15.67s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.56s/it][A100%|██████████| 1/1 [00:15<00:00, 15.56s/it]
+Running Inference:  85%|████████▍ | 83/98 [21:44<03:54, 15.65s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.84s/it][A100%|██████████| 1/1 [00:15<00:00, 15.84s/it]
+Running Inference:  86%|████████▌ | 84/98 [22:00<03:39, 15.71s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.51s/it][A100%|██████████| 1/1 [00:15<00:00, 15.51s/it]
+Running Inference:  87%|████████▋ | 85/98 [22:16<03:23, 15.65s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.59s/it][A100%|██████████| 1/1 [00:15<00:00, 15.59s/it]
+Running Inference:  88%|████████▊ | 86/98 [22:31<03:07, 15.64s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.90s/it][A100%|██████████| 1/1 [00:15<00:00, 15.90s/it]
+Running Inference:  89%|████████▉ | 87/98 [22:47<02:52, 15.72s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.49s/it][A100%|██████████| 1/1 [00:15<00:00, 15.49s/it]
+Running Inference:  90%|████████▉ | 88/98 [23:03<02:36, 15.66s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.92s/it][A100%|██████████| 1/1 [00:15<00:00, 15.92s/it]
+Running Inference:  91%|█████████ | 89/98 [23:19<02:21, 15.74s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.59s/it][A100%|██████████| 1/1 [00:15<00:00, 15.59s/it]
+Running Inference:  92%|█████████▏| 90/98 [23:34<02:05, 15.70s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.73s/it][A100%|██████████| 1/1 [00:15<00:00, 15.73s/it]
+Running Inference:  93%|█████████▎| 91/98 [23:50<01:50, 15.71s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.79s/it][A100%|██████████| 1/1 [00:15<00:00, 15.79s/it]
+Running Inference:  94%|█████████▍| 92/98 [24:06<01:34, 15.74s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.58s/it][A100%|██████████| 1/1 [00:15<00:00, 15.58s/it]
+Running Inference:  95%|█████████▍| 93/98 [24:21<01:18, 15.70s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.51s/it][A100%|██████████| 1/1 [00:15<00:00, 15.51s/it]
+Running Inference:  96%|█████████▌| 94/98 [24:37<01:02, 15.65s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.52s/it][A100%|██████████| 1/1 [00:15<00:00, 15.52s/it]
+Running Inference:  97%|█████████▋| 95/98 [24:52<00:46, 15.61s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.54s/it][A100%|██████████| 1/1 [00:15<00:00, 15.54s/it]
+Running Inference:  98%|█████████▊| 96/98 [25:08<00:31, 15.60s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:15<00:00, 15.51s/it][A100%|██████████| 1/1 [00:15<00:00, 15.51s/it]
+Running Inference:  99%|█████████▉| 97/98 [25:23<00:15, 15.58s/it]
+  0%|          | 0/1 [00:00<?, ?it/s][AA decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side='left'` when initializing the tokenizer.
+
+100%|██████████| 1/1 [00:10<00:00, 10.64s/it][A100%|██████████| 1/1 [00:10<00:00, 10.64s/it]
+Running Inference: 100%|██████████| 98/98 [25:34<00:00, 14.10s/it]Running Inference: 100%|██████████| 98/98 [25:34<00:00, 15.66s/it]
+[Done] Saved 50000 records → /tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/binary/qwen_cifar20_binary_processed_labels.json
+[GPU 0] Completed.

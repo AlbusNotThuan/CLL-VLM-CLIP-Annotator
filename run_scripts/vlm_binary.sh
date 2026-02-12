@@ -1,70 +1,80 @@
 #!/bin/bash
 
 # =====================================================
-# VLM binary prompting – main4.py (không LLaVA)
-# GPU 4 và GPU 5 chạy SONG SONG
-# GPU 4: qwen3_8b
-# GPU 5: qwen 2.5 → qwen3_2b (tuần tự)
+# VLM binary prompting – main4.py
+# Running cifar20 dataset on GPU 0, 1, and 2 in PARALLEL
+# GPU 0: qwen (bs 256)
+# GPU 1: qwen3_2b (bs 512)
+# GPU 2: qwen3_8b (bs 256)
 # =====================================================
 
 set -e
 
 PROJECT_ROOT="/tmp2/maitanha/vgu/cll_vlm"
 CODE_DIR="${PROJECT_ROOT}/cll_vlm"
-DATA_NAME="cifar100"
-PROMPT_TYPE="label_description"
+DATA_NAME="cifar20"
+PROMPT_TYPE="binary"
+CUSTOM_NAME="processed_labels"
 
 echo "=============================================="
-echo "VLM Run – main4.py (GPU 4 // GPU 5)"
-echo "GPU 4: qwen3_8b"
-echo "GPU 5: qwen 2.5 → qwen3_2b"
-echo "Working dir: ${CODE_DIR}"
+echo "VLM Run – main4.py (GPU 0 // 1 // 2)"
+echo "Dataset: ${DATA_NAME}"
+echo "Output suffix: ${CUSTOM_NAME}"
+echo "Starting parallel runs..."
 echo "=============================================="
 
 cd "${CODE_DIR}"
 
-# -----------------------------
-# GPU 4: qwen3_8b
-# -----------------------------
+# GPU 0: qwen
 (
-  export CUDA_VISIBLE_DEVICES=4
-  echo "[GPU 4] Bắt đầu: qwen3_8b"
-  python main4.py \
-    --data_name "${DATA_NAME}" \
-    --model_name qwen3_8b \
-    --batch_size 128 \
-    --prompt_type "${PROMPT_TYPE}"
-  echo "[GPU 4] Xong."
-) > "${PROJECT_ROOT}/run_scripts/log_gpu4.log" 2>&1 &
-PID4=$!
-
-# -----------------------------
-# GPU 5: qwen 2.5 rồi qwen3_2b (chạy trong subshell, nền)
-# -----------------------------
-(
-  export CUDA_VISIBLE_DEVICES=5
-  echo "[GPU 5] Bắt đầu: qwen 2.5"
+  export CUDA_VISIBLE_DEVICES=0
+  echo "[GPU 0] Starting qwen (bs 512)"
   python main4.py \
     --data_name "${DATA_NAME}" \
     --model_name qwen \
-    --batch_size 128 \
-    --prompt_type "${PROMPT_TYPE}"
-  echo "[GPU 5] Xong qwen 2.5 → chạy qwen3_2b"
+    --batch_size 512 \
+    --prompt_type "${PROMPT_TYPE}" \
+    --custom_output_name "${CUSTOM_NAME}"
+  echo "[GPU 0] Completed."
+) > "${PROJECT_ROOT}/run_scripts/log_gpu0_cifar20.log" 2>&1 &
+PID0=$!
+
+# GPU 1: qwen3_2b
+(
+  export CUDA_VISIBLE_DEVICES=1
+  echo "[GPU 1] Starting qwen3_2b (bs 1024)"
   python main4.py \
     --data_name "${DATA_NAME}" \
     --model_name qwen3_2b \
-    --batch_size 256 \
-    --prompt_type "${PROMPT_TYPE}"
-  echo "[GPU 5] Tất cả xong."
-) > "${PROJECT_ROOT}/run_scripts/log_gpu5.log" 2>&1 &
-PID5=$!
+    --batch_size 1024 \
+    --prompt_type "${PROMPT_TYPE}" \
+    --custom_output_name "${CUSTOM_NAME}"
+  echo "[GPU 1] Completed."
+) > "${PROJECT_ROOT}/run_scripts/log_gpu1_cifar20.log" 2>&1 &
+PID1=$!
 
-echo "Đã khởi chạy: GPU4 PID=${PID4}, GPU5 PID=${PID5}"
-echo "Log GPU 4: run_scripts/log_gpu4.log"
-echo "Log GPU 5: run_scripts/log_gpu5.log"
-echo "Đang chờ cả hai hoàn thành..."
-wait $PID4 && echo "[GPU 4] Process kết thúc thành công." || echo "[GPU 4] Process lỗi (exit $?)."
-wait $PID5 && echo "[GPU 5] Process kết thúc thành công." || echo "[GPU 5] Process lỗi (exit $?)."
+# GPU 2: qwen3_8b
+(
+  export CUDA_VISIBLE_DEVICES=2
+  echo "[GPU 2] Starting qwen3_8b (bs 512)"
+  python main4.py \
+    --data_name "${DATA_NAME}" \
+    --model_name qwen3_8b \
+    --batch_size 512 \
+    --prompt_type "${PROMPT_TYPE}" \
+    --custom_output_name "${CUSTOM_NAME}"
+  echo "[GPU 2] Completed."
+) > "${PROJECT_ROOT}/run_scripts/log_gpu2_cifar20.log" 2>&1 &
+PID2=$!
+
+echo "Launched GPUs: 0 (PID $PID0), 1 (PID $PID1), 2 (PID $PID2)"
+echo "Logs are available at run_scripts/log_gpu*_cifar20.log"
+
+echo "Waiting for all processes to complete..."
+wait $PID0 && echo "[GPU 0] SUCCESS" || echo "[GPU 0] FAILED"
+wait $PID1 && echo "[GPU 1] SUCCESS" || echo "[GPU 1] FAILED"
+wait $PID2 && echo "[GPU 2] SUCCESS" || echo "[GPU 2] FAILED"
+
 echo "=============================================="
-echo "Cả hai GPU đã xong."
+echo "All cifar20 runs finished."
 echo "=============================================="

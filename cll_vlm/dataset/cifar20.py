@@ -322,3 +322,11 @@ class CIFAR20Dataset(Dataset, BaseDataset):
             target = self.target_transform(target)
             
         return img, target
+
+    @staticmethod
+    def preprocess_label(label: str) -> str:
+        if label.startswith("vehicles_1"):
+            return "transportation vehicles"
+        if label.startswith("vehicles_2"):
+            return "industrial and military vehicles"
+        return label.replace("_", " ")

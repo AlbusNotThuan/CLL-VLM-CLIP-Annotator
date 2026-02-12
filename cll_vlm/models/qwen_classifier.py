@@ -3,7 +3,7 @@ import os
 import torch
 from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
 try:
-    from transformers import Qwen3VLForConditionalGeneration
+    from transformers import Qwen3VLForConditionalGeneration, Qwen3VLMoeForConditionalGeneration
     HAS_QWEN3 = True
 except ImportError:
     HAS_QWEN3 = False
@@ -56,7 +56,7 @@ def extract_all_reasons(raw: str):
 
     return decision, clean_reasons
 
-def load_qwen(model_path: str, device: str):
+def load_qwen(model_path: str, device: str = None):
     try:
         processor = AutoProcessor.from_pretrained(
             model_path,
@@ -70,33 +70,51 @@ def load_qwen(model_path: str, device: str):
 
     print(f" [DEBUG] Model path: {model_path}")
     
+    # Use device_map="auto" for multi-GPU if device is not specifically set to a single one
+    # This respects CUDA_VISIBLE_DEVICES
+    if device in [None, "cuda", "auto"]:
+        device_map = "auto"
+    else:
+        device_map = device
+
     if "Qwen2.5" in model_path:
         model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             model_path,
             torch_dtype="auto",
             trust_remote_code=True,
-            # low_cpu_mem_usage=True,
-            device_map= None
-        ).to(device)
+            device_map=device_map,
+        )
 
     elif "Qwen3" in model_path:
         if not HAS_QWEN3:
             raise ImportError("Qwen3 model requires 'transformers' package with Qwen3 support.")
-        model = Qwen3VLForConditionalGeneration.from_pretrained(
-            model_path,
-            torch_dtype="auto",
-            trust_remote_code=True,
-            # low_cpu_mem_usage=True,
-            device_map= None
-        ).to(device)
+        
+        # Qwen3-VL-30B-A3B-Instruct uses MOE architecture
+        if "30B-A3B" in model_path:
+            model = Qwen3VLMoeForConditionalGeneration.from_pretrained(
+                model_path,
+                torch_dtype="auto",
+                trust_remote_code=True,
+                device_map=device_map,
+            )
+        else:
+            model = Qwen3VLForConditionalGeneration.from_pretrained(
+                model_path,
+                torch_dtype="auto",
+                trust_remote_code=True,
+                device_map=device_map,
+            )
     else:
         raise ValueError(f"Unsupported Qwen model path: {model_path}")
+    
+    model.eval() # Ensure model is in evaluation mode
     return processor, model
     
 class QWENClassifier:
     def __init__(self, model_path="Qwen/Qwen2.5-VL-7B-Instruct", device=None):
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.processor, self.model = load_qwen(model_path, self.device)
+        self.processor, self.model = load_qwen(model_path, device)
+        # Use the actual device assigned to the model (handles multi-GPU device_map)
+        self.device = self.model.device
 
     def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None):
         total_images = len(data)
@@ -148,23 +166,23 @@ class QWENClassifier:
             if prompt_type == "binary":
                 batch_messages = []
                 for img, label in zip(batch_images, batch_shuffled_labels):
-                    # prompt = (
-                    #     f"You are given an image. Does the label '{label}' correspond to this image?"
-                    #             "Answer ONLY with a valid JSON object.\n:"
-                    #             # "Return only a JSON object formatted as: "
-                    #             "Format: {'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}.\n"
-                    # )
-
                     prompt = (
-                        f"You are given an image.\n"
-                        "First, identify the SINGLE main object that occupies the central visual focus "
-                        "or is most salient in the image.\n"
-                        "Do NOT consider background, environment, or secondary objects.\n\n"
-                        f"Then decide whether the label '{label}' correctly describes that main object.\n"
-                        "If the label matches only background or contextual elements, answer NO.\n\n"
-                        "Answer ONLY with a valid JSON object formatted as: "
-                        "{'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}."
+                        f"You are given an image. Does the label '{label}' correspond to this image?"
+                                "Answer ONLY with a valid JSON object.\n:"
+                                # "Return only a JSON object formatted as: "
+                                "Format: {'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}.\n"
                     )
+
+                    # prompt = (
+                    #     f"You are given an image.\n"
+                    #     "First, identify the SINGLE main object that occupies the central visual focus "
+                    #     "or is most salient in the image.\n"
+                    #     "Do NOT consider background, environment, or secondary objects.\n\n"
+                    #     f"Then decide whether the label '{label}' correctly describes that main object.\n"
+                    #     "If the label matches only background or contextual elements, answer NO.\n\n"
+                    #     "Answer ONLY with a valid JSON object formatted as: "
+                    #     "{'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}."
+                    # )
 
                     messages = [
                         {
@@ -215,7 +233,7 @@ class QWENClassifier:
                 with torch.no_grad():
                     generated_ids = self.model.generate(
                         **inputs,
-                        max_new_tokens=256,
+                        max_new_tokens=64,
                         do_sample=False,
                         pad_token_id=self.processor.tokenizer.pad_token_id,
                         eos_token_id=None, 

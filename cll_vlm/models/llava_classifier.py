@@ -9,35 +9,46 @@ import json
 import re
 
 def strip_prompt(text: str) -> str:
+    # Loại bỏ các tag phổ biến của các dòng LLaVA khác nhau
     if "[/INST]" in text:
-        return text.split("[/INST]", 1)[1].strip()
+        text = text.split("[/INST]", 1)[1]
+    elif "ASSISTANT:" in text:
+        text = text.split("ASSISTANT:", 1)[1]
+    elif "assistant\n" in text.lower():
+        # Một số bản Llama-3 LLaVA dùng format này
+        parts = re.split(r'assistant\n', text, flags=re.IGNORECASE)
+        text = parts[-1]
+    
     return text.strip()
 
 def parse_llava_output(raw: str):
-    """
-    Robust parser for LLaVA binary output.
-    Works even if JSON is truncated.
-    """
     text = strip_prompt(raw)
+    # print(f"[DEBUG] LLaVA output text: {text}")
 
-    # 1. Parse answer (always reliable)
-    m = re.search(r'"answer"\s*:\s*"(YES|NO)"', text, re.IGNORECASE)
-    answer = m.group(1).upper() if m else "UNKNOWN"
-
-    # 2. Parse reason (best-effort)
-    r = re.search(r'"reason"\s*:\s*"(.*)', text, re.DOTALL)
-    if r:
-        reason = r.group(1)
-        # remove trailing junk
-        reason = reason.rstrip('"} \n')
+    # 1. Thử tìm trong định dạng JSON (ưu tiên)
+    m = re.search(r'["\']answer["\']\s*:\s*["\'](YES|NO)["\']', text, re.IGNORECASE)
+    if m:
+        answer = m.group(1).upper()
     else:
-        # fallback: remove JSON template if present
+        # Fallback 1: Tìm chữ YES/NO đứng cô lập hoặc ở đầu dòng
+        m2 = re.search(r'\b(YES|NO)\b', text, re.IGNORECASE)
+        if m2:
+            answer = m2.group(1).upper()
+        else:
+            answer = "UNKNOWN"
+
+    # 2. Parse reason
+    r = re.search(r'["\']reason["\']\s*:\s*["\'](.*)', text, re.DOTALL)
+    if r:
+        reason = r.group(1).rstrip('"} \n')
+    else:
+        # Nếu không có JSON, lấy toàn bộ text làm lý do (nhưng bỏ kết quả YES/NO ở đầu)
         reason = text
+    
+    # print(f"[DEBUG] Extracted answer: {answer}")
 
     # 3. Final cleanup
     reason = reason.strip()
-
-    # prevent leaking prompt template
     if "explain your reason for choosing" in reason.lower():
         reason = ""
 
@@ -46,30 +57,32 @@ def parse_llava_output(raw: str):
 
 class LLaVAClassifier:
     def __init__(self, model_path="llava-hf/llava-v1.6-mistral-7b-hf", baseprompt=None, device=None, device_map=None):
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
-        self.processor = LlavaNextProcessor.from_pretrained(model_path, use_fast=True)
+        self.processor = LlavaNextProcessor.from_pretrained(model_path, use_fast=False)
+        self.is_vicuna = "vicuna" in model_path.lower()
         
-        # Use device_map if specified (for multi-GPU), otherwise use single device
-        if device_map == "auto":
-            self.model = LlavaNextForConditionalGeneration.from_pretrained(
-                model_path,
-                torch_dtype=torch.float16,
-                low_cpu_mem_usage=True,
-                device_map="auto"
-            )
-        else:
-            self.model = LlavaNextForConditionalGeneration.from_pretrained(
-                model_path,
-                torch_dtype=torch.float16,
-                low_cpu_mem_usage=True,
-                device_map=None
-            ).to(self.device)
+        # Use device_map="auto" for multi-GPU if device is not specifically set to a single one
+        # This respects CUDA_VISIBLE_DEVICES
+        if device_map is None:
+            if device in [None, "cuda", "auto"]:
+                device_map = "auto"
+            else:
+                device_map = device
+
+        self.model = LlavaNextForConditionalGeneration.from_pretrained(
+            model_path,
+            torch_dtype=torch.float16,
+            low_cpu_mem_usage=True,
+            device_map=device_map
+        )
         
+        # Use the actual device assigned to the model (handles multi-GPU device_map)
+        self.device = self.model.device
         self.baseprompt = baseprompt
 
     @classmethod
     def build_model(cls, args):
-        return cls(model_path="llava-hf/llava-v1.6-mistral-7b-hf", baseprompt=args.prompt)
+        model_url = getattr(args, 'model_url', "llava-hf/llava-v1.6-mistral-7b-hf")
+        return cls(model_path=model_url, baseprompt=args.prompt)
 
     def create_prompt(self, label: str, baseprompt: str) -> str:
         # Format the baseprompt with the label
@@ -178,10 +191,10 @@ class LLaVAClassifier:
                         "{'answer': 'YES' or 'NO', 'reason': explain your reason for choosing them}."
                     )
 
-                    # For debugging
-                    # print(f"Prompt: {prompt}")
-
-                    prompt = f"[INST] <image>\n{prompt} [/INST]"
+                    if self.is_vicuna:
+                        prompt = f"USER: <image>\n{prompt} ASSISTANT:"
+                    else:
+                        prompt = f"[INST] <image>\n{prompt} [/INST]"
                     batch_messages.append(prompt)
 
                 inputs = self.processor(
@@ -191,7 +204,7 @@ class LLaVAClassifier:
 
                 outputs = self.model.generate(
                     **inputs,
-                    max_new_tokens=32,
+                    max_new_tokens=128,
                     pad_token_id=self.processor.tokenizer.eos_token_id
                 )
 
@@ -202,6 +215,9 @@ class LLaVAClassifier:
                 # print(f"Answers sample: {answers}")
                 
                 for idx_in_batch, raw in enumerate(answers):
+                    # Robust strip for Vicuna if ASSISTANT: format is used
+                    if self.is_vicuna and "ASSISTANT:" in raw:
+                        raw = raw.split("ASSISTANT:", 1)[1]
                     decision, reason = parse_llava_output(raw)
 
                     global_idx = start_idx + batch_start_idx + idx_in_batch
@@ -244,7 +260,10 @@ class LLaVAClassifier:
                         "Answer ONLY with a valid JSON object formatted as: "
                         "{'answer': 'YES' or 'NO', 'reason': explain your reason}."
                     )
-                    prompt = f"[INST] <image>\n{prompt} [/INST]"
+                    if self.is_vicuna:
+                        prompt = f"USER: <image>\n{prompt} ASSISTANT:"
+                    else:
+                        prompt = f"[INST] <image>\n{prompt} [/INST]"
                     batch_messages.append(prompt)
 
                 inputs = self.processor(
@@ -263,6 +282,9 @@ class LLaVAClassifier:
                 )
 
                 for idx_in_batch, raw in enumerate(answers):
+                    # Robust strip for Vicuna if ASSISTANT: format is used
+                    if self.is_vicuna and "ASSISTANT:" in raw:
+                        raw = raw.split("ASSISTANT:", 1)[1]
                     decision, reason = parse_llava_output(raw)
                     global_idx = start_idx + batch_start_idx + idx_in_batch
                     results.append({

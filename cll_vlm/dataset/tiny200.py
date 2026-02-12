@@ -145,6 +145,15 @@ class Tiny200Dataset(Dataset, BaseDataset):
         # Convert to numpy array for consistency with CIFAR datasets
         self.data = np.array(self.data)
         
+        # # Shuffle data and targets together 
+        # Only shuffle training data
+        # if train:  
+        #     shuffle_indices = np.arange(len(self.data))
+        #     np.random.seed(42)  # Use fixed seed for reproducibility
+        #     np.random.shuffle(shuffle_indices)
+        #     self.data = self.data[shuffle_indices]
+        #     self.targets = [self.targets[i] for i in shuffle_indices]
+        
         # Store copy of original true targets (for continual learning experiments)
         self.true_targets = self.targets.copy() if isinstance(self.targets, list) else list(self.targets)
         
@@ -230,170 +239,6 @@ class Tiny200Dataset(Dataset, BaseDataset):
             target = self.target_transform(target)
             
         return img, target
-    
-    def get_class_name(self, idx):
-        """Get the human-readable class name for a given class index."""
-        if 0 <= idx < len(self.classes):
-            return self.classes[idx]
-        return None
-    
-    def get_wnid(self, idx):
-        """Get the WordNet ID for a given class index."""
-        if 0 <= idx < len(self.wnids):
-            return self.wnids[idx]
-        return None
-
-
-class Tiny200LazyDataset(Dataset, BaseDataset):
-    """Tiny200 Dataset with lazy loading.
-    
-    This version loads images on-the-fly instead of loading all into memory.
-    Useful when memory is limited.
-    """
-    
-    def __init__(self, root="../data/tiny-imagenet-200", train=True, transform=None, 
-                 target_transform=None, cfg=None, download=False):
-        """
-        Args:
-            root (str): Root directory containing tiny-imagenet-200 folder
-            train (bool): If True, load training data, otherwise load validation data
-            transform: Optional transform to be applied on images
-            target_transform: Optional transform to be applied on labels
-            cfg: Configuration object (optional)
-            download (bool): If True, download the dataset if it doesn't exist
-        """
-        self.root = root
-        self.train = train
-        self.transform = transform
-        self.target_transform = target_transform
-        self.cfg = cfg
-        
-        # Check if dataset exists, download if needed
-        if not os.path.exists(root) or not os.path.exists(os.path.join(root, 'wnids.txt')):
-            if download:
-                download_and_extract_tiny_imagenet(root)
-            else:
-                raise RuntimeError(
-                    f"Dataset not found at {root}. "
-                    "You can use download=True to download it automatically."
-                )
-        
-        # Load WordNet IDs
-        wnids_path = os.path.join(root, 'wnids.txt')
-        with open(wnids_path, 'r') as f:
-            self.wnids = [line.strip() for line in f.readlines()]
-        
-        self.wnid_to_idx = {wnid: idx for idx, wnid in enumerate(self.wnids)}
-        
-        # Load human-readable class names
-        words_path = os.path.join(root, 'words.txt')
-        self.wnid_to_words = {}
-        with open(words_path, 'r') as f:
-            for line in f.readlines():
-                parts = line.strip().split('\t')
-                if len(parts) >= 2:
-                    self.wnid_to_words[parts[0]] = parts[1]
-        
-        self.classes = []
-        for wnid in self.wnids:
-            if wnid in self.wnid_to_words:
-                class_name = self.wnid_to_words[wnid].split(',')[0].strip()
-                self.classes.append(class_name)
-            else:
-                self.classes.append(wnid)
-        
-        self.class_to_idx = {cls: idx for idx, cls in enumerate(self.classes)}
-        
-        # Store paths and targets (not actual images)
-        self.image_paths = []
-        self.targets = []
-        
-        if train:
-            self._index_train_data()
-        else:
-            self._index_val_data()
-        
-        # For compatibility with BaseDataset methods that expect 'data' attribute
-        # We store indices instead of actual data
-        self.data = np.arange(len(self.image_paths))
-    
-    def _index_train_data(self):
-        """Index training data paths."""
-        train_dir = os.path.join(self.root, 'train')
-        
-        for wnid in self.wnids:
-            class_dir = os.path.join(train_dir, wnid, 'images')
-            class_idx = self.wnid_to_idx[wnid]
-            
-            if not os.path.exists(class_dir):
-                continue
-                
-            for img_name in sorted(os.listdir(class_dir)):
-                if img_name.endswith(('.JPEG', '.jpeg', '.jpg', '.png')):
-                    img_path = os.path.join(class_dir, img_name)
-                    self.image_paths.append(img_path)
-                    self.targets.append(class_idx)
-    
-    def _index_val_data(self):
-        """Index validation data paths."""
-        val_dir = os.path.join(self.root, 'val')
-        val_images_dir = os.path.join(val_dir, 'images')
-        val_annotations_path = os.path.join(val_dir, 'val_annotations.txt')
-        
-        img_to_wnid = {}
-        with open(val_annotations_path, 'r') as f:
-            for line in f.readlines():
-                parts = line.strip().split('\t')
-                if len(parts) >= 2:
-                    img_to_wnid[parts[0]] = parts[1]
-        
-        for img_name in sorted(img_to_wnid.keys()):
-            wnid = img_to_wnid[img_name]
-            if wnid not in self.wnid_to_idx:
-                continue
-                
-            img_path = os.path.join(val_images_dir, img_name)
-            if os.path.exists(img_path):
-                self.image_paths.append(img_path)
-                self.targets.append(self.wnid_to_idx[wnid])
-    
-    def __len__(self):
-        return len(self.image_paths)
-    
-    def __getitem__(self, idx):
-        """
-        Args:
-            idx (int): Index
-            
-        Returns:
-            tuple: (image, target) where image is a PIL Image and target is the class index
-        """
-        img_path = self.image_paths[idx]
-        target = self.targets[idx]
-        
-        # Load image on-the-fly
-        img = Image.open(img_path).convert('RGB')
-        
-        if self.transform is not None:
-            img = self.transform(img)
-            
-        if self.target_transform is not None:
-            target = self.target_transform(target)
-            
-        return img, target
-    
-    def get_subset_by_indices(self, indices):
-        """
-        Override to handle lazy loading properly.
-        """
-        from copy import deepcopy
-        subset_dataset = deepcopy(self)
-        
-        subset_dataset.image_paths = [self.image_paths[i] for i in indices]
-        subset_dataset.targets = [self.targets[i] for i in indices]
-        subset_dataset.data = np.arange(len(subset_dataset.image_paths))
-        
-        return subset_dataset
     
     def get_class_name(self, idx):
         """Get the human-readable class name for a given class index."""
