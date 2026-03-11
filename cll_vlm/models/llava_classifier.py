@@ -55,6 +55,46 @@ def parse_llava_output(raw: str):
     return answer, reason
 
 
+def extract_multi_label_full_llava(raw: str, valid_labels: set = None) -> (list, str):
+    """
+    Extract predicted labels and reason from LLaVA output for multi_label prompt type.
+    Strips the echoed prompt first (LLaVA returns the full prompt+answer string),
+    then delegates to the same JSON-parsing logic used by the Qwen version.
+    Expected JSON format: {'answer': [...], 'reason': '...'}
+    Returns (list of valid labels, reason string).
+    """
+    text = strip_prompt(raw)
+    if not text:
+        return [], ""
+
+    matches = re.findall(r"\{.*?\}", text, flags=re.DOTALL)
+
+    # Pass 1: look for a proper {"answer": [...], "reason": ...} object
+    for m in matches:
+        try:
+            obj = json.loads(m)
+            if "answer" in obj and isinstance(obj["answer"], list):
+                labels = [str(l).strip() for l in obj["answer"]]
+                if valid_labels is not None:
+                    valid_lower = {v.lower(): v for v in valid_labels}
+                    labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
+                reason = obj.get("reason", "")
+                return labels, reason
+        except Exception:
+            continue
+
+    # Pass 2: no valid "answer" list found — try to recover at least "reason"
+    for m in matches:
+        try:
+            obj = json.loads(m)
+            if "reason" in obj and isinstance(obj["reason"], str):
+                return [], obj["reason"].strip()
+        except Exception:
+            continue
+
+    return [], ""
+
+
 class LLaVAClassifier:
     def __init__(self, model_path="llava-hf/llava-v1.6-mistral-7b-hf", baseprompt=None, device=None, device_map=None):
         self.processor = LlavaNextProcessor.from_pretrained(model_path, use_fast=False)
@@ -123,7 +163,7 @@ class LLaVAClassifier:
                 processed.append("NO")
         return processed
     
-    def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None):
+    def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None, **kwargs):
         total_images = len(data)
         num_batches = (total_images + batch_size - 1) // batch_size
         results = []
@@ -293,6 +333,109 @@ class LLaVAClassifier:
                         "shuffled_label": batch_shuffled_labels[idx_in_batch],
                         "answer": decision,
                         "reason": [reason] if reason else [],
+                    })
+
+            elif prompt_type == "multi_label":
+                # ----------------------------------------------------------------
+                # Sequential batch search (mirrors QWENClassifier logic):
+                #   For each image, iterate label_batches one-by-one.
+                #   Stop as soon as the VLM returns exactly 1 confident label.
+                # ----------------------------------------------------------------
+                label_batches = kwargs.get("label_batches", [])
+                n_imgs = len(batch_images)
+
+                # Per-image state
+                per_img_answer  = [None] * n_imgs
+                per_img_reason  = [""] * n_imgs
+                per_img_batches = [0] * n_imgs   # which label_batch each image is on
+                per_img_out_len = [0] * n_imgs   # cumulative decoded-text char count
+                resolved        = [False] * n_imgs
+
+                for batch_round, label_batch in enumerate(label_batches):
+                    # Collect indices of images that still need this round
+                    pending_indices = [
+                        i for i in range(n_imgs)
+                        if not resolved[i] and per_img_batches[i] == batch_round
+                    ]
+                    if not pending_indices:
+                        continue
+
+                    pending_prompts = []
+                    pending_imgs    = []
+                    for i in pending_indices:
+                        prompt = (
+                            "You are given an image and a list of candidate labels. "
+                            "Your task is to identify whether ANY SINGLE label in the list "
+                            "clearly and confidently matches the main subject of the image.\n\n"
+                            f"Candidates: {', '.join(label_batch)}\n\n"
+                            "Rules:\n"
+                            "- If you are CONFIDENT that exactly one label matches, return that label.\n"
+                            "- If NONE of the candidates fits confidently, return an empty list.\n"
+                            "- Do NOT guess. Only answer if you are sure.\n\n"
+                            "Return ONLY a JSON object, no extra text:\n"
+                            '{"answer": ["<label>"] or [], "reason": "<brief reason>"}'
+                        )
+                        if self.is_vicuna:
+                            prompt = f"USER: <image>\n{prompt} ASSISTANT:"
+                        else:
+                            prompt = f"[INST] <image>\n{prompt} [/INST]"
+                        pending_prompts.append(prompt)
+                        pending_imgs.append(batch_images[i])
+
+                    inputs = self.processor(
+                        images=pending_imgs, text=pending_prompts,
+                        padding=True, return_tensors="pt"
+                    ).to(self.model.device)
+                    inputs["pixel_values"] = inputs["pixel_values"].to(self.model.dtype)
+
+                    outputs = self.model.generate(
+                        **inputs,
+                        max_new_tokens=128,
+                        pad_token_id=self.processor.tokenizer.eos_token_id
+                    )
+
+                    answers = self.processor.batch_decode(
+                        outputs, skip_special_tokens=True,
+                        clean_up_tokenization_spaces=False
+                    )
+
+                    # --- DEBUG: Save Raw VLM Answers ---
+                    debug_dir = "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/multi_label_llava"
+                    os.makedirs(debug_dir, exist_ok=True)
+                    debug_file = os.path.join(debug_dir, "raw_vlm_answers.jsonl")
+                    with open(debug_file, "a", encoding="utf-8") as f_debug:
+                        for img_i, out in zip(pending_indices, answers):
+                            f_debug.write(json.dumps({
+                                "global_img_idx": start_idx + batch_start_idx + img_i,
+                                "round": batch_round,
+                                "label_batch": list(label_batch),
+                                "raw_vlm_answer": strip_prompt(out)
+                            }, ensure_ascii=False) + "\n")
+                    # -----------------------------------
+
+                    batch_label_set = set(label_batch)
+                    for img_i, out in zip(pending_indices, answers):
+                        cleaned = strip_prompt(out)
+                        per_img_out_len[img_i] += len(cleaned)
+                        predicted, reason = extract_multi_label_full_llava(
+                            out, valid_labels=batch_label_set
+                        )
+
+                        if len(predicted) == 1:
+                            per_img_answer[img_i] = predicted[0]
+                            per_img_reason[img_i] = reason
+                            resolved[img_i] = True
+                        else:
+                            per_img_batches[img_i] = batch_round + 1
+
+                for i in range(n_imgs):
+                    results.append({
+                        "img_idx": start_idx + batch_start_idx + i,
+                        "true_label":     batch_true_labels[i] if batch_true_labels else None,
+                        "shuffled_label": batch_shuffled_labels[i] if batch_shuffled_labels else None,
+                        "answer":         per_img_answer[i],
+                        "reason":         per_img_reason[i],
+                        "output_length":  per_img_out_len[i],
                     })
 
             if output_path:

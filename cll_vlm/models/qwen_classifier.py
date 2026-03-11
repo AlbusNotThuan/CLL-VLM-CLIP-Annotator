@@ -56,12 +56,93 @@ def extract_all_reasons(raw: str):
 
     return decision, clean_reasons
 
+
+def extract_multi_label_answers(raw: str, valid_labels: set = None) -> list:
+    """
+    Extract predicted labels from Qwen output for multi_label prompt type.
+    Expected JSON format: {'answer': [...], 'reason': '...'}
+    Returns a list of valid label strings.
+    """
+    if not raw:
+        return []
+
+    # Try to find a JSON object in the output
+    matches = re.findall(r"\{.*?\}", raw, flags=re.DOTALL)
+    for m in matches:
+        try:
+            obj = json.loads(m)
+            if "answer" in obj and isinstance(obj["answer"], list):
+                labels = [str(l).strip() for l in obj["answer"]]
+                if valid_labels is not None:
+                    # Only keep labels that are in the valid set (case-insensitive)
+                    valid_lower = {v.lower(): v for v in valid_labels}
+                    labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
+                return labels
+        except Exception:
+            continue
+
+    # Fallback: try the whole raw string as JSON
+    try:
+        obj = json.loads(raw)
+        if "answer" in obj and isinstance(obj["answer"], list):
+            labels = [str(l).strip() for l in obj["answer"]]
+            if valid_labels is not None:
+                valid_lower = {v.lower(): v for v in valid_labels}
+                labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
+            return labels
+    except Exception:
+        pass
+
+    return []
+
+
+def extract_multi_label_full(raw: str, valid_labels: set = None) -> (list, str):
+    """
+    Extract predicted labels and reason from Qwen output for multi_label prompt type.
+    Expected JSON format: {'answer': [...], 'reason': '...'}
+    Returns (list of valid labels, reason string).
+    Always tries to recover 'reason' even when 'answer' is empty or missing.
+    """
+    if not raw:
+        return [], ""
+
+    matches = re.findall(r"\{.*?\}", raw, flags=re.DOTALL)
+
+    # Pass 1: look for a proper {"answer": [...], "reason": ...} object
+    # Return even if labels is empty — reason is still useful for logging
+    for m in matches:
+        try:
+            obj = json.loads(m)
+            if "answer" in obj and isinstance(obj["answer"], list):
+                labels = [str(l).strip() for l in obj["answer"]]
+                if valid_labels is not None:
+                    valid_lower = {v.lower(): v for v in valid_labels}
+                    labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
+                reason = obj.get("reason", "")
+                return labels, reason
+        except Exception:
+            continue
+
+    # Pass 2: no valid "answer" list found — try to recover at least "reason"
+    for m in matches:
+        try:
+            obj = json.loads(m)
+            if "reason" in obj and isinstance(obj["reason"], str):
+                return [], obj["reason"].strip()
+        except Exception:
+            continue
+
+    return [], ""
+
+
 def load_qwen(model_path: str, device: str = None):
     try:
         processor = AutoProcessor.from_pretrained(
             model_path,
             trust_remote_code=True
         )
+        # Set left padding for decoder-only models (required for correct batch generation)
+        processor.tokenizer.padding_side = 'left'
     except Exception as e:
         raise RuntimeError(
             f"Failed to load Qwen processor.\n"
@@ -116,7 +197,7 @@ class QWENClassifier:
         # Use the actual device assigned to the model (handles multi-GPU device_map)
         self.device = self.model.device
 
-    def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None):
+    def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None, **kwargs):
         total_images = len(data)
         num_batches = (total_images + batch_size - 1) // batch_size
         results = []
@@ -346,6 +427,129 @@ class QWENClassifier:
                         "reason": reasons,
                     })
 
+            elif prompt_type == "multi_label":
+                # ----------------------------------------------------------------
+                # Sequential batch search:
+                #   For each image, iterate label_batches one-by-one.
+                #   Stop as soon as the VLM returns exactly 1 confident label.
+                #   Images not yet resolved are batched together each round.
+                # ----------------------------------------------------------------
+                label_batches = kwargs.get("label_batches", [])
+                n_imgs = len(batch_images)
+
+                # Per-image state
+                per_img_answer   = [None] * n_imgs  # final label (str) or None
+                per_img_reason   = [""] * n_imgs
+                per_img_batches  = [0]  * n_imgs     # which label_batch each image is on
+                per_img_out_len  = [0]  * n_imgs     # cumulative decoded-text char count
+                resolved         = [False] * n_imgs
+
+                for batch_round, label_batch in enumerate(label_batches):
+                    # Collect indices of images that still need this batch
+                    pending_indices = [
+                        i for i in range(n_imgs)
+                        if not resolved[i] and per_img_batches[i] == batch_round
+                    ]
+                    if not pending_indices:
+                        continue
+
+                    # Build messages only for pending images
+                    pending_msgs = []
+                    for i in pending_indices:
+                        prompt = (
+                            "You are given an image and a list of candidate labels. "
+                            "Your task is to identify whether ANY SINGLE label in the list "
+                            "clearly and confidently matches the main subject of the image.\n\n"
+                            f"Candidates: {', '.join(label_batch)}\n\n"
+                            "Rules:\n"
+                            "- If you are CONFIDENT that exactly one label matches, return that label.\n"
+                            "- If NONE of the candidates fits confidently, return an empty list.\n"
+                            "- Do NOT guess. Only answer if you are sure.\n\n"
+                            "Return ONLY a JSON object, no extra text:\n"
+                            "{\"answer\": [\"<label>\"] or [], \"reason\": \"<brief reason>\"}"
+                        )
+                        pending_msgs.append([{
+                            "role": "user",
+                            "content": [
+                                {"type": "image", "image": batch_images[i]},
+                                {"type": "text", "text": prompt},
+                            ],
+                        }])
+
+                    texts = [
+                        self.processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True)
+                        for m in pending_msgs
+                    ]
+                    image_inputs, video_inputs = process_vision_info(pending_msgs)
+                    inputs = self.processor(
+                        text=texts,
+                        images=image_inputs,
+                        videos=video_inputs,
+                        return_tensors="pt",
+                        padding=True,
+                    ).to(self.device)
+
+                    with torch.no_grad():
+                        generated_ids = self.model.generate(
+                            **inputs,
+                            max_new_tokens=128,
+                            do_sample=False,
+                            pad_token_id=self.processor.tokenizer.pad_token_id,
+                            eos_token_id=None,
+                        )
+
+                    generated_ids_trimmed = [
+                        out_ids[len(in_ids):]
+                        for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+                    ]
+                    output_texts = self.processor.batch_decode(
+                        generated_ids_trimmed,
+                        skip_special_tokens=True,
+                        clean_up_tokenization_spaces=False,
+                    )
+
+                    # --- DEBUG: Save Raw VLM Answers ---
+                    debug_dir = "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/multi_label"
+                    os.makedirs(debug_dir, exist_ok=True)
+                    debug_file = os.path.join(debug_dir, "raw_vlm_answers.jsonl")
+                    
+                    with open(debug_file, "a", encoding="utf-8") as f_debug:
+                        for pos, (img_i, out) in enumerate(zip(pending_indices, output_texts)):
+                            debug_entry = {
+                                "global_img_idx": start_idx + batch_start_idx + img_i,
+                                "round": batch_round,
+                                "label_batch": list(label_batch),
+                                "raw_vlm_answer": out
+                            }
+                            f_debug.write(json.dumps(debug_entry, ensure_ascii=False) + "\n")
+                    # -----------------------------------
+
+                    batch_label_set = set(label_batch)
+                    for pos, (img_i, out) in enumerate(zip(pending_indices, output_texts)):
+                        predicted, reason = extract_multi_label_full(out, valid_labels=batch_label_set)
+
+                        # Accumulate output length (chars of decoded text, not padded token count)
+                        per_img_out_len[img_i] += len(out)
+
+                        if len(predicted) == 1:
+                            # VLM is confident → record and mark resolved
+                            per_img_answer[img_i] = predicted[0]
+                            per_img_reason[img_i] = reason
+                            resolved[img_i] = True
+                        else:
+                            # No confident answer → advance to next label_batch
+                            per_img_batches[img_i] = batch_round + 1
+
+                for i in range(n_imgs):
+                    results.append({
+                        "img_idx": start_idx + batch_start_idx + i,
+                        "true_label": batch_true_labels[i] if batch_true_labels else None,
+                        "shuffled_label": batch_shuffled_labels[i] if batch_shuffled_labels else None,
+                        "answer": per_img_answer[i],       # single label str, or None
+                        "reason": per_img_reason[i],
+                        "output_length": per_img_out_len[i],
+                    })
+
         if output_path:
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
             with open(output_path, "w") as f:
@@ -451,3 +655,92 @@ class QWENClassifier:
             all_results.extend([d.strip() for d in decoded_batch])
             
         return all_results
+
+    def predict_best_label_batch(self, images, label_option_list, baseprompt=None):
+        """
+        Batch version of predict_best_label compatible with LLaVA interface.
+        Args:
+            images (list[PIL.Image]): batch of input images
+            label_option_list (list[list[str]]): candidate labels per image
+            baseprompt (str): optional custom prompt template
+        Returns:
+            list[str]: chosen labels for each image
+        """
+        if len(images) != len(label_option_list):
+            raise ValueError("images and label_option_list must have the same length")
+
+        batch_messages = []
+        for img, label_options in zip(images, label_option_list):
+            if isinstance(label_options, list):
+                label_text = ", ".join(label_options)
+            else:
+                raise ValueError("Each element of label_option_list must be a list of strings")
+
+            # # Randonly shuffle label options to prevent position bias
+            # label_options_shuffled = label_options.copy()
+            # np.random.shuffle(label_options_shuffled)
+            # label_text = ", ".join(label_options_shuffled)
+
+            prompt = baseprompt.format(labels=label_text, label_text=label_text)
+            # print(f"[DEBUG] Generated prompt for image:\n{prompt}\n")
+
+            # import pdb; pdb.set_trace()
+            # # Use custom baseprompt or default
+            # if baseprompt:
+            #     prompt = baseprompt.format(labels=label_text, label_text=label_text)
+            # else:
+            #     prompt = f"Select the closest label from [{label_text}]. Output strictly one label, no explanation or reasoning."
+
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image", "image": img},
+                        {"type": "text", "text": prompt},
+                    ],
+                }
+            ]
+            batch_messages.append(messages)
+
+        # Generate answers
+        texts = [
+            self.processor.apply_chat_template(
+                msg,
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+            for msg in batch_messages
+        ]
+
+        image_inputs, video_inputs = process_vision_info(batch_messages)
+
+        inputs = self.processor(
+            text=texts,
+            images=image_inputs,
+            videos=video_inputs,
+            return_tensors="pt",
+            padding=True,
+        ).to(self.device)
+
+        with torch.no_grad():
+            generated_ids = self.model.generate(
+                **inputs,
+                max_new_tokens=15,
+                do_sample=False,
+                pad_token_id=self.processor.tokenizer.pad_token_id,
+                eos_token_id=None,
+            )
+
+        generated_ids_trimmed = [
+            out_ids[len(in_ids):]
+            for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+        ]
+
+        output_texts = self.processor.batch_decode(
+            generated_ids_trimmed,
+            skip_special_tokens=True,
+            clean_up_tokenization_spaces=False,
+        )
+
+        # Return raw outputs without parsing
+        return [text.strip() for text in output_texts]

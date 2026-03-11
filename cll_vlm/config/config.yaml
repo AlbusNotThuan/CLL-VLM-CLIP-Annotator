@@ -3,6 +3,7 @@ workspace: /tmp2/maitanha/vgu/cll_vlm
 output:
   binary: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/binary"
   label_description: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/label_description"
+  multi_label: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/multi_label"
 
 # Path to label description JSON (used when prompt_type=label_description, e.g. cifar100)
 label_description_json: "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/qwen_cifar100_label_description.json"

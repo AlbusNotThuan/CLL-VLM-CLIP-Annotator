@@ -18,7 +18,6 @@ from dataset.tiny200 import Tiny200Dataset
 
 from models.llava_classifier import LLaVAClassifier
 from models.qwen_classifier import QWENClassifier
-from models.janus_classifier import JanusClassifier
 from models.clip_model import CLIPModel
 from PIL import Image
 
@@ -111,8 +110,16 @@ def main(args):
         else:
             output_path = os.path.join(output_dir, output_name + "_" + args.custom_output_name + ".json")
         print(f"[DEBUG] Output path: {output_path}")
-    elif args.prompt_type == "multiple":
-        output_path = None  # set when implemented
+    elif args.prompt_type == "multi_label":
+        base_output_dir = os.path.join(config["workspace"], "cll_vlm/ol_cll_logs/multi_label/json")
+        output_dir = os.path.join(base_output_dir, data_name)
+        os.makedirs(output_dir, exist_ok=True)
+        output_path = None  # will be set after fine_classes is loaded (need num labels for default lbs)
+
+    # =========================
+    # Build label_batches for multi_label (needs fine_classes, loaded below)
+    # =========================
+    label_batches = None  # will be populated after dataset loading
 
     # =========================
     # Load dataset
@@ -158,25 +165,45 @@ def main(args):
         raise ValueError(f"Dataset '{data_name}' chưa được hỗ trợ trong hàm load_dataset.")
 
     # =========================
+    # Build label_batches for multi_label (in order, no shuffle)
+    # =========================
+    if args.prompt_type == "multi_label":
+        label_batch_size = args.label_batch_size if args.label_batch_size is not None else len(fine_classes)
+        label_batches = [
+            fine_classes[i:i + label_batch_size]
+            for i in range(0, len(fine_classes), label_batch_size)
+        ]
+        # Finalise output path now that we know label_batch_size
+        lbs_suffix = f"lbs{label_batch_size}"
+        if args.custom_output_name == "test":
+            lbs_suffix += "_test"
+        output_file_name = f"{args.model_name}_{data_name}_multi_label_{lbs_suffix}.json"
+        output_path = os.path.join(
+            config["workspace"],
+            "cll_vlm/ol_cll_logs/multi_label/json",
+            data_name,
+            output_file_name,
+        )
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        print(f"[DEBUG] multi_label output path: {output_path}")
+        print(f"[DEBUG] label_batch_size={label_batch_size}, num_batches={len(label_batches)}")
+
+    # =========================
     # Get shuffled dataset
     # =========================
     original_dataset, shuffled_dataset = dataset.get_shuffled_labels_dataset(
         seed=shuffle_seed
     )
 
-    # [DEBUGGING]: Truncate to first batch only with diverse classes
+    # [DEBUGGING]: Truncate to first batch only
     if args.custom_output_name == "test":
-        # Create shuffled indices to get diverse classes (original data is sorted by class)
-        indices = np.arange(len(shuffled_dataset))
-        np.random.seed(shuffle_seed)
-        np.random.shuffle(indices)
-        indices = indices[:batch_size]
+        indices = np.arange(min(batch_size, len(shuffled_dataset)))
         
         # Use get_subset_by_indices to handle both data and targets correctly
         shuffled_dataset = shuffled_dataset.get_subset_by_indices(indices)
         original_dataset = original_dataset.get_subset_by_indices(indices)
 
-        print(f"[DEBUG] Truncated to {len(shuffled_dataset)} random samples for testing")
+        print(f"[DEBUG] Truncated to first {len(shuffled_dataset)} samples for testing")
 
 
     dataloader = DataLoader(
@@ -196,59 +223,70 @@ def main(args):
     elif args.model_name in ["qwen", "qwen3_2b", "qwen3_8b", "qwen3_30b_a3b"]:
         model_path = config["models"][args.model_name]["model_url"]
         model = QWENClassifier(model_path=model_path)
-    elif args.model_name == "janus":
-        model_path = config["models"][args.model_name]["model_url"]
-        model = JanusClassifier(model_path=model_path)
     else:
         raise ValueError(f"Unsupported model '{args.model_name}'.")
     
     # =========================
-    # Run inference batch by batch
+    # Run inference batch by batch with incremental saving
     # =========================
-    results = []
     dataset_pos = 0
+    total_results = 0
+    is_first_batch = True
 
-    # Ensure output directory exists early
+    # Ensure output directory exists and open file for incremental writing
     if output_path:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-
-    for images, shuffled_labels in tqdm(dataloader, desc="Running Inference"):
-        batch_len = len(images)
-
-        # true labels must come from original dataset
-        true_batch = [
-            original_dataset[i][1]
-            for i in range(dataset_pos, dataset_pos + batch_len)
-        ]
-
-        # Call model for this specific batch
-        batch_results = model.generate_batch_results(
-            data=images,
-            shuffled_label_indices=shuffled_labels, # already indices from dataloader
-            true_label_indices=true_batch,
-            fine_classes=fine_classes,
-            prompt_type=args.prompt_type,
-            output_path=None, # We'll save all at once at the end
-            batch_size=batch_len, # Process the whole dataloader batch
-            start_idx=dataset_pos,
-            label_description_path=args.label_description_path or config.get("label_description_json"),
-        )
-        
-        results.extend(batch_results)
-        dataset_pos += batch_len
-
-
-
-
-    # =========================
-    # Save results (JSON)
-    # =========================
-    if output_path:
-        with open(output_path, "w") as f:
-            json.dump(results, f, indent=2)
-        print(f"[Done] Saved {len(results)} records → {output_path}")
+        output_file = open(output_path, "w")
+        output_file.write("[\n")  # Start JSON array
     else:
-        print(f"[Done] No output path set; {len(results)} records in memory.")
+        output_file = None
+
+    try:
+        for images, shuffled_labels in tqdm(dataloader, desc="Running Inference"):
+            batch_len = len(images)
+
+            # true labels must come from original dataset
+            true_batch = [
+                original_dataset[i][1]
+                for i in range(dataset_pos, dataset_pos + batch_len)
+            ]
+
+            # Call model for this specific batch
+            extra_kwargs = {}
+            if args.prompt_type == "multi_label":
+                extra_kwargs["label_batches"] = label_batches
+
+            batch_results = model.generate_batch_results(
+                data=images,
+                shuffled_label_indices=shuffled_labels, # already indices from dataloader
+                true_label_indices=true_batch,
+                fine_classes=fine_classes,
+                prompt_type=args.prompt_type,
+                output_path=None, # We save incrementally, not at the end
+                batch_size=batch_len, # Process the whole dataloader batch
+                start_idx=dataset_pos,
+                label_description_path=args.label_description_path or config.get("label_description_json"),
+                **extra_kwargs,
+            )
+            
+            # Write batch results immediately to file
+            if output_file:
+                for result in batch_results:
+                    if not is_first_batch:
+                        output_file.write(",\n")
+                    else:
+                        is_first_batch = False
+                    json.dump(result, output_file, indent=2)
+                output_file.flush()  # Ensure data is written to disk
+            
+            total_results += len(batch_results)
+            dataset_pos += batch_len
+
+    finally:
+        # Close JSON array and file
+        if output_file:
+            output_file.write("\n]")
+            output_file.close()
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="OL CLL Data Collection")
@@ -280,7 +318,7 @@ if __name__ == "__main__":
         "--model_name",
         type=str,
         required=True,
-        choices=["llava", "llava_13b", "qwen", "qwen3_2b", "qwen3_8b", "janus", "qwen3_30b_a3b"],
+        choices=["llava", "llava_13b", "qwen", "qwen3_2b", "qwen3_8b", "qwen3_30b_a3b"],
         help="Type of the model to use (e.g., llava, qwen, janus).",
     )
 
@@ -295,8 +333,14 @@ if __name__ == "__main__":
         "--prompt_type",
         type=str,
         required=True,
-        choices=["binary", "multiple", "label_description"],
-        help="Type of prompt to use (binary, multiple, or label_description).",
+        choices=["binary", "label_description", "multi_label"],
+        help="Type of prompt to use (binary, label_description, or multi_label).",
+    )
+    parser.add_argument(
+        "--label_batch_size",
+        type=int,
+        default=None,
+        help="Number of labels per batch for multi_label prompt type. Defaults to all labels if not set.",
     )
     parser.add_argument(
         "--label_description_path",
