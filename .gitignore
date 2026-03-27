@@ -9,8 +9,7 @@ logs/
 *.log
 
 cll_vlm/ol_cll_logs/
-venv_cll_llava/
-venv_cll_qwen/
+venv_cll_*/
 run_scripts/
 
 .vscode/

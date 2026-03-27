@@ -57,82 +57,77 @@ def extract_all_reasons(raw: str):
     return decision, clean_reasons
 
 
-def extract_multi_label_answers(raw: str, valid_labels: set = None) -> list:
+def extract_multi_label_full(raw: str) -> tuple:
     """
-    Extract predicted labels from Qwen output for multi_label prompt type.
-    Expected JSON format: {'answer': [...], 'reason': '...'}
-    Returns a list of valid label strings.
-    """
-    if not raw:
-        return []
-
-    # Try to find a JSON object in the output
-    matches = re.findall(r"\{.*?\}", raw, flags=re.DOTALL)
-    for m in matches:
-        try:
-            obj = json.loads(m)
-            if "answer" in obj and isinstance(obj["answer"], list):
-                labels = [str(l).strip() for l in obj["answer"]]
-                if valid_labels is not None:
-                    # Only keep labels that are in the valid set (case-insensitive)
-                    valid_lower = {v.lower(): v for v in valid_labels}
-                    labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
-                return labels
-        except Exception:
-            continue
-
-    # Fallback: try the whole raw string as JSON
-    try:
-        obj = json.loads(raw)
-        if "answer" in obj and isinstance(obj["answer"], list):
-            labels = [str(l).strip() for l in obj["answer"]]
-            if valid_labels is not None:
-                valid_lower = {v.lower(): v for v in valid_labels}
-                labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
-            return labels
-    except Exception:
-        pass
-
-    return []
-
-
-def extract_multi_label_full(raw: str, valid_labels: set = None) -> (list, str):
-    """
-    Extract predicted labels and reason from Qwen output for multi_label prompt type.
-    Expected JSON format: {'answer': [...], 'reason': '...'}
-    Returns (list of valid labels, reason string).
-    Always tries to recover 'reason' even when 'answer' is empty or missing.
+    Extract the first valid predicted label(s) and reason from Qwen output.
     """
     if not raw:
         return [], ""
 
-    matches = re.findall(r"\{.*?\}", raw, flags=re.DOTALL)
+    raw_text = raw.strip()
 
-    # Pass 1: look for a proper {"answer": [...], "reason": ...} object
-    # Return even if labels is empty — reason is still useful for logging
-    for m in matches:
-        try:
-            obj = json.loads(m)
-            if "answer" in obj and isinstance(obj["answer"], list):
-                labels = [str(l).strip() for l in obj["answer"]]
-                if valid_labels is not None:
-                    valid_lower = {v.lower(): v for v in valid_labels}
-                    labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
-                reason = obj.get("reason", "")
-                return labels, reason
-        except Exception:
-            continue
+    # Try parsing the structure {"answer": [...], "reason": "..."} using regex first for robustness
+    # This also helps if the JSON is surrounded by other text
+    
+    # Try finding JSON block
+    start = raw_text.find('{')
+    if start != -1:
+        depth = 0
+        end = -1
+        for i in range(start, len(raw_text)):
+            if raw_text[i] == '{':
+                depth += 1
+            elif raw_text[i] == '}':
+                depth -= 1
+                if depth == 0:
+                    end = i
+                    break
+        if end != -1:
+            try:
+                obj = json.loads(raw_text[start:end+1])
+                if "answer" in obj:
+                    ans = obj["answer"]
+                    reason = obj.get("reason", "").strip()
+                    if isinstance(ans, list):
+                        labels = [str(l).strip() for l in ans]
+                    elif isinstance(ans, str):
+                        labels = [ans.strip()]
+                    else:
+                        labels = []
+                    # Check if 'NO' is the answer
+                    labels = [l for l in labels if l]
+                    if len(labels) == 1 and labels[0].upper() == "NO":
+                        return [], reason
+                    elif "NO" in [l.upper() for l in labels]:
+                        labels = [l for l in labels if l.upper() != "NO"]
+                    return labels, reason
+            except:
+                pass
 
-    # Pass 2: no valid "answer" list found — try to recover at least "reason"
-    for m in matches:
-        try:
-            obj = json.loads(m)
-            if "reason" in obj and isinstance(obj["reason"], str):
-                return [], obj["reason"].strip()
-        except Exception:
-            continue
+    # Regex fallback. We make the closing quote optional because it could be truncated!
+    reason_m = re.search(r'"reason"\s*:\s*"([^"]*)', raw_text)
+    reason = reason_m.group(1).strip() if reason_m else ""
 
-    return [], ""
+    ans_list_m = re.search(r'"answer"\s*:\s*\[([^\]]*)\]', raw_text)
+    if ans_list_m:
+        raw_items = ans_list_m.group(1)
+        labels = [l.strip().strip('"').strip("'") for l in raw_items.split(',')]
+        labels = [l for l in labels if l]
+        if len(labels) == 1 and labels[0].upper() == "NO":
+            return [], reason
+        labels = [l for l in labels if l.upper() != "NO"]
+        if labels:
+            return labels, reason
+
+    ans_str_m = re.search(r'"answer"\s*:\s*"([^"]+)"', raw_text)
+    if ans_str_m:
+        val = ans_str_m.group(1).strip()
+        if val.upper() == "NO":
+            return [], reason
+        return [val], reason
+
+    # If all fails, treat the whole raw text as reason, returning empty array for answers
+    return [], raw_text
 
 
 def load_qwen(model_path: str, device: str = None):
@@ -142,7 +137,10 @@ def load_qwen(model_path: str, device: str = None):
             trust_remote_code=True
         )
         # Set left padding for decoder-only models (required for correct batch generation)
-        processor.tokenizer.padding_side = 'left'
+        if hasattr(processor, 'tokenizer'):
+            processor.tokenizer.padding_side = 'left'
+        elif hasattr(processor, 'padding_side'):
+            processor.padding_side = 'left'
     except Exception as e:
         raise RuntimeError(
             f"Failed to load Qwen processor.\n"
@@ -196,11 +194,21 @@ class QWENClassifier:
         self.processor, self.model = load_qwen(model_path, device)
         # Use the actual device assigned to the model (handles multi-GPU device_map)
         self.device = self.model.device
+        self.temperature = 1.0  # Default temperature, can be overridden in generation kwargs
+
+    def set_temperature(self, temp: float):
+        """Set the temperature for generation (if applicable)."""
+        self.temperature = temp
 
     def generate_batch_results(self, data, shuffled_label_indices, true_label_indices, fine_classes, prompt_type, output_path, batch_size, start_idx=0, label_description_path=None, **kwargs):
         total_images = len(data)
         num_batches = (total_images + batch_size - 1) // batch_size
         results = []
+
+        # Determine whether to collect raw VLM answers (only in test mode)
+        raw_output_path = kwargs.get("raw_output_path")
+        save_raw = bool(raw_output_path)
+        raw_answers_by_img_idx = {} if save_raw else None
 
         for batch_idx in tqdm(range(num_batches)):
             batch_start_idx = batch_idx * batch_size
@@ -344,143 +352,77 @@ class QWENClassifier:
                         "reason": reasons,
                     })
 
-            elif prompt_type == "label_description":
 
-                if label_description_path is None:
-                    raise ValueError("label_description_path is required when prompt_type is 'label_description'")
-                with open(label_description_path, "r", encoding="utf-8") as f:
-                    label_descriptions = json.load(f)
-                
-                batch_messages = []
-                for img, shuffled_label in zip(batch_images, batch_shuffled_labels):
-                    desc = label_descriptions.get(shuffled_label)
-                    if desc is None:
-                        key_alt = shuffled_label.replace("_", " ").strip().lower()
-                        desc = label_descriptions.get(key_alt)
-                    if desc is None:
-                        desc = {"visual": [], "context": []}
+            elif prompt_type == "multi_label":
+                label_batches = kwargs.get("label_batches", [])
+                topk          = kwargs.get("topk", 1)
+                n_imgs        = len(batch_images)
 
-                    visual_list = desc.get("visual", [])
-                    context_list = desc.get("context", [])
-                    visual_text = "\n".join(f"- {s}" for s in visual_list) if visual_list else "(No visual description)"
-                    context_text = "\n".join(f"- {s}" for s in context_list) if context_list else "(No context description)"
+                # Per-image state: accumulate matched labels / reasons across all batches
+                per_img_answers    = [[] for _ in range(n_imgs)]   # list[str]
+                per_img_reasons    = [[] for _ in range(n_imgs)]   # list[str]
+                # Only allocate raw rounds buffer when saving is needed
+                per_img_raw_rounds = [[] for _ in range(n_imgs)] if save_raw else None
 
-                    prompt = (
-                        f"You are given an image and the following descriptions for the label '{shuffled_label}'.\n\n"
-                        "Visual descriptions:\n" + visual_text + "\n\n"
-                        "Context descriptions:\n" + context_text + "\n\n"
-                        f"According to the descriptions above, does the image correctly depicts the label '{shuffled_label}'.\n"
-                        "Answer ONLY with a valid JSON object formatted as: "
-                        "{'answer': 'YES' or 'NO', 'reason': explain your reason}."
-                    )
-                    messages = [
-                        {
+                for batch_round, label_batch in enumerate(label_batches):
+                    
+                    # Build one message per image
+                    batch_msgs = []
+
+                    for img in batch_images:    
+                        if topk == 1:
+                            prompt = (
+                                "You are given an image. "
+                                "Examine the image carefully and identify which objects from the candidate list are present.\n"
+                                f"Candidates: ({', '.join(label_batch)}).\n"
+                                # f"From this list, choose up to {topk} label(s) that are likely present in the image. "
+                                "From this list, choose only ONE label that is most likely present in the image. "
+                                "Do not include any label that is not in the candidate list. "
+                                "If none of the candidates are present, return NO.\n"
+                                "Return ONLY a JSON object and nothing else, formatted as: "
+                                "{\"answer\": [one label from the given candidate list or NO], \"reason\": \"short explanation\"}"
+                            )
+
+                            # prompt v2
+                            # prompt = (
+                            #     "You are given an image. "
+                            #     "Examine the image carefully and identify which objects from the candidate list are present.\n"
+                            #     f"Candidates: ({', '.join(label_batch)}).\n"
+                            #     "From this list, choose only ONE label that is most likely present in the image. "
+                            #     "Do not include any label that is not in the candidate list. "
+                            #     "If you think none of the candidates are present, reply with exactly \"NO\".\n"
+                            #     "Provide a short reason for your answer.\n"
+                            #     # "Before you make the final response, carefully review if your answer ONLY contains labels in the candidates. "
+                            #     "Your answer should be ONLY a JSON dict and nothing else, formatted as: "
+                            #     "{\"answer\": \"your chosen label\" or \"NO\", \"reason\": \"short explanation\"}"
+                            #     "Please don't reply in other formats."
+                            # )
+                        else:
+                            # prompt topk
+                            prompt = (
+                                "You are given an image. "
+                                "Examine the image carefully and identify which objects from the candidate list are present.\n"
+                                f"Candidates: ({', '.join(label_batch)}).\n"
+                                f"From this list, choose up to {topk} label(s) that are likely present in the image. "
+                                # f"From this list, choose only ONE label that is most likely present in the image. "
+                                "Do not include any label that is not in the candidate list. "
+                                "If none of the candidates are present, return an empty list.\n"
+                                "Return ONLY a JSON object and nothing else, formatted as: "
+                                "{\"answer\": [...], \"reason\": \"...\"}"
+                            )
+                        batch_msgs.append([{
                             "role": "user",
                             "content": [
                                 {"type": "image", "image": img},
-                                {"type": "text", "text": prompt},
-                            ],
-                        }
-                    ]
-                    batch_messages.append(messages)
-
-                texts = [
-                    self.processor.apply_chat_template(
-                        msg,
-                        tokenize=False,
-                        add_generation_prompt=True,
-                    )
-                    for msg in batch_messages
-                ]
-                image_inputs, video_inputs = process_vision_info(batch_messages)
-                inputs = self.processor(
-                    text=texts,
-                    images=image_inputs,
-                    videos=video_inputs,
-                    return_tensors="pt",
-                    padding=True,
-                ).to(self.device)
-                with torch.no_grad():
-                    generated_ids = self.model.generate(
-                        **inputs,
-                        max_new_tokens=256,
-                        do_sample=False,
-                        pad_token_id=self.processor.tokenizer.pad_token_id,
-                        eos_token_id=None,
-                    )
-                generated_ids_trimmed = [
-                    out_ids[len(in_ids):]
-                    for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
-                ]
-                output_texts = self.processor.batch_decode(
-                    generated_ids_trimmed,
-                    skip_special_tokens=True,
-                    clean_up_tokenization_spaces=False,
-                )
-                for i, text in enumerate(output_texts):
-                    decision, reasons = extract_all_reasons(text)
-                    results.append({
-                        "img_idx": start_idx + batch_start_idx + i,
-                        "true_label": batch_true_labels[i],
-                        "shuffled_label": batch_shuffled_labels[i],
-                        "answer": decision,
-                        "reason": reasons,
-                    })
-
-            elif prompt_type == "multi_label":
-                # ----------------------------------------------------------------
-                # Sequential batch search:
-                #   For each image, iterate label_batches one-by-one.
-                #   Stop as soon as the VLM returns exactly 1 confident label.
-                #   Images not yet resolved are batched together each round.
-                # ----------------------------------------------------------------
-                label_batches = kwargs.get("label_batches", [])
-                n_imgs = len(batch_images)
-
-                # Per-image state
-                per_img_answer   = [None] * n_imgs  # final label (str) or None
-                per_img_reason   = [""] * n_imgs
-                per_img_batches  = [0]  * n_imgs     # which label_batch each image is on
-                per_img_out_len  = [0]  * n_imgs     # cumulative decoded-text char count
-                resolved         = [False] * n_imgs
-
-                for batch_round, label_batch in enumerate(label_batches):
-                    # Collect indices of images that still need this batch
-                    pending_indices = [
-                        i for i in range(n_imgs)
-                        if not resolved[i] and per_img_batches[i] == batch_round
-                    ]
-                    if not pending_indices:
-                        continue
-
-                    # Build messages only for pending images
-                    pending_msgs = []
-                    for i in pending_indices:
-                        prompt = (
-                            "You are given an image and a list of candidate labels. "
-                            "Your task is to identify whether ANY SINGLE label in the list "
-                            "clearly and confidently matches the main subject of the image.\n\n"
-                            f"Candidates: {', '.join(label_batch)}\n\n"
-                            "Rules:\n"
-                            "- If you are CONFIDENT that exactly one label matches, return that label.\n"
-                            "- If NONE of the candidates fits confidently, return an empty list.\n"
-                            "- Do NOT guess. Only answer if you are sure.\n\n"
-                            "Return ONLY a JSON object, no extra text:\n"
-                            "{\"answer\": [\"<label>\"] or [], \"reason\": \"<brief reason>\"}"
-                        )
-                        pending_msgs.append([{
-                            "role": "user",
-                            "content": [
-                                {"type": "image", "image": batch_images[i]},
                                 {"type": "text", "text": prompt},
                             ],
                         }])
 
                     texts = [
                         self.processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True)
-                        for m in pending_msgs
+                        for m in batch_msgs
                     ]
-                    image_inputs, video_inputs = process_vision_info(pending_msgs)
+                    image_inputs, video_inputs = process_vision_info(batch_msgs)
                     inputs = self.processor(
                         text=texts,
                         images=image_inputs,
@@ -492,7 +434,7 @@ class QWENClassifier:
                     with torch.no_grad():
                         generated_ids = self.model.generate(
                             **inputs,
-                            max_new_tokens=128,
+                            max_new_tokens=64,
                             do_sample=False,
                             pad_token_id=self.processor.tokenizer.pad_token_id,
                             eos_token_id=None,
@@ -508,52 +450,144 @@ class QWENClassifier:
                         clean_up_tokenization_spaces=False,
                     )
 
-                    # --- DEBUG: Save Raw VLM Answers ---
-                    debug_dir = "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/multi_label"
-                    os.makedirs(debug_dir, exist_ok=True)
-                    debug_file = os.path.join(debug_dir, "raw_vlm_answers.jsonl")
-                    
-                    with open(debug_file, "a", encoding="utf-8") as f_debug:
-                        for pos, (img_i, out) in enumerate(zip(pending_indices, output_texts)):
-                            debug_entry = {
-                                "global_img_idx": start_idx + batch_start_idx + img_i,
+                    batch_label_set = set(label_batch)
+                    for img_i, out in enumerate(output_texts):
+                        if save_raw:
+                            per_img_raw_rounds[img_i].append({
                                 "round": batch_round,
                                 "label_batch": list(label_batch),
-                                "raw_vlm_answer": out
-                            }
-                            f_debug.write(json.dumps(debug_entry, ensure_ascii=False) + "\n")
-                    # -----------------------------------
+                                "raw_vlm_answer": out,
+                            })
+                        predicted, reason = extract_multi_label_full(out)
+                        if predicted:
+                            per_img_answers[img_i].extend(predicted)
+                        if reason:
+                            per_img_reasons[img_i].append(reason)
 
-                    batch_label_set = set(label_batch)
-                    for pos, (img_i, out) in enumerate(zip(pending_indices, output_texts)):
-                        predicted, reason = extract_multi_label_full(out, valid_labels=batch_label_set)
+                # FINAL PASS: if an image has >1 candidate label, ask VLM again.
+                per_img_final_answers = [list(per_img_answers[i]) for i in range(n_imgs)]
+                per_img_final_reasons = ["" for _ in range(n_imgs)]
+                second_pass_indices = []
+                second_pass_msgs = []
+                for i in range(n_imgs):
+                    if len(per_img_answers[i]) > 1:
+                        second_pass_indices.append(i)
+                        cands = per_img_answers[i]
+                        # prompt = (
+                        #     "You are given an image. "
+                        #     "Examine the image carefully and identify which object from the candidate list is present.\n"
+                        #     f"Candidates: ({', '.join(cands)}).\n"
+                        #     "From this list, choose only ONE label that is most likely present in the image. "
+                        #     "Do not include any label that is not in the candidate list. "
+                        #     "If you think none of the candidates are present, reply with exactly \"NO\".\n"
+                        #     "Provide a short reason for your answer.\n"
+                        #     "Before you make the final response, carefully review if your answer ONLY contains a label in the candidates.\n"
+                        #     "Your answer should be ONLY a JSON dict and nothing else, formatted as: "
+                        #     "{\"answer\": \"your chosen label\" or \"NO\", \"reason\": \"short explanation\"}\n"
+                        #     "Please don't reply in other formats."
+                        # )
 
-                        # Accumulate output length (chars of decoded text, not padded token count)
-                        per_img_out_len[img_i] += len(out)
+                        prompt = (
+                            "You are given an image. "
+                            "Examine the image carefully and identify which object from the candidate list is present.\n"
+                            f"Candidates: ({', '.join(cands)}).\n"
+                            "From this list, choose only ONE label that is most likely present in the image. "
+                            "Do not include any label that is not in the candidate list. "
+                            "If you think none of the candidates are present, reply with exactly \"NO\".\n"
+                            "Provide a short reason for your answer.\n"
+                            # "Before you make the final response, carefully review if your answer ONLY contains a label in the candidates.\n"
+                            "Your answer should be ONLY a JSON dict and nothing else, formatted as: "
+                            "{\"answer\": \"your chosen label\" or \"NO\", \"reason\": \"short explanation\"}\n"
+                            # "Please don't reply in other formats."
+                        )
 
-                        if len(predicted) == 1:
-                            # VLM is confident → record and mark resolved
-                            per_img_answer[img_i] = predicted[0]
-                            per_img_reason[img_i] = reason
-                            resolved[img_i] = True
-                        else:
-                            # No confident answer → advance to next label_batch
-                            per_img_batches[img_i] = batch_round + 1
+                        second_pass_msgs.append([{
+                            "role": "user",
+                            "content": [
+                                {"type": "image", "image": batch_images[i]},
+                                {"type": "text", "text": prompt},
+                            ],
+                        }])
+                
+                if second_pass_msgs:
+                    texts = [
+                        self.processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True)
+                        for m in second_pass_msgs
+                    ]
+                    image_inputs, video_inputs = process_vision_info(second_pass_msgs)
+                    inputs = self.processor(
+                        text=texts,
+                        images=image_inputs,
+                        videos=video_inputs,
+                        return_tensors="pt",
+                        padding=True,
+                    ).to(self.device)
+
+                    with torch.no_grad():
+                        generated_ids = self.model.generate(
+                            **inputs,
+                            max_new_tokens=64,
+                            do_sample=False,
+                            pad_token_id=self.processor.tokenizer.pad_token_id,
+                            eos_token_id=None,
+                        )
+
+                    generated_ids_trimmed = [
+                        out_ids[len(in_ids):]
+                        for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+                    ]
+                    output_texts = self.processor.batch_decode(
+                        generated_ids_trimmed,
+                        skip_special_tokens=True,
+                        clean_up_tokenization_spaces=False,
+                    )
+
+                    for out_idx, img_i in enumerate(second_pass_indices):
+                        out = output_texts[out_idx]
+                        if save_raw:
+                            per_img_raw_rounds[img_i].append({
+                                "round": "final_pass",
+                                "label_batch": list(per_img_answers[img_i]),
+                                "raw_vlm_answer": out,
+                            })
+                        predicted, reason = extract_multi_label_full(out)
+                        per_img_final_answers[img_i] = predicted
+                        if reason:
+                            per_img_final_reasons[img_i] = reason
 
                 for i in range(n_imgs):
+                    img_idx = start_idx + batch_start_idx + i
                     results.append({
-                        "img_idx": start_idx + batch_start_idx + i,
+                        "img_idx": img_idx,
                         "true_label": batch_true_labels[i] if batch_true_labels else None,
                         "shuffled_label": batch_shuffled_labels[i] if batch_shuffled_labels else None,
-                        "answer": per_img_answer[i],       # single label str, or None
-                        "reason": per_img_reason[i],
-                        "output_length": per_img_out_len[i],
+                        "candidate_answer": per_img_answers[i],
+                        "candidate_reason": per_img_reasons[i],
+                        "answer": per_img_final_answers[i],
+                        "answer_reason": per_img_final_reasons[i],
                     })
+
+                    # [DEBUG]
+                    if save_raw:
+                        raw_answers_by_img_idx[str(img_idx)] = {
+                            "img_idx": img_idx,
+                            "true_label": batch_true_labels[i] if batch_true_labels else None,
+                            "shuffled_label": batch_shuffled_labels[i] if batch_shuffled_labels else None,
+                            "candidate_answer": per_img_answers[i],
+                            "answer": per_img_final_answers[i],
+                            "rounds": per_img_raw_rounds[i],
+                        }
 
         if output_path:
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
             with open(output_path, "w") as f:
                 json.dump(results, f, indent=4)
+
+        # Save raw VLM answers to a separate JSON file (only in test mode)
+        if save_raw and raw_answers_by_img_idx:
+            os.makedirs(os.path.dirname(raw_output_path), exist_ok=True)
+            with open(raw_output_path, "w", encoding="utf-8") as f:
+                json.dump(raw_answers_by_img_idx, f, indent=4, ensure_ascii=False)
         
         return results
     
@@ -567,14 +601,12 @@ class QWENClassifier:
             messages.append({"role": "system", "content": system_content})
         messages.append({"role": "user", "content": prompt})
 
-        # Format thành đoạn văn bản cho tokenizer
         formatted_text = self.processor.apply_chat_template(
             messages,
             tokenize=False,
             add_generation_prompt=True
         )
 
-        # Không có ảnh hoặc video
         inputs = self.processor(
             text=formatted_text,
             return_tensors="pt",
@@ -669,6 +701,8 @@ class QWENClassifier:
         if len(images) != len(label_option_list):
             raise ValueError("images and label_option_list must have the same length")
 
+        # print("[DEBUG] Temperature for generation:", self.temperature)
+
         batch_messages = []
         for img, label_options in zip(images, label_option_list):
             if isinstance(label_options, list):
@@ -702,6 +736,7 @@ class QWENClassifier:
             ]
             batch_messages.append(messages)
 
+
         # Generate answers
         texts = [
             self.processor.apply_chat_template(
@@ -726,9 +761,12 @@ class QWENClassifier:
             generated_ids = self.model.generate(
                 **inputs,
                 max_new_tokens=15,
-                do_sample=False,
+                do_sample=False if self.temperature == 1.0 else True,
                 pad_token_id=self.processor.tokenizer.pad_token_id,
                 eos_token_id=None,
+                temperature=self.temperature,
+                # top_p=0.95,
+                # top_k=50,
             )
 
         generated_ids_trimmed = [

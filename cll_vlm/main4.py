@@ -15,9 +15,11 @@ import pdb
 from dataset.cifar10 import CIFAR10Dataset
 from dataset.cifar20 import CIFAR20Dataset, CIFAR100Dataset
 from dataset.tiny200 import Tiny200Dataset
+from dataset.caltech101 import Caltech101Dataset
 
 from models.llava_classifier import LLaVAClassifier
 from models.qwen_classifier import QWENClassifier
+# from models.qwen_classifier_conv import QWENClassifier
 from models.clip_model import CLIPModel
 from PIL import Image
 
@@ -67,17 +69,6 @@ def load_dataset(data_name):
     
     return dataset
 
-def normalize_text(s):
-    return s.lower().replace("_", " ").strip()
-
-# def preprocess_label(label: str) -> str:
-#     if label.startswith("vehicles_1"):
-#         return "transportation vehicles"
-#     if label.startswith("vehicles_2"):
-#         return "industrial and military vehicles"
-#     # general case
-#     return label.replace("_", " ")
-
 def main(args):
     # Config
     config = load_config(args.config_path)
@@ -95,15 +86,6 @@ def main(args):
     # Desire output path
     if args.prompt_type == "binary":
         output_dir = os.path.join(config["output"]["binary"], data_name)
-        os.makedirs(output_dir, exist_ok=True)
-        if args.custom_output_name is None:
-            output_path = os.path.join(output_dir, output_name + ".json")
-        else:
-            output_path = os.path.join(output_dir, output_name + "_" + args.custom_output_name + ".json")
-        print(f"[DEBUG] Output path: {output_path}")
-    elif args.prompt_type == "label_description":
-        base_output_dir = config["output"].get("label_description", os.path.join(config["workspace"], "cll_vlm/ol_cll_logs/label_description"))
-        output_dir = os.path.join(base_output_dir, data_name)
         os.makedirs(output_dir, exist_ok=True)
         if args.custom_output_name is None:
             output_path = os.path.join(output_dir, output_name + ".json")
@@ -150,7 +132,7 @@ def main(args):
         )
         fine_classes_raw = dataset.get_fine_classes()
         fine_classes = [
-            CIFAR100Dataset.preprocess_label(lbl)
+            dataset.preprocess_label(lbl)
             for lbl in fine_classes_raw
         ]
         coarse_classes = dataset.get_coarse_classes()
@@ -161,6 +143,17 @@ def main(args):
             transform=None,
         )
         fine_classes = list(dataset.classes)
+    elif data_name == "caltech101":
+        dataset = Caltech101Dataset(
+            root=data_path,
+            train=(data_mode=="train"),
+            transform=None,
+        )
+        fine_classes_raw = dataset.classes
+        fine_classes = [
+            dataset.preprocess_label(lbl)
+            for lbl in fine_classes_raw
+        ]
     else:
         raise ValueError(f"Dataset '{data_name}' chưa được hỗ trợ trong hàm load_dataset.")
 
@@ -175,9 +168,13 @@ def main(args):
         ]
         # Finalise output path now that we know label_batch_size
         lbs_suffix = f"lbs{label_batch_size}"
-        if args.custom_output_name == "test":
+        if args.test:
             lbs_suffix += "_test"
-        output_file_name = f"{args.model_name}_{data_name}_multi_label_{lbs_suffix}.json"
+        output_file_name = f"{args.model_name}_{data_name}_multi_label_{lbs_suffix}"
+        if args.custom_output_name:
+            output_file_name += f"_{args.custom_output_name}"
+        output_file_name += ".json"
+        
         output_path = os.path.join(
             config["workspace"],
             "cll_vlm/ol_cll_logs/multi_label/json",
@@ -186,6 +183,10 @@ def main(args):
         )
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         print(f"[DEBUG] multi_label output path: {output_path}")
+        if args.test:
+            # Only generate raw_answers file in test mode
+            raw_output_path = output_path.replace(".json", "_raw_answers.json")
+            print(f"[DEBUG] raw_answers output path: {raw_output_path}")
         print(f"[DEBUG] label_batch_size={label_batch_size}, num_batches={len(label_batches)}")
 
     # =========================
@@ -195,15 +196,54 @@ def main(args):
         seed=shuffle_seed
     )
 
-    # [DEBUGGING]: Truncate to first batch only
-    if args.custom_output_name == "test":
-        indices = np.arange(min(batch_size, len(shuffled_dataset)))
-        
-        # Use get_subset_by_indices to handle both data and targets correctly
+    # [RESUME LOGIC]
+    resume_count = 0
+    if output_path and os.path.exists(output_path):
+        print(f"[RESUME] Found existing file: {output_path}")
+        with open(output_path, 'r') as f:
+            content = f.read().strip()
+        if content:
+            valid_existing_data = []
+            if content.endswith(']'):
+                try:
+                    valid_existing_data = json.loads(content)
+                except Exception:
+                    pass
+            
+            if not valid_existing_data:
+                # Interrupted write, find last valid complete object
+                while content:
+                    last_brace = content.rfind('}')
+                    if last_brace == -1: break
+                    content = content[:last_brace+1]
+                    try:
+                        valid_existing_data = json.loads(content + '\n]')
+                        break
+                    except json.JSONDecodeError:
+                        content = content[:-1]
+            
+            if valid_existing_data:
+                resume_count = len(valid_existing_data)
+                print(f"[RESUME] Resuming from index {resume_count}. Rewriting clean file.")
+                with open(output_path, 'w') as f:
+                    f.write('[\n')
+                    for i, item in enumerate(valid_existing_data):
+                        if i > 0: f.write(',\n')
+                        json.dump(item, f, indent=2)
+                    f.flush()
+
+    if resume_count > 0:
+        indices = np.arange(resume_count, len(shuffled_dataset))
         shuffled_dataset = shuffled_dataset.get_subset_by_indices(indices)
         original_dataset = original_dataset.get_subset_by_indices(indices)
+        print(f"[RESUME] Sliced datasets. New size: {len(shuffled_dataset)}")
 
-        print(f"[DEBUG] Truncated to first {len(shuffled_dataset)} samples for testing")
+    # [DEBUGGING]: Truncate to first batch only when --test is set
+    if args.test:
+        indices = np.arange(min(batch_size, len(shuffled_dataset)))
+        shuffled_dataset = shuffled_dataset.get_subset_by_indices(indices)
+        original_dataset = original_dataset.get_subset_by_indices(indices)
+        print(f"[DEBUG] --test mode: truncated to first {len(shuffled_dataset)} samples")
 
 
     dataloader = DataLoader(
@@ -220,7 +260,7 @@ def main(args):
     if args.model_name in ["llava", "llava_13b"]:
         model_path = config["models"][args.model_name]["model_url"]
         model = LLaVAClassifier(model_path=model_path)
-    elif args.model_name in ["qwen", "qwen3_2b", "qwen3_8b", "qwen3_30b_a3b"]:
+    elif args.model_name in ["qwen", "qwen3_2b", "qwen3_4b", "qwen3_8b", "qwen3_30b_a3b"]:
         model_path = config["models"][args.model_name]["model_url"]
         model = QWENClassifier(model_path=model_path)
     else:
@@ -229,15 +269,20 @@ def main(args):
     # =========================
     # Run inference batch by batch with incremental saving
     # =========================
-    dataset_pos = 0
-    total_results = 0
-    is_first_batch = True
+    dataset_pos = resume_count
+    local_dataset_pos = 0
+    total_results = resume_count
+    is_first_batch = (resume_count == 0)
 
     # Ensure output directory exists and open file for incremental writing
     if output_path:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        output_file = open(output_path, "w")
-        output_file.write("[\n")  # Start JSON array
+        # If we resumed, open in 'a' mode, array already started
+        if resume_count > 0:
+            output_file = open(output_path, "a")
+        else:
+            output_file = open(output_path, "w")
+            output_file.write("[\n")  # Start JSON array
     else:
         output_file = None
 
@@ -248,13 +293,16 @@ def main(args):
             # true labels must come from original dataset
             true_batch = [
                 original_dataset[i][1]
-                for i in range(dataset_pos, dataset_pos + batch_len)
+                for i in range(local_dataset_pos, local_dataset_pos + batch_len)
             ]
 
             # Call model for this specific batch
             extra_kwargs = {}
             if args.prompt_type == "multi_label":
                 extra_kwargs["label_batches"] = label_batches
+                extra_kwargs["topk"] = args.topk
+                if args.test and 'raw_output_path' in locals():
+                    extra_kwargs["raw_output_path"] = raw_output_path
 
             batch_results = model.generate_batch_results(
                 data=images,
@@ -280,6 +328,7 @@ def main(args):
                 output_file.flush()  # Ensure data is written to disk
             
             total_results += len(batch_results)
+            local_dataset_pos += batch_len
             dataset_pos += batch_len
 
     finally:
@@ -297,8 +346,8 @@ if __name__ == "__main__":
         type=str,
         required=True,
         default="cifar100",
-        choices=["cifar10", "cifar20", "cifar100", "tiny200"],
-        help="Name of the dataset to use (e.g., cifar10, cifar20, cifar100, tiny200).",
+        choices=["cifar10", "cifar20", "cifar100", "tiny200", "caltech101"],
+        help="Name of the dataset to use (e.g., cifar10, cifar20, cifar100, tiny200, caltech101).",
     )
     parser.add_argument(
         "--custom_output_name",
@@ -318,7 +367,7 @@ if __name__ == "__main__":
         "--model_name",
         type=str,
         required=True,
-        choices=["llava", "llava_13b", "qwen", "qwen3_2b", "qwen3_8b", "qwen3_30b_a3b"],
+        choices=["llava", "llava_13b", "qwen", "qwen3_2b", "qwen3_4b", "qwen3_8b", "qwen3_30b_a3b"],
         help="Type of the model to use (e.g., llava, qwen, janus).",
     )
 
@@ -343,10 +392,22 @@ if __name__ == "__main__":
         help="Number of labels per batch for multi_label prompt type. Defaults to all labels if not set.",
     )
     parser.add_argument(
+        "--topk",
+        type=int,
+        default=1,
+        help="Max number of labels the VLM can select per label batch (multi_label only). Default: 1.",
+    )
+    parser.add_argument(
         "--label_description_path",
         type=str,
         default=None,
         help="Path to label description JSON (required for prompt_type=label_description). Overrides config.",
+    )
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        default=False,
+        help="Test mode: truncate to first batch and save raw VLM answers for inspection.",
     )
 
     args = parser.parse_args()

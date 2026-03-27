@@ -55,42 +55,119 @@ def parse_llava_output(raw: str):
     return answer, reason
 
 
-def extract_multi_label_full_llava(raw: str, valid_labels: set = None) -> (list, str):
+def extract_multi_label_full_llava(raw: str, valid_labels: set = None) -> tuple:
     """
-    Extract predicted labels and reason from LLaVA output for multi_label prompt type.
-    Strips the echoed prompt first (LLaVA returns the full prompt+answer string),
-    then delegates to the same JSON-parsing logic used by the Qwen version.
-    Expected JSON format: {'answer': [...], 'reason': '...'}
-    Returns (list of valid labels, reason string).
+    Extract the first valid predicted label(s) and reason from LLaVA output.
+
+    Handles:
+      - {"answer": [...], "reason": "..."}
+      - {"answer": "cattle", "reason": "..."}
+      - {"answer": "NO", ...} -> []
+      - Bare "NO" -> []
+      - Repeated prompt/assistant echoes
+      - Truncated JSON fallback
     """
     text = strip_prompt(raw)
     if not text:
         return [], ""
 
-    matches = re.findall(r"\{.*?\}", text, flags=re.DOTALL)
+    stripped = text.strip()
+    if stripped.upper() == "NO":
+        return [], ""
 
-    # Pass 1: look for a proper {"answer": [...], "reason": ...} object
-    for m in matches:
-        try:
-            obj = json.loads(m)
-            if "answer" in obj and isinstance(obj["answer"], list):
-                labels = [str(l).strip() for l in obj["answer"]]
-                if valid_labels is not None:
-                    valid_lower = {v.lower(): v for v in valid_labels}
-                    labels = [valid_lower[l.lower()] for l in labels if l.lower() in valid_lower]
-                reason = obj.get("reason", "")
+    valid_lower = None
+    if valid_labels is not None:
+        valid_lower = {v.lower(): v for v in valid_labels}
+
+    segments = re.split(r'\bassistant\b', text, flags=re.IGNORECASE)
+
+    def normalize_labels(labels):
+        if valid_lower is None:
+            return labels
+        out = []
+        for l in labels:
+            key = l.lower()
+            if key in valid_lower:
+                out.append(valid_lower[key])
+        return out
+
+    def _try_parse_segment(seg: str):
+        start = seg.find('{')
+        if start == -1:
+            return None
+
+        depth = 0
+        end = -1
+        for i in range(start, len(seg)):
+            if seg[i] == '{':
+                depth += 1
+            elif seg[i] == '}':
+                depth -= 1
+                if depth == 0:
+                    end = i
+                    break
+
+        obj = None
+        if end != -1:
+            try:
+                obj = json.loads(seg[start:end + 1])
+            except json.JSONDecodeError:
+                pass
+
+        if obj is not None:
+            if "answer" not in obj:
+                if "reason" in obj and isinstance(obj["reason"], str):
+                    return [], obj["reason"].strip()
+                return None
+
+            answer_val = obj["answer"]
+            reason = obj.get("reason", "")
+
+            if isinstance(answer_val, list):
+                labels = [
+                    str(x).strip() for x in answer_val
+                    if str(x).strip().upper() != "NO"
+                ]
+                labels = normalize_labels(labels)
                 return labels, reason
-        except Exception:
-            continue
 
-    # Pass 2: no valid "answer" list found — try to recover at least "reason"
-    for m in matches:
-        try:
-            obj = json.loads(m)
-            if "reason" in obj and isinstance(obj["reason"], str):
-                return [], obj["reason"].strip()
-        except Exception:
-            continue
+            if isinstance(answer_val, str):
+                val = answer_val.strip()
+                if val.upper() == "NO":
+                    return [], reason
+                labels = normalize_labels([val])
+                return labels, reason
+
+            return None
+
+        partial = seg[start:]
+
+        m_list = re.search(r'"answer"\s*:\s*\[([^\]]*)\]', partial)
+        if m_list:
+            raw_items = m_list.group(1)
+            labels = [
+                x.strip().strip('"').strip("'")
+                for x in raw_items.split(',')
+                if x.strip().strip('"').strip("'").upper() not in ("", "NO")
+            ]
+            labels = normalize_labels(labels)
+            if labels:
+                return labels, ""
+
+        m_str = re.search(r'"answer"\s*:\s*"([^"]+)"', partial)
+        if m_str:
+            val = m_str.group(1).strip()
+            if val.upper() != "NO":
+                labels = normalize_labels([val])
+                if labels:
+                    return labels, ""
+
+        return None
+
+    for seg in segments:
+        result = _try_parse_segment(seg)
+        if result is not None:
+            return result
 
     return [], ""
 
@@ -270,181 +347,214 @@ class LLaVAClassifier:
                         "reason": reason,
                     })
 
-            elif prompt_type == "label_description":
-
-                if label_description_path is None:
-                    raise ValueError("label_description_path is required when prompt_type is 'label_description'")
-                with open(label_description_path, "r", encoding="utf-8") as f:
-                    label_descriptions = json.load(f)
-
-                batch_messages = []
-                for img, shuffled_label in zip(batch_images, batch_shuffled_labels):
-                    desc = label_descriptions.get(shuffled_label)
-                    if desc is None:
-                        key_alt = shuffled_label.replace("_", " ").strip().lower()
-                        desc = label_descriptions.get(key_alt)
-                    if desc is None:
-                        desc = {"visual": [], "context": []}
-
-                    visual_list = desc.get("visual", [])
-                    context_list = desc.get("context", [])
-                    visual_text = "\n".join(f"- {s}" for s in visual_list) if visual_list else "(No visual description)"
-                    context_text = "\n".join(f"- {s}" for s in context_list) if context_list else "(No context description)"
-
-                    prompt = (
-                        f"You are given an image and the following descriptions for the label '{shuffled_label}'.\n\n"
-                        "Visual descriptions:\n" + visual_text + "\n\n"
-                        "Context descriptions:\n" + context_text + "\n\n"
-                        "First, identify the SINGLE main object that occupies the central visual focus or is most salient in the image.\n"
-                        f"Then decide whether, according to the descriptions above, this image correctly depicts the label '{shuffled_label}'.\n"
-                        "Answer ONLY with a valid JSON object formatted as: "
-                        "{'answer': 'YES' or 'NO', 'reason': explain your reason}."
-                    )
-                    if self.is_vicuna:
-                        prompt = f"USER: <image>\n{prompt} ASSISTANT:"
-                    else:
-                        prompt = f"[INST] <image>\n{prompt} [/INST]"
-                    batch_messages.append(prompt)
-
-                inputs = self.processor(
-                    images=batch_images, text=batch_messages, padding=True, return_tensors="pt"
-                ).to(self.model.device)
-                inputs["pixel_values"] = inputs["pixel_values"].to(self.model.dtype)
-
-                outputs = self.model.generate(
-                    **inputs,
-                    max_new_tokens=256,
-                    pad_token_id=self.processor.tokenizer.eos_token_id
-                )
-
-                answers = self.processor.batch_decode(
-                    outputs, skip_special_tokens=True, clean_up_tokenization_spaces=False
-                )
-
-                for idx_in_batch, raw in enumerate(answers):
-                    # Robust strip for Vicuna if ASSISTANT: format is used
-                    if self.is_vicuna and "ASSISTANT:" in raw:
-                        raw = raw.split("ASSISTANT:", 1)[1]
-                    decision, reason = parse_llava_output(raw)
-                    global_idx = start_idx + batch_start_idx + idx_in_batch
-                    results.append({
-                        "img_idx": global_idx,
-                        "true_label": batch_true_labels[idx_in_batch],
-                        "shuffled_label": batch_shuffled_labels[idx_in_batch],
-                        "answer": decision,
-                        "reason": [reason] if reason else [],
-                    })
-
             elif prompt_type == "multi_label":
-                # ----------------------------------------------------------------
-                # Sequential batch search (mirrors QWENClassifier logic):
-                #   For each image, iterate label_batches one-by-one.
-                #   Stop as soon as the VLM returns exactly 1 confident label.
-                # ----------------------------------------------------------------
                 label_batches = kwargs.get("label_batches", [])
+                topk = kwargs.get("topk", 1)
                 n_imgs = len(batch_images)
 
+                raw_output_path = kwargs.get("raw_output_path")
+                save_raw = bool(raw_output_path)
+                raw_answers_by_img_idx = {} if save_raw else None
+
                 # Per-image state
-                per_img_answer  = [None] * n_imgs
-                per_img_reason  = [""] * n_imgs
-                per_img_batches = [0] * n_imgs   # which label_batch each image is on
-                per_img_out_len = [0] * n_imgs   # cumulative decoded-text char count
-                resolved        = [False] * n_imgs
+                per_img_answers = [[] for _ in range(n_imgs)]   # all matched labels across rounds
+                per_img_reasons = [[] for _ in range(n_imgs)]   # reasons across rounds
+                per_img_raw_rounds = [[] for _ in range(n_imgs)] if save_raw else None
 
                 for batch_round, label_batch in enumerate(label_batches):
-                    # Collect indices of images that still need this round
-                    pending_indices = [
-                        i for i in range(n_imgs)
-                        if not resolved[i] and per_img_batches[i] == batch_round
-                    ]
-                    if not pending_indices:
-                        continue
+                    batch_messages = []
 
-                    pending_prompts = []
-                    pending_imgs    = []
-                    for i in pending_indices:
-                        prompt = (
-                            "You are given an image and a list of candidate labels. "
-                            "Your task is to identify whether ANY SINGLE label in the list "
-                            "clearly and confidently matches the main subject of the image.\n\n"
-                            f"Candidates: {', '.join(label_batch)}\n\n"
-                            "Rules:\n"
-                            "- If you are CONFIDENT that exactly one label matches, return that label.\n"
-                            "- If NONE of the candidates fits confidently, return an empty list.\n"
-                            "- Do NOT guess. Only answer if you are sure.\n\n"
-                            "Return ONLY a JSON object, no extra text:\n"
-                            '{"answer": ["<label>"] or [], "reason": "<brief reason>"}'
-                        )
+                    for img in batch_images:
+                        if topk == 1:
+                            prompt = (
+                                "You are given an image. "
+                                "Examine the image carefully and identify which objects from the candidate list are present.\n"
+                                f"Candidates: ({', '.join(label_batch)}).\n"
+                                "From this list, choose only ONE label that is most likely present in the image. "
+                                "Do not include any label that is not in the candidate list. "
+                                "If you think none of the candidates are present, reply with exactly \"NO\".\n"
+                                "Provide a short reason for your answer.\n"
+                                "Before you make the final response, carefully review if your answer ONLY contains labels in the candidates. "
+                                "Your answer should be ONLY a JSON dict and nothing else, formatted as: "
+                                "{\"answer\": \"your chosen label\" or \"NO\", \"reason\": \"short explanation\"}\n"
+                                "Please don't reply in other formats."
+                            )
+                        else:
+                            prompt = (
+                                "You are given an image. "
+                                "Examine the image carefully and identify which objects from the candidate list are present.\n"
+                                f"Candidates: ({', '.join(label_batch)}).\n"
+                                f"From this list, choose up to {topk} label(s) that are likely present in the image. "
+                                "Do not include any label that is not in the candidate list. "
+                                "If none of the candidates are present, return an empty list.\n"
+                                "Return ONLY a JSON object and nothing else, formatted as: "
+                                "{\"answer\": [...], \"reason\": \"...\"}"
+                            )
+
                         if self.is_vicuna:
                             prompt = f"USER: <image>\n{prompt} ASSISTANT:"
                         else:
                             prompt = f"[INST] <image>\n{prompt} [/INST]"
-                        pending_prompts.append(prompt)
-                        pending_imgs.append(batch_images[i])
+
+                        batch_messages.append(prompt)
 
                     inputs = self.processor(
-                        images=pending_imgs, text=pending_prompts,
-                        padding=True, return_tensors="pt"
+                        images=batch_images,
+                        text=batch_messages,
+                        padding=True,
+                        return_tensors="pt"
                     ).to(self.model.device)
                     inputs["pixel_values"] = inputs["pixel_values"].to(self.model.dtype)
 
                     outputs = self.model.generate(
                         **inputs,
                         max_new_tokens=128,
+                        do_sample=False,
                         pad_token_id=self.processor.tokenizer.eos_token_id
                     )
 
                     answers = self.processor.batch_decode(
-                        outputs, skip_special_tokens=True,
+                        outputs,
+                        skip_special_tokens=True,
                         clean_up_tokenization_spaces=False
                     )
 
-                    # --- DEBUG: Save Raw VLM Answers ---
-                    debug_dir = "/tmp2/maitanha/vgu/cll_vlm/cll_vlm/ol_cll_logs/multi_label_llava"
-                    os.makedirs(debug_dir, exist_ok=True)
-                    debug_file = os.path.join(debug_dir, "raw_vlm_answers.jsonl")
-                    with open(debug_file, "a", encoding="utf-8") as f_debug:
-                        for img_i, out in zip(pending_indices, answers):
-                            f_debug.write(json.dumps({
-                                "global_img_idx": start_idx + batch_start_idx + img_i,
+                    batch_label_set = set(label_batch)
+
+                    for img_i, out in enumerate(answers):
+                        cleaned_out = strip_prompt(out)
+
+                        if save_raw:
+                            per_img_raw_rounds[img_i].append({
                                 "round": batch_round,
                                 "label_batch": list(label_batch),
-                                "raw_vlm_answer": strip_prompt(out)
-                            }, ensure_ascii=False) + "\n")
-                    # -----------------------------------
+                                "raw_vlm_answer": cleaned_out,
+                            })
 
-                    batch_label_set = set(label_batch)
-                    for img_i, out in zip(pending_indices, answers):
-                        cleaned = strip_prompt(out)
-                        per_img_out_len[img_i] += len(cleaned)
                         predicted, reason = extract_multi_label_full_llava(
-                            out, valid_labels=batch_label_set
+                            cleaned_out,
+                            valid_labels=batch_label_set
                         )
 
-                        if len(predicted) == 1:
-                            per_img_answer[img_i] = predicted[0]
-                            per_img_reason[img_i] = reason
-                            resolved[img_i] = True
-                        else:
-                            per_img_batches[img_i] = batch_round + 1
+                        if predicted:
+                            per_img_answers[img_i].extend(predicted)
+                        if reason:
+                            per_img_reasons[img_i].append(reason)
+
+                # FINAL PASS: if an image has >1 candidate label, ask again
+                per_img_final_answers = [list(per_img_answers[i]) for i in range(n_imgs)]
+                second_pass_indices = []
+                second_pass_prompts = []
+                second_pass_images = []
 
                 for i in range(n_imgs):
+                    # deduplicate while preserving order
+                    seen = set()
+                    dedup_candidates = []
+                    for lab in per_img_answers[i]:
+                        if lab not in seen:
+                            seen.add(lab)
+                            dedup_candidates.append(lab)
+
+                    per_img_answers[i] = dedup_candidates
+                    per_img_final_answers[i] = list(dedup_candidates)
+
+                    if len(dedup_candidates) > 1:
+                        second_pass_indices.append(i)
+                        second_pass_images.append(batch_images[i])
+
+                        prompt = (
+                            "You are given an image. "
+                            "Examine the image carefully and identify which object from the candidate list is present.\n"
+                            f"Candidates: ({', '.join(dedup_candidates)}).\n"
+                            "From this list, choose only ONE label that is most likely present in the image. "
+                            "Do not include any label that is not in the candidate list. "
+                            "If you think none of the candidates are present, reply with exactly \"NO\".\n"
+                            "Provide a short reason for your answer.\n"
+                            "Before you make the final response, carefully review if your answer ONLY contains a label in the candidates.\n"
+                            "Your answer should be ONLY a JSON dict and nothing else, formatted as: "
+                            "{\"answer\": \"your chosen label\" or \"NO\", \"reason\": \"short explanation\"}\n"
+                            "Please don't reply in other formats."
+                        )
+
+                        if self.is_vicuna:
+                            prompt = f"USER: <image>\n{prompt} ASSISTANT:"
+                        else:
+                            prompt = f"[INST] <image>\n{prompt} [/INST]"
+
+                        second_pass_prompts.append(prompt)
+
+                if second_pass_prompts:
+                    inputs = self.processor(
+                        images=second_pass_images,
+                        text=second_pass_prompts,
+                        padding=True,
+                        return_tensors="pt"
+                    ).to(self.model.device)
+                    inputs["pixel_values"] = inputs["pixel_values"].to(self.model.dtype)
+
+                    outputs = self.model.generate(
+                        **inputs,
+                        max_new_tokens=128,
+                        do_sample=False,
+                        pad_token_id=self.processor.tokenizer.eos_token_id
+                    )
+
+                    answers = self.processor.batch_decode(
+                        outputs,
+                        skip_special_tokens=True,
+                        clean_up_tokenization_spaces=False
+                    )
+
+                    for out_idx, img_i in enumerate(second_pass_indices):
+                        out = strip_prompt(answers[out_idx])
+
+                        if save_raw:
+                            per_img_raw_rounds[img_i].append({
+                                "round": "final_pass",
+                                "label_batch": list(per_img_answers[img_i]),
+                                "raw_vlm_answer": out,
+                            })
+
+                        predicted, reason = extract_multi_label_full_llava(
+                            out,
+                            valid_labels=set(per_img_answers[img_i])
+                        )
+
+                        per_img_final_answers[img_i] = predicted
+                        if reason:
+                            per_img_reasons[img_i].append(reason)
+
+                for i in range(n_imgs):
+                    img_idx = start_idx + batch_start_idx + i
+
                     results.append({
-                        "img_idx": start_idx + batch_start_idx + i,
-                        "true_label":     batch_true_labels[i] if batch_true_labels else None,
+                        "img_idx": img_idx,
+                        "true_label": batch_true_labels[i] if batch_true_labels else None,
                         "shuffled_label": batch_shuffled_labels[i] if batch_shuffled_labels else None,
-                        "answer":         per_img_answer[i],
-                        "reason":         per_img_reason[i],
-                        "output_length":  per_img_out_len[i],
+                        "candidate_answer": per_img_answers[i],
+                        "answer": per_img_final_answers[i],
+                        "reason": per_img_reasons[i],
                     })
 
-            if output_path:
-                os.makedirs(os.path.dirname(output_path), exist_ok=True)
-                with open(output_path, "w") as f:
-                    json.dump(results, f, indent=4)
+                    if save_raw:
+                        raw_answers_by_img_idx[str(img_idx)] = {
+                            "img_idx": img_idx,
+                            "true_label": batch_true_labels[i] if batch_true_labels else None,
+                            "shuffled_label": batch_shuffled_labels[i] if batch_shuffled_labels else None,
+                            "candidate_answer": per_img_answers[i],
+                            "answer": per_img_final_answers[i],
+                            "rounds": per_img_raw_rounds[i],
+                        }
+
+                if save_raw and raw_answers_by_img_idx:
+                    os.makedirs(os.path.dirname(raw_output_path), exist_ok=True)
+                    with open(raw_output_path, "w", encoding="utf-8") as f:
+                        json.dump(raw_answers_by_img_idx, f, indent=4, ensure_ascii=False)
 
         return results
-    
+
+
     def _extract_answer(self, response: str) -> str:
         """Extract just the answer from the model response"""
         # Split by common separators and take the last part

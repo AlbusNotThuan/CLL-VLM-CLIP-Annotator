@@ -1,12 +1,18 @@
 import os
 import argparse
 import pdb
+import csv
 import torch
 import pandas as pd
 import random
+import re
 from tqdm import tqdm
 from torch.utils.data import DataLoader
 from models.llava_classifier import LLaVAClassifier
+try:
+    from models.qwen_classifier import QWENClassifier
+except ImportError:
+    QWENClassifier = None
 from dataset.cifar10 import CIFAR10Dataset
 from dataset.cifar20 import CIFAR20Dataset, CIFAR100Dataset
 from dataset.tiny200 import Tiny200Dataset
@@ -101,12 +107,54 @@ def collate_fn(batch):
     return list(images), list(true_labels), list(cluster_ids), list(candidate_labels_list), list(indices)
 
 
+def build_numbered_prompt(labels):
+    """Build the dedicated ablation prompt with fixed numbered options."""
+    if len(labels) != 4:
+        raise ValueError(f"--new_prompt_mode requires exactly 4 candidate labels, got {len(labels)}")
+    return (
+        f"[INST] <image>\n"
+        f"Which label does not belong to this image? "
+        f"(1) {labels[0]} (2) {labels[1]} (3) {labels[2]} (4) {labels[3]} "
+        f"Please respond with only the number of the correct answer [/INST]"
+    )
+
+
+def map_number_response_to_label(raw_response, candidate_labels):
+    """Map model output number (1-4) back to the corresponding candidate label."""
+    response = str(raw_response).strip()
+    match = re.search(r"\b([1-4])\b", response)
+    if match:
+        idx = int(match.group(1)) - 1
+        if 0 <= idx < len(candidate_labels):
+            return candidate_labels[idx]
+
+    # Fallback: if model still outputs a label string, preserve previous behavior.
+    for label in candidate_labels:
+        if label.lower() in response.lower():
+            return label
+
+    return response
+
+
+def take_first_token(text):
+    """Normalize model output to the first token to reduce verbose/hallucinated answers."""
+    cleaned = str(text).replace('\n', ' ').replace('\r', ' ').strip()
+    if not cleaned:
+        return ""
+    first_token = cleaned.split()[0]
+    return first_token.rstrip('.,!?;:')
+
+
 def main():
     # ========== ARGUMENTS ==========
-    parser = argparse.ArgumentParser(description="Stage 2 - LLaVA Complementary Label Selector (batch mode)")
+    parser = argparse.ArgumentParser(description="Stage 2 - Complementary Label Selector (batch mode)")
+    parser.add_argument("--model", type=str, default="llava", choices=["llava", "qwen2_7b", "qwen3_8b"],
+                        help="Model to use for complementary label prediction")
+    parser.add_argument("--model_path", type=str, default=None,
+                        help="Custom model path (optional, uses defaults if not specified)")
     parser.add_argument("--dataset", type=str, default="cifar10", help="Choose a Dataset to run (e.g., cifar10)")
     parser.add_argument("--prompt", type=str, default="Which label does not belong to this image? Answer the question with a single word from [{labels}]",
-                        help="Custom prompt for LLaVA, e.g. '<image> Which label does not belong to this image? Answer the question with a single word from [{labels}].")
+                        help="Custom prompt for VLM, e.g. '<image> Which label does not belong to this image? Answer the question with a single word from [{labels}].")
     parser.add_argument("--batch_size", type=int, default=64,
                         help="Batch size for LLaVA inference")
     parser.add_argument("--gpu", type=int, default=0)
@@ -116,18 +164,25 @@ def main():
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--debug", action="store_true", help="Debug mode: skip LLaVA query, export cluster assignments only")
     parser.add_argument("--decoder", default="simsiam", help="Decoder type - only use for naming convention")
+    parser.add_argument("--new_prompt_mode", action="store_true",
+                        help="Use dedicated numbered prompt for ablation and map numeric output (1-4) to candidate labels")
     args = parser.parse_args()
 
     torch.cuda.empty_cache()
     device = f"cuda:{args.gpu}" if torch.cuda.is_available() else "cpu"
     print(f"🔹 Using device: {device}")
+    print(f"🔹 Using model: {args.model}")
     print(f"🔹 Mode: {'cluster-based' if args.k_mean else 'standard random'}")
     if args.k_mean:
         print(f"🔹 K-means clusters: {args.k_mean}")
     print("🔹 Using n_random:", args.n_random)
     print("🔹 Using seed:", args.seed)
     print(f"🔹 Debug mode: {args.debug}")
-    print("🔹 Prompt:", args.prompt)
+    print(f"🔹 New prompt mode: {args.new_prompt_mode}")
+    if not args.new_prompt_mode:
+        print("🔹 Prompt:", args.prompt)
+    else:
+        print("🔹 Prompt: using dedicated numbered ablation prompt (ignores --prompt)")
 
     # ========== LOAD DATA ==========
     if args.dataset == "cifar10":
@@ -161,7 +216,7 @@ def main():
     class_list = dataset.classes
     print(f"Dataset has {len(class_list)} classes")
 
-    # ========== OPTIONAL CLUSTERING ==========
+    # ========== CLUSTERING ==========
     cluster_labels = None
     if args.k_mean is not None:
         if args.pretrain_path is None:
@@ -222,19 +277,22 @@ def main():
         os.makedirs("results")
     
     # Generate filename based on mode
-    if args.k_mean is not None and args.decoder is not None:
-        filename = f"llava_{args.dataset}_{args.decoder}_kmean={args.k_mean}_nrand={args.n_random}_seed={args.seed}"
+    if args.k_mean is not None:
+        filename = f"{args.model}_{args.dataset}_kmean={args.k_mean}_nrand={args.n_random}_seed={args.seed}"
     else:
-        filename = f"llava_{args.dataset}_nrand={args.n_random}_seed={args.seed}"
+        filename = f"{args.model}_{args.dataset}_nrand={args.n_random}_seed={args.seed}"
     
     if args.debug:
         filename += "_debug"
+    if args.new_prompt_mode:
+        filename += "_newprompt"
     
     output_path = f"results/{filename}.csv"
     
     # Write CSV header
-    with open(output_path, 'w') as f:
-        f.write("index,true_label,cluster_id,candidate_labels,complementary_label\n")
+    with open(output_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["index", "true_label", "cluster_id", "candidate_labels", "complementary_label"])
     
     print(f"Writing results to {output_path}")
 
@@ -242,45 +300,77 @@ def main():
     if args.debug:
         print("\n🔹 Debug mode: Exporting cluster assignments without querying LLaVA...")
         for batch_images, batch_true_labels, batch_cluster_ids, batch_label_options, batch_data_indices in tqdm(dataloader, desc="Exporting cluster data"):
-            with open(output_path, 'a') as f:
+            with open(output_path, 'a', newline='') as f:
+                writer = csv.writer(f)
                 for i in range(len(batch_images)):
                     candidate_labels_str = str(batch_label_options[i]).replace(',', ';')
                     cluster_id_str = batch_cluster_ids[i] if batch_cluster_ids[i] is not None else ""
-                    f.write(f"{batch_data_indices[i]},{batch_true_labels[i]},{cluster_id_str},\"{candidate_labels_str}\",\n")
+                    writer.writerow([batch_data_indices[i], batch_true_labels[i], cluster_id_str, candidate_labels_str, ""])
         
         print(f"\n✅ Debug export complete: {output_path}")
         comp_df = pd.read_csv(output_path)
         print(comp_df.head(20))
         return
     
-    # ========== LOAD LLaVA ==========
-    print("Loading LLaVA model...")
-    llava = LLaVAClassifier(
-        model_path="llava-hf/llava-v1.6-mistral-7b-hf",
-        baseprompt=args.prompt,
-        device=device
-    )
+    # ========== LOAD MODEL ==========
+    MODEL_PATHS = {
+        "llava": "llava-hf/llava-v1.6-mistral-7b-hf",
+        "qwen2_7b": "Qwen/Qwen2.5-VL-7B-Instruct",
+        "qwen3_8b": "Qwen/Qwen3-VL-8B-Instruct",
+    }
+
+    model_path = args.model_path or MODEL_PATHS[args.model]
+    if args.model == "llava":
+        print(f"Loading LLaVA model: {model_path}")
+        classifier = LLaVAClassifier(
+            model_path=model_path,
+            baseprompt=args.prompt,
+            device=device
+        )
+    elif args.model in ["qwen2_7b", "qwen3_8b"]:
+        if QWENClassifier is None:
+            raise ImportError("QWENClassifier is not available. Please install/upgrade transformers in the current environment.")
+        print(f"Loading Qwen model: {model_path}")
+        classifier = QWENClassifier(
+            model_path=model_path,
+            device=device
+        )
+    else:
+        raise ValueError(f"Unknown model: {args.model}")
 
     # ========== RUN BATCH INFERENCE ==========
-    for batch_images, batch_true_labels, batch_cluster_ids, batch_label_options, batch_data_indices in tqdm(dataloader, desc="Querying LLaVA (batch mode)"):
+    for batch_images, batch_true_labels, batch_cluster_ids, batch_label_options, batch_data_indices in tqdm(dataloader, desc=f"Querying {args.model} (batch mode)"):
         
         # # DEBUG 
         # pdb.set_trace()
 
         # === run batch prediction ===
-        best_labels = llava.predict_best_label_batch(
-            batch_images,
-            batch_label_options,
-            baseprompt=args.prompt
-        )
+        if args.new_prompt_mode:
+            best_labels = []
+            for i, labels in enumerate(batch_label_options):
+                numbered_prompt = build_numbered_prompt(labels)
+                raw_answer = classifier.predict_best_label_batch(
+                    [batch_images[i]],
+                    [labels],
+                    baseprompt=numbered_prompt
+                )[0]
+                best_labels.append(map_number_response_to_label(raw_answer, labels))
+        else:
+            best_labels = classifier.predict_best_label_batch(
+                batch_images,
+                batch_label_options,
+                baseprompt=args.prompt
+            )
 
         # === collect and write results immediately ===
-        with open(output_path, 'a') as f:
+        with open(output_path, 'a', newline='') as f:
+            writer = csv.writer(f)
             for i, best_label in enumerate(best_labels):
                 # Convert candidate_labels list to string representation
                 candidate_labels_str = str(batch_label_options[i]).replace(',', ';')
                 cluster_id_str = batch_cluster_ids[i] if batch_cluster_ids[i] is not None else ""
-                f.write(f"{batch_data_indices[i]},{batch_true_labels[i]},{cluster_id_str},\"{candidate_labels_str}\",{best_label}\n")
+                normalized_label = take_first_token(best_label)
+                writer.writerow([batch_data_indices[i], batch_true_labels[i], cluster_id_str, candidate_labels_str, normalized_label])
 
     # ========== DISPLAY RESULTS ==========
     print(f"\nSaved complementary results to {output_path}")

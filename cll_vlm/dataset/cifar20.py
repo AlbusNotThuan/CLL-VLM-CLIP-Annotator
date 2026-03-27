@@ -4,6 +4,7 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 from PIL import Image
+from torchvision.transforms import ToTensor, Normalize, Compose
 
 from .base_dataset import BaseDataset
 

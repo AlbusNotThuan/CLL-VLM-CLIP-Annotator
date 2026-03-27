@@ -11,7 +11,7 @@ ROOT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 CLIP_PATH = os.path.join(ROOT_PATH, "vlm/CLIP")
 if CLIP_PATH not in sys.path:
     sys.path.append(CLIP_PATH)
-print(CLIP_PATH)
+# print(CLIP_PATH)
 import clip
 
 class CLIPModel(VLMModel):
